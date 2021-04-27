@@ -1,0 +1,7 @@
+/* 改变主题色变量 */
+$--color-primary: #409EFF; //default:#409EFF
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-plus/lib/theme-chalk/fonts';
+
+@import "~element-plus/packages/theme-chalk/src/index"; //全部引入,使主题色生效，打包时再利用babel-plugin-import的按需引入使用到的组件样式

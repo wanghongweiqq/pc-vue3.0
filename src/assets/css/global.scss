@@ -1,0 +1,244 @@
+//样式重置
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,input,select,textarea,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, body,tfoot, thead, tr, th, td,article, aside, canvas, details, embed,figure, figcaption, footer, header, hgroup,menu, nav, output, ruby, section, summary,time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+}
+h1, h2, h3, h4, h5, h6{
+  font-weight: normal;
+}
+body{
+  font:normal 14px/1.5 "Microsoft YaHei","微软雅黑","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  color:#606266;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a {
+  color:$themeColor;
+  text-decoration:none;
+  cursor: pointer;
+}
+input:disabled,select:disabled{
+  background-color: #f5f7fa!important;
+  border-color: #e4e7ed!important;
+  color: #666!important;
+  cursor:not-allowed!important;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color: #c0c4cc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #c0c4cc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #c0c4cc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #c0c4cc;
+}
+
+.clearfix{
+  *zoom:1;
+  &:after{
+    display: block;
+    content:'';
+    overflow: hidden;
+    clear: both;
+    visibility: hidden;
+  }
+}
+//通用样式
+.hidden{
+  visibility: hidden;
+}
+.cursor-pointer{
+  cursor: pointer!important;
+}
+
+.text-primary{
+  color:$themeColor;
+}
+.text-default{
+  color:$themeColorDefault;
+}
+.text-info{
+  color:$themeColorInfo;
+}
+.text-success{
+  color:$themeColorSuccess;
+}
+.text-warning{
+  color:$themeColorWarning;
+}
+.text-danger{
+  color:$themeColorDanger;
+}
+.font-bold{
+  font-weight: bold;
+}
+%border-common{
+  border:1px solid $themeColor;
+  color:$themeColor;
+  padding:2px 6px;
+  border-radius: 3px;
+}
+.border-primary{
+  @extend %border-common;
+}
+.border-default{
+  @extend %border-common;
+  border-color: $themeColorDefault;
+  color:$themeColorDefault;
+}
+.border-info{
+  @extend %border-common;
+  border-color: $themeColorInfo;
+  color:$themeColorInfo;
+}
+.border-success{
+  @extend %border-common;
+  border-color: $themeColorSuccess;
+  color:$themeColorSuccess;
+}
+.border-warning{
+  @extend %border-common;
+  border-color: $themeColorWarning;
+  color:$themeColorWarning;
+}
+.border-danger{
+  @extend %border-common;
+  border-color: $themeColorDanger;
+  color:$themeColorDanger;
+}
+.align-left{
+  text-align:left;
+}
+.align-right{
+  text-align:right;
+}
+.align-center{
+  text-align:center;
+}
+.table-center{
+  th,td{
+    text-align: center;
+  }
+}
+.table-right{
+  th,td{
+    text-align: right;
+  }
+}
+
+//布局样式
+.ly-box{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-right:10px;
+  overflow: auto;
+  padding-bottom:10px;
+}
+.ly-center{
+  justify-content: center;
+  align-items: center;
+  margin:20px;
+  border:1px solid #d9d9d9;
+  background: #ffffff!important;
+}
+.content{
+  border:1px solid #d9d9d9;
+  border-radius: 4px;
+  background: #fff;
+}
+.infors{
+  padding:20px;
+  .list-bar{
+    display:flex;
+    flex-wrap: wrap;
+    margin-right:-20px;
+    &.colum-3{
+      .el-form-item{
+        width:33.3%;
+      }
+    }
+    &.colum-2{
+      .el-form-item{
+        width:50%;
+      }
+    }
+    .el-form-item {
+      width:25%;
+      padding-right:20px;
+      margin-bottom:10px;
+      box-sizing: border-box;
+      &.percent-50{
+        width:50%;
+      }
+      .el-form-item__label{
+        font-size:12px;
+      }
+      .el-autocomplete,.el-date-editor.el-input,.el-range-editor.el-input__inner,.el-select{
+        width:100%;
+      }
+    }
+  }
+  .button-bar{
+    position: relative;
+    .el-pagination{
+      position:absolute;
+      right:0;
+      bottom:0;
+      padding:0;
+    }
+  }
+}
+
+// el-table 箭头->展开&收起
+.el-table {
+  .show-table{
+    .el-table__expand-icon{
+      .el-icon{
+        display: none;
+      }
+      &::after{
+        content: '展开';
+        cursor: pointer;
+        color: $themeColor;
+        font-size:14px;
+      }
+    }
+    .el-table__expand-icon--expanded{
+      transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      &:after {
+          content: '收起';
+          cursor: pointer;
+          color: $themeColor;
+      }
+    }
+  }
+}
+
+//可删除样式，为了demo而设置
+.marginTop20{
+  margin-top:20px;
+}
+
+pre{
+  padding:10px;
+  background-color: #eeeeee;
+}
+h2{
+  padding:15px 0 5px 0;
+}
+h3,ul{
+  margin:10px 0 5px 0;
+}
+
