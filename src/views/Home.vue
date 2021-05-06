@@ -10,9 +10,6 @@
       alt="Vue logo"
       src="@/assets/logo.png"
     >
-
-
-
     <span class="text-primary cursor-pointer">text-primary</span>
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>

@@ -3,7 +3,7 @@
  * @email [wanghongwei9@jd.com]
  * @create date 2020-08-07 19:01:50
  * @modify date 2020-08-07 19:01:50
- * @desc [混入mixin]
+ * @desc [混入mixin,在3.x中，过滤器被删除，不再受支持。相反，我们建议用方法调用或计算属性替换它们]
  */
 import utils from '@/assets/js/utils'
 import regExp from '@/assets/js/reg-exp'
@@ -35,6 +35,8 @@ export default {
     },
     // 数字展示为带n位小数
     formatFloat (val,n) {
+      alert(123)
+      console.log(11111111)
       return utils.formatFloat(val,n )
     },
     /* 日期格式化

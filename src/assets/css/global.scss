@@ -198,34 +198,6 @@ input:disabled,select:disabled{
   }
 }
 
-// el-table 箭头->展开&收起
-.el-table {
-  .show-table{
-    .el-table__expand-icon{
-      .el-icon{
-        display: none;
-      }
-      &::after{
-        content: '展开';
-        cursor: pointer;
-        color: $themeColor;
-        font-size:14px;
-      }
-    }
-    .el-table__expand-icon--expanded{
-      transform: rotate(0deg);
-      -o-transform: rotate(0deg);
-      -moz-transform: rotate(0deg);
-      -webkit-transform: rotate(0deg);
-      &:after {
-          content: '收起';
-          cursor: pointer;
-          color: $themeColor;
-      }
-    }
-  }
-}
-
 //可删除样式，为了demo而设置
 .marginTop20{
   margin-top:20px;
