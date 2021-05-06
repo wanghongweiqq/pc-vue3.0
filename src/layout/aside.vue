@@ -18,7 +18,7 @@
         :key="index"
         :index="String(index+1)"
       >
-        <template slot="title">
+        <template #title>
           <i :class="item.icon" />
           <span>{{ item.meta.title }}</span>
         </template>

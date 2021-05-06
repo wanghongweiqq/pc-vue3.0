@@ -1,24 +1,22 @@
 <template>
-  <div id="app">
+  <router-view v-slot="{ Component }">
     <transition name="fade">
-      <router-view :key="$route.fullpath" />
+      <component :is="Component" />
     </transition>
-  </div>
+  </router-view>
+  <!-- <router-view :key="$route.fullpath" /> -->
+  <!-- <transition name="fade">
+      <router-view :key="$route.fullpath" />
+    </transition> -->
 </template>
-
-<script>
-export default {
-  name: 'App'
-}
-</script>
 <style lang="scss">
 #app{
   >.fade-enter-active, >.fade-leave-acitve {
     transition: all  0.4s ease-in-out 0s;
   }
-  >.fade-enter, >.fade-leave-to{
+  >.fade-enter-from, >.fade-leave-to{
     opacity : 0;
-    transform: translate(0,0px);
+    transform: translate(0,-50%);
   }
 }
 </style>

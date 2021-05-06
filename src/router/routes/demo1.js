@@ -7,8 +7,8 @@ export default {
   },
   children: [
     {
-      path: '/',
-      name: 'demo',
+      path: 'index',
+      name: 'demo1',
       component: () => import('@/views/demo/index.vue'),
       meta: {
         title: '首页',

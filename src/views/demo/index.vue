@@ -15,7 +15,7 @@
                 type="daterange"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
-                value-format="yyyy-MM-dd"
+                format="YYYY-MM-DD"
               />
             </el-form-item>
             <el-form-item label="下拉文本:">
@@ -27,9 +27,12 @@
                 placeholder="请输入关键词"
                 @select="handleSelect"
               >
-                <template slot-scope="{ item }">
+                <!-- <template
+                  v-if="item"
+                  #default="{ item }"
+                >
                   <span>{{ item.contactsMobileMain }} - {{ item.companyName }}</span>
-                </template>
+                </template> -->
               </el-autocomplete>
             </el-form-item>
             <el-form-item label="普通文本:">
@@ -52,6 +55,7 @@
               <el-select
                 v-model="query.select"
                 clearable
+                placeholder="请选择"
               >
                 <el-option
                   v-for="item in listStatus"
@@ -73,7 +77,7 @@
                 type="daterange"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
-                value-format="yyyy-MM-dd"
+                format="YYYY-MM-DD"
               />
             </el-form-item>
             <el-form-item label="下拉文本:">
@@ -85,9 +89,9 @@
                 placeholder="请输入关键词"
                 @select="handleSelect"
               >
-                <template slot-scope="{ item }">
+                <!-- <template slot-scope="{ item }">
                   <span>{{ item.contactsMobileMain }} - {{ item.companyName }}</span>
-                </template>
+                </template> -->
               </el-autocomplete>
             </el-form-item>
             <el-form-item label="普通文本:">
@@ -167,13 +171,13 @@
             show-overflow-tooltip
             min-width="166"
           >
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-link
                 :underline="false"
                 type="primary"
                 @click="toPopDetail(scope.row)"
               >
-                {{ scope.row.customerName | emptyChange }}
+                <!-- {{ scope.row.customerName }} -->
               </el-link>
             </template>
           </el-table-column>
@@ -182,13 +186,13 @@
             label="实名认证"
             min-width="80"
           >
-            <template slot-scope="scope">
-              <font v-if="scope.row.cloudsGatherStatus===1">
+            <template #default="scope">
+              <span v-if="scope.row&&scope.row.cloudsGatherStatus===1">
                 已认证
-              </font>
-              <font v-else>
+              </span>
+              <span v-else>
                 未认证
-              </font>
+              </span>
             </template>
           </el-table-column>
           <el-table-column
@@ -196,13 +200,13 @@
             label="云采状态"
             min-width="80"
           >
-            <template slot-scope="scope">
-              <font v-if="scope.row.accountPeriodStatus===0">
+            <template #default="scope">
+              <span v-if="scope.row.accountPeriodStatus===0">
                 开启
-              </font>
-              <font v-else>
+              </span>
+              <span v-else>
                 停止
-              </font>
+              </span>
             </template>
           </el-table-column>
           <el-table-column
@@ -211,8 +215,8 @@
             align="right"
             min-width="110"
           >
-            <template slot-scope="scope">
-              {{ scope.row.totalAmount | emptyChange | twoFloat | formatThousands }}
+            <template #default="scope">
+              {{ scope.row.totalAmount }}
             </template>
           </el-table-column>
           <el-table-column
@@ -221,8 +225,8 @@
             align="right"
             min-width="110"
           >
-            <template slot-scope="scope">
-              {{ scope.row.usedAmount | emptyChange | twoFloat | formatThousands }}
+            <template #default="scope">
+              {{ scope.row.usedAmount }}
             </template>
           </el-table-column>
           <el-table-column
@@ -231,8 +235,8 @@
             align="right"
             min-width="110"
           >
-            <template slot-scope="scope">
-              {{ scope.row.availableAmount | emptyChange | twoFloat | formatThousands }}
+            <template #default="scope">
+              {{ scope.row.availableAmount }}
             </template>
           </el-table-column>
           <el-table-column
@@ -241,16 +245,16 @@
             align="right"
             min-width="80"
           >
-            <template slot-scope="scope">
-              <font v-if="scope.row.status===0">
+            <template #default="scope">
+              <span v-if="scope.row.status===0">
                 未逾期
-              </font>
-              <font v-else-if="scope.row.status===1">
+              </span>
+              <span v-else-if="scope.row.status===1">
                 逾期
-              </font>
-              <font v-else>
+              </span>
+              <span v-else>
                 状态不明
-              </font>
+              </span>
             </template>
           </el-table-column>
           <el-table-column
@@ -259,8 +263,8 @@
             align="right"
             min-width="110"
           >
-            <template slot-scope="scope">
-              {{ scope.row.sumUsedAmount | emptyChange | twoFloat | formatThousands }}
+            <template #default="scope">
+              {{ scope.row.sumUsedAmount }}
             </template>
           </el-table-column>
           <el-table-column
@@ -269,8 +273,8 @@
             align="center"
             min-width="140"
           >
-            <template slot-scope="scope">
-              {{ scope.row.lastOrderTime | emptyChange }}
+            <template #default="scope">
+              {{ scope.row.lastOrderTime }}
             </template>
           </el-table-column>
           <el-table-column
@@ -279,7 +283,7 @@
             align="center"
             fixed="right"
           >
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-button
                 size="mini"
                 type="primary"
@@ -325,11 +329,11 @@
           @current-change="handleCurrentChange"
         />
       </div>
-      <cp-seeimages
+      <!-- <cp-seeimages
         :image-show.sync="showImg"
         :image-data="imageData"
         :image-index="imageIndex"
-      />
+      /> -->
     </div>
     <div class="bottom-bar">
       <el-button
@@ -351,15 +355,15 @@
 <script>
 import utils from '@/assets/js/utils'
 import CpCrumbs from '@/components/crumbs/'
-import CpSeeimages from '@/components/seeimages/'
+// import CpSeeimages from '@/components/seeimages/'
 import ajax from '@/service/apis/demo'
 
 export default {
   components: {
     CpCrumbs,
-    CpSeeimages
+    // CpSeeimages
   },
-  mixins: [utils],
+  // mixins: [utils],
   data () {
     return {
       query: {
@@ -460,7 +464,6 @@ export default {
       this.$router.push({ name: 'test01Detail' })
     },
     getList () {
-
       ajax.getList({
         ...utils.filterParams(this.query),
         pageSize: this.pageSize,

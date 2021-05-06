@@ -7,10 +7,11 @@ export default {
   },
   children: [
     {
-      path: 'demo',
-      name: 'demo',
+      path: 'index',
+      name: 'demoIndex',
       component: () => import('@/views/demo/index.vue'),
       meta: {
+        keepAlive: true,
         title: '测试页',
         key: 'MENU_HAWK_DEMO',
         crumb: [
@@ -37,7 +38,7 @@ export default {
           },
           {
             name: '测试页',
-            href: 'demo'
+            href: 'ui'
           },
           {
             name: '测试详情页'
