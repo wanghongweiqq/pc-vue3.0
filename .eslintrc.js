@@ -40,7 +40,7 @@ module.exports = {
     "spaced-comment": 2,//注释风格要不要有空格什么的
     "semi-spacing": [2, {"before": false, "after": true}],//分号前后空格
     "no-multi-spaces": 2,//不能用多余的空格
-    "no-multiple-empty-lines": [2, {"max": 3}],//空行最多不能超过1行
+    "no-multiple-empty-lines": [2, {"max": 1}],//空行最多不能超过1行
     "space-before-function-paren": [2, "always"],//函数定义时括号前面要不要有空格
     "arrow-spacing": 2,//=>的前/后空格
     "space-before-blocks": [2, "always"],//不以新行开始的块{前面要不要有空格
