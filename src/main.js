@@ -10,7 +10,7 @@ import ajax from '@/service/index'
 import utils from '@/assets/js/utils'
 import prototypeReset from '@/assets/js/prototypeReset'
 import regExp from '@/assets/js/reg-exp'
-
+fdasf
 // import ElementPlus from 'element-plus'
 // import 'element-plus/lib/theme-chalk/index.css'
 const app = createApp(App)

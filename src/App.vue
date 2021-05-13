@@ -10,13 +10,16 @@
     </transition> -->
 </template>
 <style lang="scss">
-#app{
-  >.fade-enter-active, >.fade-leave-acitve {
+#app {
+  >.fade-enter-active,
+  >.fade-leave-acitve {
     transition: all 0.4s ease-in-out 0s;
   }
-  >.fade-enter-from, >.fade-leave-to{
-    opacity : 0;
-    transform: translate(0,-50%);
+
+  >.fade-enter-from,
+  >.fade-leave-to {
+    opacity: 0;
+    transform: translate(0, -50%);
   }
 }
 </style>
