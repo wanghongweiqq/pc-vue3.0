@@ -423,7 +423,7 @@ export default {
     // 搜索客户
     querySearchAsync (queryString, cb) {
       ajax.searchtList({
-        content: utils.trim(queryString),
+        content: queryString,
         page: 1,
         pageSize: 10
       }).then((res) => {
@@ -486,12 +486,12 @@ export default {
 </script>
 
 <style lang="scss">
-.pg-demo{
-  .bottom-bar{
-    border-top:1px solid #d9d9d9;
-    border-left:1px solid #d9d9d9;
-    padding:10px 0 10px 30px;
-    background: #ffffff;
+.pg-demo {
+  .bottom-bar {
+    padding: 10px 0 10px 30px;
+    background: #fff;
+    border-top: 1px solid #d9d9d9;
+    border-left: 1px solid #d9d9d9;
   }
 }
 </style>
