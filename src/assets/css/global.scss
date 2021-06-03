@@ -291,18 +291,6 @@ select:disabled {
     flex-wrap: wrap;
     margin-right: -20px;
 
-    &.colum-3 {
-      .el-form-item {
-        width: 33.3%;
-      }
-    }
-
-    &.colum-2 {
-      .el-form-item {
-        width: 50%;
-      }
-    }
-
     .el-form-item {
       box-sizing: border-box;
       width: 25%;
@@ -322,6 +310,18 @@ select:disabled {
       .el-range-editor.el-input__inner,
       .el-select {
         width: 100%;
+      }
+    }
+
+    &.colum-3 {
+      .el-form-item {
+        width: 33.3%;
+      }
+    }
+
+    &.colum-2 {
+      .el-form-item {
+        width: 50%;
       }
     }
   }
