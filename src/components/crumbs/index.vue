@@ -42,36 +42,30 @@ export default {
           name: item.href
         })
       }
-
     }
   }
 }
 </script>
 
 <style lang="scss">
-.cp-crumb {
-  padding: 10px 0;
-
-  .el-icon-s-home {
-    margin: -3px 5px 0 0;
-    font-size: 18px;
+.cp-crumb{
+  padding:10px 0;
+  .el-icon-s-home{
+    font-size:18px;
     vertical-align: middle;
+    margin:-3px 5px 0 0;
   }
-
-  .el-link {
-    font-size: 13px;
-    cursor: default;
-
-    i {
-      margin: 0 5px;
-      color: #9b9b9b;
+  .el-link{
+    font-size:13px;
+    cursor:default;
+    i{
+      margin:0 5px;
+      color:#9b9b9b;
     }
-
-    span {
-      margin: 0;
+    span{
+      margin:0;
     }
-
-    &.el-link--primary {
+    &.el-link--primary{
       cursor: default;
     }
   }
