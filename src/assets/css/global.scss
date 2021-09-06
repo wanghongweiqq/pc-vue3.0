@@ -286,23 +286,25 @@ select:disabled {
 .infors {
   padding: 20px;
 
-  .list-bar {
-    display: flex;
-    flex-wrap: wrap;
+  .el-form-search-bar {
     margin-right: -20px;
 
     .el-form-item {
       box-sizing: border-box;
+      display: inline-flex;
       width: 25%;
       padding-right: 20px;
       margin-bottom: 10px;
 
-      &.percent-50 {
-        width: 50%;
+      .el-form-item__label {
+        float: none;
+        min-width: 65px;
+        padding-right: 5px;
+        font-size: 12px;
       }
 
-      .el-form-item__label {
-        font-size: 12px;
+      .el-form-item__content {
+        flex: 1;
       }
 
       .el-autocomplete,
@@ -313,15 +315,53 @@ select:disabled {
       }
     }
 
-    &.colum-3 {
+    @media (min-width: 500px) {
       .el-form-item {
-        width: 33.3%;
+        width: 33.33%;
+
+        &.form-adjust-item-2 {
+          width: 66.666666%;
+        }
       }
     }
 
-    &.colum-2 {
+    @media (min-width: 1450px) {
       .el-form-item {
-        width: 50%;
+        width: 25%;
+
+        &.form-adjust-item-2 {
+          width: 50%;
+        }
+      }
+    }
+
+    @media (min-width: 1750px) {
+      .el-form-item {
+        width: 20%;
+
+        &.form-adjust-item-2 {
+          width: 40%;
+        }
+      }
+    }
+
+    @media (min-width: 2050px) {
+      .el-form-item {
+        width: 16.66%;
+
+        &.form-adjust-item-2 {
+          width: 40%;
+        }
+      }
+    }
+
+    @media (min-width: 2350px) {
+      .el-form-item {
+        width: 14.28%;
+
+        &.form-adjust-item-2 {
+          width: 40%;
+        }
       }
     }
   }

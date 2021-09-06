@@ -5,11 +5,10 @@
       <div class="content">
         <div class="infors">
           <el-form
-            class="list-bar"
-            label-width="75px"
+            class="el-form-search-bar"
             size="small"
           >
-            <el-form-item label="求购时间:">
+            <el-form-item label="求购时间：">
               <el-date-picker
                 v-model="query.time"
                 type="daterange"
@@ -18,7 +17,7 @@
                 format="YYYY-MM-DD"
               />
             </el-form-item>
-            <el-form-item label="下拉文本:">
+            <el-form-item label="下拉下拉文本：">
               <el-autocomplete
                 v-model.trim="query.searchText"
                 clearable
@@ -35,14 +34,14 @@
                 </template> -->
               </el-autocomplete>
             </el-form-item>
-            <el-form-item label="普通文本:">
+            <el-form-item label="普通文本：">
               <el-input
                 v-model.trim="query.text"
                 clearable
                 placeholder="请输入普通文本"
               />
             </el-form-item>
-            <el-form-item label="普通文本:">
+            <el-form-item label="普通文本：">
               <el-input
                 v-model.number="query.textNum"
                 clearable
@@ -51,7 +50,7 @@
                 show-word-limit
               />
             </el-form-item>
-            <el-form-item label="下拉选项:">
+            <el-form-item label="下拉选项：">
               <el-select
                 v-model="query.select"
                 clearable
@@ -65,13 +64,7 @@
                 />
               </el-select>
             </el-form-item>
-          </el-form>
-          <el-form
-            class="list-bar colum-3"
-            label-width="75px"
-            size="small"
-          >
-            <el-form-item label="求购时间:">
+            <el-form-item label="求求购时间：">
               <el-date-picker
                 v-model="query.time"
                 type="daterange"
@@ -80,7 +73,7 @@
                 format="YYYY-MM-DD"
               />
             </el-form-item>
-            <el-form-item label="下拉文本:">
+            <el-form-item label="拉文本：">
               <el-autocomplete
                 v-model.trim="query.searchText"
                 clearable
@@ -94,14 +87,14 @@
                 </template> -->
               </el-autocomplete>
             </el-form-item>
-            <el-form-item label="普通文本:">
+            <el-form-item label="普通文本：">
               <el-input
                 v-model.trim="query.text"
                 clearable
                 placeholder="请输入普通文本"
               />
             </el-form-item>
-            <el-form-item label="普通文本:">
+            <el-form-item label="文本：">
               <el-input
                 v-model.number="query.textNum"
                 clearable
@@ -110,7 +103,7 @@
                 show-word-limit
               />
             </el-form-item>
-            <el-form-item label="下拉选项:">
+            <el-form-item label="下拉选项：">
               <el-select
                 v-model="query.select"
                 clearable
@@ -158,12 +151,13 @@
         </div>
         <el-table
           :data="queryList"
-          height="540"
         >
+          <!-- height="540" -->
           <el-table-column
             type="index"
             label="序号"
             min-width="40"
+            fixed="left"
           />
           <el-table-column
             prop="customerName"
@@ -172,13 +166,13 @@
             min-width="166"
           >
             <template #default="scope">
-              <el-link
+              <!-- <el-link
                 :underline="false"
                 type="primary"
                 @click="toPopDetail(scope.row)"
-              >
-                <!-- {{ scope.row.customerName }} -->
-              </el-link>
+              > -->
+              {{ scope.row.customerName }}
+              <!-- </el-link> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -240,24 +234,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="status"
-            label="是否逾期"
-            align="right"
-            min-width="80"
-          >
-            <template #default="scope">
-              <span v-if="scope.row.status===0">
-                未逾期
-              </span>
-              <span v-else-if="scope.row.status===1">
-                逾期
-              </span>
-              <span v-else>
-                状态不明
-              </span>
-            </template>
-          </el-table-column>
-          <el-table-column
             prop="sumUsedAmount"
             label="历史使用额度"
             align="right"
@@ -278,9 +254,25 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="status"
+            label="是否逾期"
+            min-width="80"
+          >
+            <template #default="scope">
+              <span v-if="scope.row.status===0">
+                未逾期
+              </span>
+              <span v-else-if="scope.row.status===1">
+                逾期
+              </span>
+              <span v-else>
+                状态不明
+              </span>
+            </template>
+          </el-table-column>
+          <el-table-column
             label="操作"
             min-width="210"
-            align="center"
             fixed="right"
           >
             <template #default="scope">
@@ -405,7 +397,52 @@ export default {
           status: '停止'
         }
       ],
-      queryList: [],
+      queryList: [
+        {
+          customerName: '客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称',
+          cloudsGatherStatus: 1,
+          accountPeriodStatus: 0,
+          totalAmount: 123,
+          usedAmount: 123,
+          availableAmount: 123,
+          status: 0,
+          sumUsedAmount: 123,
+          lastOrderTime: '2021-12-12'
+        },
+        {
+          customerName: '客户名称客',
+          cloudsGatherStatus: 0,
+          accountPeriodStatus: 1,
+          totalAmount: 2222,
+          usedAmount: 22222,
+          availableAmount: 22222,
+          status: 1,
+          sumUsedAmount: 2222222,
+          lastOrderTime: '2021-12-12'
+        },
+        {
+          customerName: '客户名称客户名称客户名称客户名称',
+          cloudsGatherStatus: 1,
+          accountPeriodStatus: 1,
+          totalAmount: 3333,
+          usedAmount: 33,
+          availableAmount: 3333,
+          status: 0,
+          sumUsedAmount: 333,
+          lastOrderTime: '2021-12-12'
+        },
+        {
+          customerName: '客户名称客户名称客户名称客户名称客户名称客户名称客户名称客户名称',
+          cloudsGatherStatus: 1,
+          accountPeriodStatus: 0,
+          totalAmount: 123,
+          usedAmount: 123,
+          availableAmount: 123,
+          status: 0,
+          sumUsedAmount: 123,
+          lastOrderTime: '2021-12-12'
+        },
+      ],
       currentPage: 1,
       pageSize: 10,
       pageSizes: [10, 20, 30, 40],
@@ -413,7 +450,7 @@ export default {
     }
   },
   created () {
-    this.getList()
+    // this.getList()
   },
   methods: {
     // 大图展示
