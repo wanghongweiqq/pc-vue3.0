@@ -1,4 +1,4 @@
-# vue3.0的demo8
+# vue3.0的demo a1
 
 ## 创建步骤
 1. sudo npm install -g @vue/cli  //vue -V，如果cli已安装需要注意其版本应该高于cli4.x，没有sudo可能会报权限问题，Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
