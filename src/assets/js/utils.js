@@ -1,5 +1,5 @@
 import Constant from './constant'
-// 2
+// 22
 export default {
   // 11
   // 京东云图片处理:按尺寸调用和webp格式调用
