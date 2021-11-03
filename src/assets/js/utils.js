@@ -1,7 +1,6 @@
 import Constant from './constant'
-// 2222
+
 export default {
-  // 1111
   // 京东云图片处理:按尺寸调用和webp格式调用
   imgOssProcess (url,width,height,quality = 60) {
     url = url ? url : Constant.defaultGoodsImage
