@@ -2,9 +2,6 @@
   <div class="pg-func">
     <div class="ly-box">
       <cp-crumbs />
-      <el-button type="primary">
-        123
-      </el-button>
       <div class="content">
         <div class="infors">
           <h1>promise</h1>
@@ -140,11 +137,11 @@ export default {
     }
   },
   mounted () {
-    // this.task()
+    this.task()
     // this.promise_01()
     // this.promise_02()
     // this.promiseAll()
-    this.promiseRace()
+    // this.promiseRace()
 
   },
   methods: {

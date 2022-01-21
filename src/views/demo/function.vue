@@ -164,8 +164,8 @@ export default {
   },
   mounted () {
     // this.animal()
-    this.Animal()
-    // this.myPrototype()
+    // this.Animal()
+    this.myPrototype()
   },
   methods: {
     animal () {
@@ -295,7 +295,7 @@ export default {
       let person2 = new Person()
       console.log('person2')
       console.log(person2)
-      console.log( person2.name)// ['a','b',1]
+      console.log( person2.name)//  person1.name.push(1): ['a','b',1]； person1.name = ['a','b',1]: ['a','b']
       console.log('\n')
     }
   }

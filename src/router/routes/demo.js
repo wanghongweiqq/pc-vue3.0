@@ -150,6 +150,40 @@ export default {
       }
     },
     {
+      path: 'event-loop',
+      name: 'event-loop',
+      component: () => import('@/views/demo/event-loop.vue'),
+      meta: {
+        title: 'event-loop',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'event-loop',
+          },
+        ]
+      }
+    },
+    {
+      path: 'async-await',
+      name: 'async-await',
+      component: () => import('@/views/demo/async-await.vue'),
+      meta: {
+        title: 'async-await',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'async-await',
+          },
+        ]
+      }
+    },
+    {
       path: '/novue/call.html',
       meta: {
         title: 'call',
