@@ -34,9 +34,6 @@
     "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.19.0"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "browserslist": [
     "> 1%",
     "last 2 versions",
