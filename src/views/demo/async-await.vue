@@ -2,7 +2,7 @@
  * @Author: 王宏伟
  * @Email：wanghongwei@hualala.com
  * @Date: 2021-11-29 10:10:36
- * @LastEditTime: 2022-09-29 17:40:58
+ * @LastEditTime: 2023-04-19 17:05:01
  * @LastEditors: Please set LastEditors
  * @Description: async-await
  * @FilePath: /vue3.0/src/views/demo/async-await.vue
@@ -263,7 +263,7 @@ export default {
         console.log(`时间：${ parseInt((timeEnd - timeStart) / 1000) }s`)// 时间：3s
       }
 
-      // asyFun() 
+      asyFun() 
       // 使用promise亦可实现
       const asyFun2 = function () {
         const step1 = () => {
@@ -316,7 +316,7 @@ export default {
         const timeEnd = new Date().getTime()
         console.log(`时间：${ parseInt((timeEnd - timeStart) / 1000) }s`)// 时间：3s
       }
-      // asyFun() 
+      asyFun() 
 
       // 使用promise亦可实现
       const asyFun2 = function () {

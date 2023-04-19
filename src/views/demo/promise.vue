@@ -123,10 +123,10 @@ new Promise((resolve)=>{
           </pre>
 
           <h2>then、catch、finally</h2>
-          <p>then 、 catch 、 finally 都会返回一个新的 promise， 所以可以链式调用。</p>
+          <p>then 、 catch 、 finally 都会返回一个新的promise， 所以可以链式调用。</p>
           <p>catch方法就是一个语法糖，只接收一个参数，onRejected处理程序。他的作用和调用Promise.prototype.then(null,onRejected)是一样的。</p>
-          <p>在Promise中，返回任意一个非 promise 的值都会被包裹成 promise 对象，</p>
-          <p>例如 return 'hehe' 会被包装为return Promise.resolve('hehe')。</p>
+          <p>在Promise中，返回任意一个非promise的值都会被包裹成promise对象，</p>
+          <p>例如return 'hehe'会被包装为return Promise.resolve('hehe')。</p>
           <p>return 的值只会往下传给 then，无论中间是否有catch 或者 finally。</p>
           <p>finally方法没有参数</p>
         </div>
