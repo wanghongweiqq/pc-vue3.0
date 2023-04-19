@@ -71,6 +71,7 @@ new Promise(function (resolve, reject) {
           <h2>.then()里面有.then()的情况</h2>
           <p>1、因为.then()返回的还是Promise实例</p>
           <p>2、会等里面的then()执行完，再执行外面的</p>
+
           <pre>
 new Promise((resolve)=>{
   console.log('Step 1') //1
@@ -120,6 +121,14 @@ new Promise((resolve)=>{
   console.log(val)  //6 val=130
 })
           </pre>
+
+          <h2>then、catch、finally</h2>
+          <p>then 、 catch 、 finally 都会返回一个新的 promise， 所以可以链式调用。</p>
+          <p>catch方法就是一个语法糖，只接收一个参数，onRejected处理程序。他的作用和调用Promise.prototype.then(null,onRejected)是一样的。</p>
+          <p>在Promise中，返回任意一个非 promise 的值都会被包裹成 promise 对象，</p>
+          <p>例如 return 'hehe' 会被包装为return Promise.resolve('hehe')。</p>
+          <p>return 的值只会往下传给 then，无论中间是否有catch 或者 finally。</p>
+          <p>finally方法没有参数</p>
         </div>
       </div>
     </div>
@@ -137,12 +146,12 @@ export default {
     }
   },
   mounted () {
-    this.task()
+    // this.task()
     // this.promise_01()
     // this.promise_02()
     // this.promiseAll()
     // this.promiseRace()
-
+    this.finally()
   },
   methods: {
     // 单线程：宏任务、微任务
@@ -153,6 +162,8 @@ export default {
           resolve()
         }).then(() => {
           console.log(2)
+        }).finally(() => {
+          console.log(5)
         })
         setTimeout(() => { console.log(0) }, 0)
       }, 0)
@@ -165,21 +176,26 @@ export default {
           console.log(4)
         })
       }, 0)
-      // 1 2 3 4 0
+      // 1 2 5 3 4 0
     },
     promise_01 () {
       new Promise((resolve, reject) => {
         var random = Math.random()
-        if(random > 0.5 ) {
+        if(random > 0.7 ) {
           resolve(`promise_01-成功:${ random }`)
-        }else{
+        }else if(random > 0.3 ) {
           reject(`promise_01-失败:${ random }`)
           // reject(new Error(`promise_01-失败:${ random }`))
+        }else{
+          throw new Error(`promise_01-catch:${ random }`)
         }
       }).then((res) => { // 成功
         console.log(res)
       },(err) => { // 失败
         console.log(err)
+        return 1
+      }).catch((res) => { // 上面失败时不会执行此处的catch，因为被then的第二个参数执行了相关的error，取消第二个参数后reject和throw的错误会执行catch方法
+        console.log(res)
       })
     },
     promise_02 () {
@@ -188,16 +204,17 @@ export default {
         if(random > 0.5 ) {
           resolve(`promise_02-成功:${ random }`)
         }else{
+          // 失败时，还可以throw new xxxx，必须使用throw不可以用return
           throw new Error(`promise_02-失败:${ random }`) // 分为：name（错误类型）、message（传进去的参数）， name:Error、EvalError、RangeError、ReferenceError、SyntaxError、TypeError、URIError
         }
-      }).then((res) => {
-        console.log(res)
+      }).then((res) => { // error时不执行then
+        console.log(`then1:${ res }`)
       }).catch((err) => { // catch1
-        console.log(err)
+        console.log(`err1:${ err }`)
         console.log(`name:${ err.name }`)
         console.log(`message:${ err.message }`)
         throw new Error('promise_02-失败1:')
-      }).then(() => {
+      }).then(() => { // error时不执行then
         console.log('继续')
       }).catch((err) => { // catch2
         // 在上一次报错的执行完后有继续的报错才会执行到这里,下面的报错不会执行这里,虽然属于报错队列的第二个，但一直都不会被触发
@@ -253,6 +270,44 @@ export default {
         console.log(err)
       })
     },
+    finally () {
+      var promise = new Promise((resolve) => {
+        console.log('promise构建') // Promise 的 .then 或者 .catch 可以被调用多次, 但如果Promise内部的状态一经改变，并且有了一个值，那么后续每次调用.then或者.catch的时候都会直接拿到该值。
+        setTimeout(() => {
+          resolve('success1')
+        }, 1000)
+      })
+
+      promise
+        .then(res => {
+          console.log('then:', res) // then: success1
+          return 'bibi'
+        }).finally((fin) => { // 其实finally方法没有参数
+          console.log('final:',fin)// final: undefined
+          return 'haha'
+        }).then((res) => {
+          console.log('final-after-then1:',res) // final-after-then1: bibi
+        }).then((res) => {
+          console.log('final-after-then2:',res)// final-after-then2: undefine,如果上一个then方法return 222，这里的res就是222
+
+        })
+      // then: success1
+      // final: undefined
+      // final-after-then1: bibi
+      // final-after-then2: undefine
+
+      // 以下用于验证promise只被执行1次
+      promise.then(res => {
+        console.log('then2:', res) // then: success1
+        return 'bibi'
+      })
+      // then: success1
+      // then2: success1
+      // final: undefined
+      // final-after-then1: bibi
+      // final-after-then2: undefine
+
+    }
   }
 }
 </script>

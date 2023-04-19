@@ -2,8 +2,8 @@
  * @Author: 王宏伟
  * @Email：wanghongwei@hualala.com
  * @Date: 2021-11-29 10:10:36
- * @LastEditTime: 2021-11-29 15:19:46
- * @LastEditors: 王宏伟
+ * @LastEditTime: 2022-09-29 17:40:58
+ * @LastEditors: Please set LastEditors
  * @Description: async-await
  * @FilePath: /vue3.0/src/views/demo/async-await.vue
 -->
@@ -333,6 +333,7 @@ export default {
           console.log(`step1=${ step1 }`) // step1=step1 ,1秒后执行
           return step2(step1).then(step2 => [step1,step2])
         }).then(array => {
+          console.log(array)
           const [step1,step2] = array
           console.log(`step2=${ step2 }`) // step2=step1step2 ,1秒后执行
           return step3(step1,step2)

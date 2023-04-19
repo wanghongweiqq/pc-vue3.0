@@ -367,5 +367,50 @@ export default {
       return data
     }
   },
+  /**
+ * @description: 复制文本
+ * @param {*} str 要被复制的文本
+ * @param {*} isShow 是否展示复制成功信息
+ * @return {*} 无
+ */
+  copyText (str, isShow = true) {
+    try{
+      let _textarea = document.createElement('textarea') // textarea相比input支持复制内容换行等
+      _textarea.value = str // 设置内容
+      document.body.appendChild(_textarea) // 添加临时实例
+      _textarea.select() // 选择实例内容
+      document.execCommand('Copy') // 执行复制
+      document.body.removeChild(_textarea) // 删除临时实例
+      if(isShow) {
+        alert('复制成功')
+      }
+    }catch{
+      alert('当前浏览器版本不支持，请升级或使用其他浏览器')
+    }
+  },
 
+  copyText1 (str, isShow = true) {
+    try{
+      let _textarea = document.createElement('textarea') // textarea相比input支持复制内容换行等
+      _textarea.setAttribute('id', 'textId')
+      let _textareaText = document.createTextNode(str)
+      _textarea.appendChild(_textareaText)
+      document.body.appendChild(_textarea)
+      let range = document.createRange()
+      range.selectNodeContents(_textarea) // selectNodeContents:元素中的内容，不含元素自身 selectNode:含元素自身，复制功能两者都可以
+      const selection = window.getSelection()
+      if (selection.rangeCount > 0) {
+        selection.removeAllRanges()
+      }
+      selection.addRange(range)
+      document.execCommand('Copy')
+      // range.deleteContents()// range绑定dom时采用range.selectNode才可以使用该方法，否则不会删除临时dom，只会删除其子内容
+      document.body.removeChild(_textarea) // 删除临时dom
+      if(isShow) {
+        alert('复制成功')
+      }
+    }catch{
+      alert('当前浏览器版本不支持，请升级或使用其他浏览器')
+    }
+  }
 }

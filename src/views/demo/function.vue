@@ -63,7 +63,7 @@ console.log(monkey instanceof Object) // true
             <dd>④返回新对象</dd>
           </dl>
           <p>优点：解决对象类型识别的问题</p>
-          <p>缺点：如果构造函数中有方法，会存在内存浪费问题。由于方法属于引用数据类型，所以会在内存中为其单独开辟一块空间进行存储，这样当new多个对象实例时就会开辟多个内存空间去存储一个相同的方法，不但浪费内存，还拉低执行效率（用为开辟空间也要时间）。</p>
+          <p>缺点：如果构造函数中有方法，会存在内存浪费问题。由于方法属于引用数据类型，所以会在内存中为其单独开辟一块空间进行存储，这样当new多个对象实例时就会开辟多个内存空间去存储一个相同的方法，不但浪费内存，还拉低执行效率（另外开辟空间也要时间）。</p>
 
           <dl>
             <dt>构造函数的属性和方法又被称为成员，成员分为两类：静态成员和实例成员。</dt>
@@ -164,8 +164,8 @@ export default {
   },
   mounted () {
     // this.animal()
-    // this.Animal()
-    this.myPrototype()
+    this.Animal()
+    // this.myPrototype()
   },
   methods: {
     animal () {
@@ -213,7 +213,7 @@ export default {
       let monkey = new Animal('猴子','母') // 使用new关键字调用对象构造函数
       console.log('构造函数:')
       console.log(monkey)
-      console.log(monkey.color)
+      console.log(monkey.color)// undefined,此时monkey的原型上不具有color属性，当下面Animal.prototype.color = 'white' 后才有
 
       monkey.saySex() // 我的性别是母
       console.log(monkey.constructor === Animal) // true
@@ -221,7 +221,7 @@ export default {
       console.log(monkey instanceof Animal) // true  判断实例是否属于某个原型用instanceof
       console.log(monkey instanceof Object) // true
       console.log(Object.prototype.toString.call(monkey)) // '[object Object]'
-      console.log('\n') // true
+      console.log('\n') // 换行
 
       console.log('构造函数-prototype:')
       Animal.prototype.sayName = function () { // 不要用箭头函数Animal.prototype.sayName = () => { ，this会指到外面,vue的话会是当前vue组件，js的话会是window对象
@@ -283,6 +283,8 @@ export default {
       let person1 = new Person()
       console.log('person1')
       console.log(person1)
+      console.log(person1.__proto__)
+      console.log(person1.__proto__.constructor)
       console.log( person1.name)// ['a','b']
 
       person1.name.push(1) // 先去查找实例属性name，发现没有去prototype查找，找到后改变其值
