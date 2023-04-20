@@ -126,127 +126,155 @@ export default {
 
 <style lang="scss">
 @import "../assets/css/global.scss";
+
 .ly-aside {
   position: relative;
-  height: 100%;
-  flex-shrink:0;
-  background-color: $menu-bg;
-  overflow-y: auto;
-  overflow-x: hidden;
   z-index: 10;
-  transition: all .5s;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: $menu-bg;
+  transition: all 0.5s;
+  scrollbar-color: rgba(255, 255, 255, 0.4) $menu-bg;
+
   &::-webkit-scrollbar {
     width: 4px;
   }
+
   &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 4px;
-    background:rgba(255, 255, 255, 0.4);
   }
+
   &::-webkit-scrollbar-track {
     background: $menu-bg;
   }
-  scrollbar-color:rgba(255, 255, 255, 0.4) $menu-bg;
+
   .btn-menu {
     position: fixed;
-    top:8px;
-    left:$menuWidth+15;
-    font-size:34px;
-    cursor: pointer;
+    top: 8px;
+    left: $menuWidth+15;
+    font-size: 34px;
     color: $themeColor;
+    cursor: pointer;
     transition: all 0.4s ease-in-out 0s;
+
     &.el-icon-s-unfold {
-      left:$menuWidthCollapse+15;
+      left: $menuWidthCollapse+15;
     }
   }
+
   .logo {
     display: block;
     height: 50px;
-    background-color:$themeColor;
-    background-repeat:no-repeat;
-    background-position:center center;
-    &.logo-big{
-      background-image:url(../assets/images/logo_big.png);
-      background-size:79% auto ;
+    background-color: $themeColor;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &.logo-big {
+      background-image: url(../assets/images/logo_big.png);
+      background-size: 79% auto;
     }
-    &.logo-small{
+
+    &.logo-small {
       background-image: url(../assets/images/logo_small.png);
     }
   }
+
   .el-menu {
     width: $menuWidth;
-    border: none;
-    background: $menu-bg;
-    color: $menu-font;
     font-weight: 700;
-    &.el-menu--collapse{
+    color: $menu-font;
+    background: $menu-bg;
+    border: none;
+
+    &.el-menu--collapse {
       width: $menuWidthCollapse;
     }
+
     .el-submenu__title {
       height: 46px;
+      font-size: 13px;
       line-height: 46px;
-      font-size:13px;
-      span{
+
+      span {
         color: $menu-font;
       }
+
       i[class^=el-icon-] {
         font-size: 16px;
         color: $themeColor;
       }
+
       i.el-submenu__icon-arrow {
         font-size: 16px;
         color: $themeColor;
       }
+
       &:hover {
         background: $menu-bg-active;
-        span{
+
+        span {
           color: $menu-font-active;
         }
+
         i.el-submenu__icon-arrow {
           color: $menu-font-active;
         }
       }
     }
+
     .is-active {
       .el-submenu__title {
         background: $menu-bg-active;
-        span{
+
+        span {
           color: $menu-font-active;
         }
+
         i.el-submenu__icon-arrow {
           color: $menu-font-active;
         }
       }
     }
+
     .el-menu-item {
-      color: $menu-font;
-      padding: 0 0 0 50px;
       height: 39px;
+      padding: 0 0 0 50px;
+      font-size: 13px;
       line-height: 39px;
-      font-size:13px;
-      &:hover,&:focus,&.is-active {
-        background: transparent;
+      color: $menu-font;
+
+      &:hover,
+      &:focus,
+      &.is-active {
         color: #31c0be;
+        background: transparent;
       }
     }
   }
-
 }
-  .el-menu--vertical{
-    .el-menu--popup{
-      margin:0;
-      padding:0;
-      background-color: $menu-bg;
-      .el-menu-item{
-        height: 39px;
-        line-height: 39px;
-        font-size:13px;
-        color: $menu-font;
-        &:hover,&:focus,&.is-active {
-          background: transparent;
-          color: #31c0be;
-        }
 
+.el-menu--vertical {
+  .el-menu--popup {
+    padding: 0;
+    margin: 0;
+    background-color: $menu-bg;
+
+    .el-menu-item {
+      height: 39px;
+      font-size: 13px;
+      line-height: 39px;
+      color: $menu-font;
+
+      &:hover,
+      &:focus,
+      &.is-active {
+        color: #31c0be;
+        background: transparent;
       }
     }
   }
+}
 </style>
