@@ -5,9 +5,9 @@
  * @Description: 页面/组件/功能的描述
  * @FilePath: /vue3.0/README.md
 -->
-# vue3.0的demo 1
+# vue3.0的demo
 
-## 创建步骤 2
+## 创建步骤
 1. sudo npm install -g @vue/cli  //vue -V，如果cli已安装需要注意其版本应该高于cli4.x，没有sudo可能会报权限问题，Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
 2. vue create vue-demo   //vue ui 命令可以图形化界面创建和管理项目
 
