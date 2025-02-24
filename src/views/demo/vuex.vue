@@ -3,65 +3,57 @@
     <div class="ly-box">
       <cp-crumbs :title-list="titleList" />
       <div class="content">
-        <div class="infors">
-          <p>名称user.name ：{{ user.name }}</p>
-          <p>名称nameObj：{{ nameObj }}</p>
-          <el-button
-            size="small"
-            type="primary"
-            @click="switchNameA('李四')"
-          >
-            异步切换actions
-          </el-button>
-          <el-button
-            size="small"
-            type="primary"
-            @click="switchNameM('王五')"
-          >
-            切换mutations
-          </el-button>
-        </div>
+        <p>名称user.name ：{{ user.name }}</p>
+        <p>名称nameObj：{{ nameObj }}</p>
+        <el-button
+          size="small"
+          type="primary"
+          @click="switchNameA('李四')"
+        >
+          异步切换actions
+        </el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="switchNameM('王五')"
+        >
+          切换mutations
+        </el-button>
       </div>
       <div class="content marginTop20">
-        <div class="infors">
-          <p>数量：{{ $store.state.num.count }}</p>
-          <p>判断是否大于{{ num }}：{{ countBoolean(num)?`大于${num}啦`:`没有大于${num}` }}</p>
-          <el-button
-            size="small"
-            type="primary"
-            @click="add"
-          >
-            +{{ num }}
-          </el-button>
-          <el-button
-            size="small"
-            type="primary"
-            @click="subtract"
-          >
-            -{{ num }}
-          </el-button>
-        </div>
+        <p>数量：{{ $store.state.num.count }}</p>
+        <p>判断是否大于{{ num }}：{{ countBoolean(num)?`大于${num}啦`:`没有大于${num}` }}</p>
+        <el-button
+          size="small"
+          type="primary"
+          @click="add"
+        >
+          +{{ num }}
+        </el-button>
+        <el-button
+          size="small"
+          type="primary"
+          @click="subtract"
+        >
+          -{{ num }}
+        </el-button>
       </div>
       <div class="content marginTop20">
-        <div class="infors">
-          <p>命名空间space：{{ space.space }}</p>
-          <p>命名空间spaceObj：{{ spaceObj }}</p>
-          <p>命名空间spaceObjB：{{ spaceObjB }}</p>
-          <el-button
-            size="small"
-            type="primary"
-            @click="spaceNameM('命名空间')"
-          >
-            切换mutations
-          </el-button>
-        </div>
+        <p>命名空间space：{{ space.space }}</p>
+        <p>命名空间spaceObj：{{ spaceObj }}</p>
+        <p>命名空间spaceObjB：{{ spaceObjB }}</p>
+        <el-button
+          size="small"
+          type="primary"
+          @click="spaceNameM('命名空间')"
+        >
+          切换mutations
+        </el-button>
       </div>
 
       <div class="content marginTop20">
-        <div class="infors">
-          <bp-bus-a />
-          <bp-bus-b />
-        </div>
+        <!-- <bp-bus-a />
+        <bp-bus-b /> -->
       </div>
     </div>
   </div>
@@ -125,14 +117,14 @@ export default {
 
     switchNameA (name) {
       this.ACT_Name(name).then(() => {
-        this.$message.success('切换成功！')
+        // this.$message.success('切换成功！')
         console.log(`异步已经执行完：${ this.$store.state.user.name }`)
       })
       console.log(`异步还没执行完：${ this.$store.state.user.name }`)
     },
     switchNameM (name) {
       this.MUT_NAME(name)
-      this.$message.success('切换成功！')
+      // this.$message.success('切换成功！')
       console.log(`没有异步立即执行完：${ this.$store.state.user.name }`)
     },
     add () {

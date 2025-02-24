@@ -3,16 +3,15 @@
     <div class="ly-box">
       <cp-crumbs />
       <div class="content">
-        <div class="infors">
-          <h1>promise</h1>
-          <h2>promise是什么？</h2>
-          <p>1、主要用于异步计算</p>
-          <p>2、可以将异步操作队列化，按照期望的顺序执行，返回符合预期的结果</p>
-          <p>3、可以在对象之间传递和操作promise，帮助我们处理队列</p>
+        <h1>promise</h1>
+        <h2>promise是什么？</h2>
+        <p>1、主要用于异步计算</p>
+        <p>2、可以将异步操作队列化，按照期望的顺序执行，返回符合预期的结果</p>
+        <p>3、可以在对象之间传递和操作promise，帮助我们处理队列</p>
 
-          <h2>异步操作的常见语法</h2>
-          <p>1、事件监听</p>
-          <pre>
+        <h2>异步操作的常见语法</h2>
+        <p>1、事件监听</p>
+        <pre>
 document.getElementById('#start').addEventListener('click', start, false);
 function start() {
   // 响应事件，进行相应的操作
@@ -20,8 +19,8 @@ function start() {
 // jquery on 监听
 $('#start').on('click', start)
           </pre>
-          <p>2、回调</p>
-          <pre>
+        <p>2、回调</p>
+        <pre>
 // 比较常见的有ajax
 $.ajax('http://www.wyunfei.com/', {
  success (res) {
@@ -34,14 +33,14 @@ $(function() {
  // 页面结构加载完成，做回调逻辑处理
 })
           </pre>
-          <h2>异步操作的常见语法</h2>
-          <ul>
-            <li>1、之前处理异步是通过纯粹的回调函数的形式进行处理</li>
-            <li>2、很容易进入到回调地狱中，嵌套层次深，不好维护，剥夺了函数return的能力</li>
-            <li>3、问题可以解决，但是难以读懂，维护困难</li>
-          </ul>
-          <h2>promise详解</h2>
-          <pre>
+        <h2>异步操作的常见问题</h2>
+        <ul>
+          <li>1、之前处理异步是通过纯粹的回调函数的形式进行处理</li>
+          <li>2、很容易进入到回调地狱中，嵌套层次深，不好维护，剥夺了函数return的能力</li>
+          <li>3、问题可以解决，但是难以读懂，维护困难</li>
+        </ul>
+        <h2>promise详解</h2>
+        <pre>
 new Promise(function (resolve, reject) {
   // 一段耗时的异步操作
   resolve('成功') // 数据处理完成
@@ -51,28 +50,28 @@ new Promise(function (resolve, reject) {
   (err) => {console.log(err)} // 失败
 )
           </pre>
-          <p>promise是一个对象，对象和函数的区别就是对象可以保存状态，函数不可以（闭包除外）</p>
-          <p>并未剥夺函数return的能力，因此无需层层传递callback，进行回调获取数据</p>
-          <p>代码风格，容易理解，便于维护</p>
-          <p>多个异步等待合并便于解决</p>
-          <h2>promise有三个状态：</h2>
-          <p>1、pending[待定]初始状态</p>
-          <p>2、fulfilled[实现]操作成功</p>
-          <p>3、rejected[被否决]操作失败</p>
+        <p>promise是一个对象，对象和函数的区别就是对象可以保存状态，函数不可以（闭包除外）</p>
+        <p>并未剥夺函数return的能力，因此无需层层传递callback，进行回调获取数据</p>
+        <p>代码风格，容易理解，便于维护</p>
+        <p>多个异步等待合并便于解决</p>
+        <h2>promise有三个状态：</h2>
+        <p>1、pending[待定]初始状态</p>
+        <p>2、fulfilled[实现]操作成功</p>
+        <p>3、rejected[被否决]操作失败</p>
 
-          <h2>.then()</h2>
-          <p>1、接收两个函数作为参数，分别代表fulfilled（成功）和rejected（失败）</p>
-          <p>2、.then()返回一个新的Promise实例，所以它可以链式调用</p>
-          <p>3、当前面的Promise状态改变时，.then()根据其最终状态，选择特定的状态响应函数执行</p>
-          <p>4、状态响应函数可以返回新的promise，或其他值，不返回值也可以我们可以认为它返回了一个null；</p>
-          <p>5、如果返回新的promise，那么下一级.then()会在新的promise状态改变之后执行</p>
-          <p>6、如果返回其他任何值，则会立即执行下一级.then()</p>
+        <h2>.then()</h2>
+        <p>1、接收两个函数作为参数，分别代表fulfilled（成功）和rejected（失败）</p>
+        <p>2、.then()返回一个新的Promise实例，所以它可以链式调用</p>
+        <p>3、当前面的Promise状态改变时，.then()根据其最终状态，选择特定的状态响应函数执行</p>
+        <p>4、状态响应函数可以返回新的promise，或其他值，不返回值也可以我们可以认为它返回了一个null；</p>
+        <p>5、如果返回新的promise，那么下一级.then()会在新的promise状态改变之后执行</p>
+        <p>6、如果返回其他任何值，则会立即执行下一级.then()</p>
 
-          <h2>.then()里面有.then()的情况</h2>
-          <p>1、因为.then()返回的还是Promise实例</p>
-          <p>2、会等里面的then()执行完，再执行外面的</p>
+        <h2>.then()里面有.then()的情况</h2>
+        <p>1、因为.then()返回的还是Promise实例</p>
+        <p>2、会等里面的then()执行完，再执行外面的</p>
 
-          <pre>
+        <pre>
 new Promise((resolve)=>{
   console.log('Step 1') //1
   setTimeout(()=>{
@@ -96,8 +95,8 @@ new Promise((resolve)=>{
   console.log(val)  //6 val=130
 })
           </pre>
-          <p>了解了其 执行顺序后，我们最好将其展开，用链式的方式，这样会有更好的可读性</p>
-          <pre>
+        <p>了解了其 执行顺序后，我们最好将其展开，用链式的方式，这样会有更好的可读性</p>
+        <pre>
 new Promise((resolve)=>{
   console.log('Step 1') //1
   setTimeout(()=>{
@@ -122,14 +121,21 @@ new Promise((resolve)=>{
 })
           </pre>
 
-          <h2>then、catch、finally</h2>
-          <p>then 、 catch 、 finally 都会返回一个新的promise， 所以可以链式调用。</p>
-          <p>catch方法就是一个语法糖，只接收一个参数，onRejected处理程序。他的作用和调用Promise.prototype.then(null,onRejected)是一样的。</p>
-          <p>在Promise中，返回任意一个非promise的值都会被包裹成promise对象，</p>
-          <p>例如return 'hehe'会被包装为return Promise.resolve('hehe')。</p>
-          <p>return 的值只会往下传给 then，无论中间是否有catch 或者 finally。</p>
-          <p>finally方法没有参数</p>
-        </div>
+        <h2>then、catch、finally</h2>
+        <p>then 、 catch 、 finally 都会返回一个新的promise， 所以可以链式调用。</p>
+        <p>catch方法就是一个语法糖，只接收一个参数，onRejected处理程序。他的作用和调用Promise.prototype.then(null,onRejected)是一样的。</p>
+        <p>在Promise中，返回任意一个非promise的值都会被包裹成promise对象，</p>
+        <p>例如return 'hehe'会被包装为return Promise.resolve('hehe')。</p>
+        <p>return 的值只会往下传给 then，无论中间是否有catch 或者 finally。</p>
+        <p>finally方法没有参数</p>
+
+        <h2>Promise的内置方法</h2>
+        <p><b>Promise.all( )：</b>当有任务失败时立即catch输出失败，否则全部成功后由then输出，与Promise.any() 相反</p>
+        <p><b>Promise.race( )：</b>先完成先输出,不管成功还是失败，谁先完成谁先输出，成功由then输出，失败由catch输出</p>
+        <p>
+          <b>Promise.allSettled( )：</b>会等所有异步任务执行完毕，获取全部子Promise的结果，不论成功还是失败，在then中返回数组格式的结果，每一个结果是一个对象，包含属性：status、value/reason，不执行catch，即使有子Promise失败
+        </p>
+        <p><b>Promise.any( )：</b>当成功时由then立即输出，失败时继续执行下一个。当全部任务失败时由catch输出，与Promise.all() 相反</p>
       </div>
     </div>
   </div>
@@ -149,9 +155,12 @@ export default {
     // this.task()
     // this.promise_01()
     // this.promise_02()
-    // this.promiseAll()
+    this.promiseAll()
+    // this.promiseAllSettled()
     // this.promiseRace()
-    this.finally()
+    // this.promiseAny()
+    
+    // this.finally()
   },
   methods: {
     // 单线程：宏任务、微任务
@@ -232,10 +241,10 @@ export default {
       // eslint-disable-next-line no-unused-vars
       return new Promise(function (resolve,reject) { // 做一些异步操作
         setTimeout(function () {
-          console.log('切菜完毕！')
-          resolve('切好的菜')
-          // console.log('切菜切手了！')
-          // reject('切菜切手了，无法继续做饭')
+          // console.log('切菜完毕！')
+          // resolve('切好的菜')
+          console.log('切菜切手了！')
+          reject('切菜切手了，无法继续做饭')
         }, 1000)
       })
     },
@@ -250,24 +259,76 @@ export default {
       })
       return p
     } ,
-    // 批量执行:当所有的子Promise都完成，该Promise完成，返回值是全部值得数组;有任何一个失败，该Promise失败，返回值是第一个失败的子Promise结果
+    // asyncFunc3:煮粥
+    asyncFunc3 () {
+      console.log('开始煮粥。')
+      // eslint-disable-next-line no-unused-vars
+      return new Promise(function (resolve,reject) { // 做一些异步操作
+        setTimeout(function () {
+          console.log('煮粥完毕！')
+          resolve('煮好的粥')
+          // console.log('煮粥烫手了！')
+          // reject('煮粥烫手了，无法继续做饭')
+        }, 2000)
+      })
+    },
+
+    // Promise.all() 当有任务失败时立即catch输出失败，否则全部成功后由then输出，与Promise.any() 相反
+    // 1、当所有的子Promise都成功完成，该Promise完成，返回值是全部值的数组;
+    // 2、当有任何一个失败，该Promise失败，返回值是第一个失败的子Promise结果
     promiseAll () {
       Promise.all([this.asyncFunc1(), this.asyncFunc2()]).then((result) => {
-        console.log('都完成了大家一起输出-数组')
+        console.log('Promise.all-都成功完成了大家一起输出-数组：')
         console.log(result)
       }).catch((err) => { // 任何一个失败
-        console.log('失败原因')
+        console.log('Promise.all-失败原因：')
         console.log(err)
       })
     },
-    // 先完成先执行:
+    // Promise.allSettled() 会等所有异步任务执行完毕，获取全部子Promise的结果，不论成功还是失败，
+    // 在then中返回数组格式的结果，每一个结果是一个对象，包含属性：status、value/reason
+    // 不执行catch，即使有子Promise失败
+    promiseAllSettled () {
+      Promise.allSettled([this.asyncFunc1(), this.asyncFunc2()]).then((result) => {
+        console.log('Promise.allSettled-数组：')
+        console.log(result)
+        // result = [
+        //   {
+        //     'status': 'rejected',
+        //     'reason': '切菜切手了，无法继续做饭'
+        //   },
+    
+        //   {
+        //     'status': 'fulfilled',
+        //     'value': '烧好的水'
+        //   }
+        // ]
+      }).catch((err) => { // 不执行catch，可以不用写catch
+        console.log('Promise.allSettled-失败原因：')
+        console.log(err)
+      })
+    },
+    //  Promise.race() 先完成先输出:不管成功还是失败，谁先完成谁先输出，成功由then输出，失败由catch输出
     promiseRace () {
       Promise.race([this.asyncFunc1(), this.asyncFunc2()]).then((result) => {
-        console.log('谁快谁先输出')
+        console.log('Promise.race-成功的先完成先输出：')
         console.log(result)
       }).catch((err) => { // 任何一个失败
-        console.log('失败原因')
+        console.log('Promise.race-失败的先完成先输出：')
         console.log(err)
+      })
+    },
+    // Promise.any() 当成功时由then立即输出，失败时继续执行下一个。当全部任务失败时由catch输出，与Promise.all() 相反
+    promiseAny () {
+      Promise.any([this.asyncFunc1(), this.asyncFunc3()]).then((result) => {
+        console.log('Promise.any-当任何一个成功时then返回成功的结果')
+        console.log(result)
+      }).catch((err) => { // 任何一个失败
+        // AggregateError 是 Error 的子类。
+        console.log('Promise.any-当全部失败时catch返回一个Error的子类：')
+        console.log(err) // AggregateError: No Promise in Promise.any was resolved
+        console.log(typeof (err)) // object
+        console.log(Object.prototype.toString.call(err)) // [object Error]
       })
     },
     finally () {

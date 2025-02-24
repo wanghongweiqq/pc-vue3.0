@@ -65,9 +65,9 @@ export default {
       }
     },
     {
-      path: 'goods',
-      name: 'goods',
-      component: () => import('@/views/demo/goods.vue'),
+      path: 'feature',
+      name: 'feature',
+      component: () => import('@/views/demo/feature.vue'),
       meta: {
         title: '新特性',
         key: 'MENU_HAWK_DEMO',
@@ -76,7 +76,7 @@ export default {
             name: 'Demo',
           },
           {
-            name: 'goods',
+            name: 'feature',
           },
         ]
       }
@@ -193,7 +193,6 @@ export default {
       }
     },
     {
-      // path: '/novue/copy.html',
       path: 'copy',
       name: 'copy',
       component: () => import('@/views/demo/copy.vue'),
@@ -206,6 +205,23 @@ export default {
           },
           {
             name: '深拷贝',
+          },
+        ]
+      }
+    }, 
+    {
+      path: 'reg-exp',
+      name: 'reg-exp',
+      component: () => import('@/views/demo/reg-exp.vue'),
+      meta: {
+        title: 'RegExp',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'RegExp',
           },
         ]
       }

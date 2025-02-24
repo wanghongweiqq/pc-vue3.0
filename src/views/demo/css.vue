@@ -136,114 +136,134 @@ export default {
 }
 </script>
 <style lang="scss">
-.pg-css{
+.pg-css {
   color: #fff;
-  h2{
+
+  h2 {
     color: #000;
   }
-  .flex{
+
+  .flex {
     display: flex;
-    border:2px solid #000;
+    border: 2px solid #000;
     // justify-content: space-between;
-    &.flex-center{
+    &.flex-center {
       align-items: center;
     }
-    span{
-      width:100px;
+
+    span {
+      width: 100px;
       background: purple;
     }
-    p{
-      flex: 1;
-      background: blue;
+
+    p {
       display: flex;
+      flex: 1;
       flex-direction: column;
       justify-content: space-between;
-      em{
+      background: blue;
+
+      em {
         background: green;
       }
-      i{
+
+      i {
         background: orange;
       }
     }
-    font{
-      width:100px;
+
+    font {
+      width: 100px;
       height: 100px;
       background: red;
     }
   }
-  .poem{
+
+  .poem {
     flex-direction: row-reverse;
     height: 200px;
     background-image: linear-gradient(#666, #999);
-    li{
-      width:20px;
+
+    li {
+      width: 20px;
       text-align: center;
     }
   }
-  .grid{
-    .container{
-      margin-right: 50px;;
+
+  .grid {
+    .container {
       display: inline-grid;
-      grid-template-columns:50px 50px 50px;
       // grid-template-columns:repeat(auto-fill,500px);
-      grid-template-rows:repeat(3,50px);
-      // grid-template-rows: 50px 50px 50px;
-      // grid-gap: <grid-row-gap> <grid-column-gap>;
-      column-gap: 0px; //grid在最新的gap相关的3个语法中可省略
-      grid-column-gap: 0px; //grid在最新的语法中可省略
+      grid-template-rows: repeat(3, 50px);
+      grid-template-columns: 50px 50px 50px;
       // justify-items: start;
       grid-auto-rows: 20px;
+      grid-column-gap: 0; //grid在最新的语法中可省略
+      // grid-template-rows: 50px 50px 50px;
+      // grid-gap: <grid-row-gap> <grid-column-gap>;
+      column-gap: 0; //grid在最新的gap相关的3个语法中可省略
+      margin-right: 50px;
       // place-items: <align-items> <justify-items>;
       .item {
+        padding: 0;
+        margin: 0;
         font-size: 2em;
         text-align: center;
         border: 1px solid #e5e4e9;
-        margin:0;
-        padding:0;
       }
+
       .item-1 {
         background-color: #ef342a;
       }
+
       .item-2 {
         background-color: #f68f26;
       }
+
       .item-3 {
         background-color: #4ba946;
       }
+
       .item-4 {
         background-color: #0376c2;
       }
+
       .item-5 {
         background-color: #c077af;
       }
+
       .item-6 {
         background-color: #f8d29d;
       }
+
       .item-7 {
         background-color: #149632;
       }
+
       .item-8 {
         background-color: #852369;
       }
+
       .item-9 {
         background-color: #ff6100;
       }
-      &.container-01{
+
+      &.container-01 {
         .item-1 {
           grid-column-start: 1;
           grid-column-end: 3;
         }
+
         .item-2 {
           grid-column-start: 1;
           grid-column-end: 3;
         }
       }
-      &.container-02{
+
+      &.container-02 {
         grid-auto-flow: row dense;
       }
     }
-
   }
-
 }
 </style>
