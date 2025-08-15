@@ -50,11 +50,6 @@
           切换mutations
         </el-button>
       </div>
-
-      <div class="content marginTop20">
-        <!-- <bp-bus-a />
-        <bp-bus-b /> -->
-      </div>
     </div>
   </div>
 </template>

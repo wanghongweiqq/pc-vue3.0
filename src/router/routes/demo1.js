@@ -3,12 +3,12 @@ export default {
   component: () => import('@/layout/index'),
   icon: 'el-icon-mobile',
   meta: {
-    title: 'DEMO1',
+    title: 'Demo1',
   },
   children: [
     {
       path: 'index',
-      name: 'demo1',
+      name: 'demo1Index',
       component: () => import('@/views/demo/index.vue'),
       meta: {
         title: '首页',
@@ -17,7 +17,7 @@ export default {
     },
     {
       path: 'detail',
-      name: 'demoDetail1',
+      name: 'demo1Detail',
       component: () => import('@/views/demo/about.vue'),
       meta: {
         title: '首页详情',
@@ -25,7 +25,7 @@ export default {
     },
     {
       path: 'about',
-      name: 'about1',
+      name: 'demo1about',
       component: () => import('@/views/demo/about.vue'),
       meta: {
         title: '关于我们',

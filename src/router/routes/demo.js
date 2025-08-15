@@ -47,6 +47,42 @@ export default {
       }
     },
     {
+      path: 'task',
+      name: 'task',
+      component: () => import('@/views/demo/task/'),
+      meta: {
+        title: 'task',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'task',
+            href: 'task'
+          },
+        ]
+      }
+    },
+    {
+      path: 'array',
+      name: 'array',
+      component: () => import('@/views/demo/array'),
+      meta: {
+        title: 'array',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'array',
+            href: 'array'
+          },
+        ]
+      }
+    },
+    {
       path: 'utils',
       name: 'utils',
       component: () => import('@/views/demo/utils.vue'),
@@ -101,7 +137,7 @@ export default {
     {
       path: 'css',
       name: 'css',
-      component: () => import('@/views/demo/css.vue'),
+      component: () => import('@/views/demo/css/index.vue'),
       meta: {
         title: 'css',
         key: 'MENU_HAWK_DEMO',
@@ -193,6 +229,15 @@ export default {
       }
     },
     {
+      path: '/novue/render.html',
+      meta: {
+        title: 'render',
+        key: 'MENU_HAWK_DEMO',
+        notvue: true
+
+      }
+    },
+    {
       path: 'copy',
       name: 'copy',
       component: () => import('@/views/demo/copy.vue'),
@@ -222,6 +267,74 @@ export default {
           },
           {
             name: 'RegExp',
+          },
+        ]
+      }
+    },
+    {
+      path: 'setup',
+      name: 'setup',
+      component: () => import('@/views/demo/setup.vue'),
+      meta: {
+        title: 'setup',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'setup',
+          },
+        ]
+      }
+    },
+    {
+      path: 'duyi',
+      name: 'duyi',
+      component: () => import('@/views/demo/duyi.vue'),
+      meta: {
+        title: '渡一学习',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'duyi',
+          },
+        ]
+      }
+    },
+    {
+      path: 'sort',
+      name: 'sort',
+      component: () => import('@/views/demo/sort.vue'),
+      meta: {
+        title: '排序算法',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'sort',
+          },
+        ]
+      }
+    },
+    {
+      path: 'debounce-throttle',
+      name: 'debounce-throttle',
+      component: () => import('@/views/demo/debounce-throttle/'),
+      meta: {
+        title: '防抖和节流',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'debounce-throttle',
           },
         ]
       }

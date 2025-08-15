@@ -142,6 +142,7 @@ new Promise((resolve)=>{
 </template>
 <script>
 import CpCrumbs from '@/components/crumbs/'
+import MyPromise from './duyi/my-promise'
 
 export default {
   components: {
@@ -152,17 +153,138 @@ export default {
     }
   },
   mounted () {
+    // this.task5()
     // this.task()
     // this.promise_01()
     // this.promise_02()
-    this.promiseAll()
+    // this.promiseAll()
     // this.promiseAllSettled()
     // this.promiseRace()
     // this.promiseAny()
     
     // this.finally()
+    // this.originalPromise()
+    // this.myPromise()
+    this.newArray0()
+    // this.newArray()
   },
   methods: {
+    newArray0 () {
+      const a = new Array(3)
+      a[0] = 1
+      let x = 0
+      const b = a.map(item => {
+        x++
+        return item * 10
+      })
+      console.log('a',a,x,a.join())
+      console.log('b',b)
+      const c = Array.from({ length: 3 })
+      c[0] = 1
+      let y = 0
+      const d = c.map(item => {
+        y++
+        return item * 10
+      })
+      console.log('c',c,y,c.join())
+      console.log('d',d)
+    },
+
+    newArray () {
+      const a = new Array(3)
+      a[0] = 1
+      const b = a.map(item => item * 10)
+      console.log('a',a)
+      console.log('b',b)
+      const c = Array.from({ length: 3 })
+      c[0] = 1
+      const d = c.map(item => item * 10)
+      console.log('c',c)
+      console.log('d',d)
+    },
+    task5 () {
+      console.log('start')      
+      Promise.resolve(0)
+        .then((res) => {
+          // console.log('0-0') // 1
+          console.log(0) 
+          // return Promise.resolve(4)
+          // return 1 + 1
+          new Promise((resolve) => {
+            console.log('c1-1') // 4
+            resolve(4)
+            console.log('c1-2') // 4
+          })
+            .then((x) => { 
+              console.log('c2') // 7
+              console.log(x)// 8
+              return x 
+            }) 
+          console.log('0-1') 
+          return 'return'
+
+        })
+        .then((res) => {
+          // console.log('res') // 3
+          console.log(res) // 3
+        })
+
+      Promise.resolve('b')
+        .then((res) => {
+          console.log(1) // 2
+          // console.log(res) // 2
+
+          // return new Promise((resolve) => {
+          //   console.log('d1-1') // 4
+          //   resolve(4)
+          //   console.log('d1-2') // 4
+          // })
+
+        })
+        .then(() => {
+          console.log(2) // 4
+        })
+        .then(() => {
+          console.log(3)
+        })
+        .then(() => {
+          console.log(5)
+        })
+        .then(() => {
+          console.log(6)
+        })
+      // 微任务的队列
+      // onsole.log('0')
+      // onsole.log('1')
+      // Promise.resolve(4).then
+      // console.log(2) 
+
+      //  Promise.resolve(4)11111
+      // console.log(3) 
+
+      // console.log(4) 
+      // console.log(5) 
+      // console.log(6) 
+    
+      //   setTimeout(() => {
+      //     console.log('async2 end') // 7
+      //   },0)
+      new Promise(resolve => {
+        console.log('Promise') // 2
+        resolve()
+      })
+        .then(function () {
+          console.log('promise1') // 5
+        })
+        .then(function () {
+          console.log('promise2')// 6
+        })
+        .then(function () {
+          console.log('promise3')// 6
+        })
+      console.log('end')      
+    },
+
     // 单线程：宏任务、微任务
     task () {
       setTimeout(() => {
@@ -323,7 +445,7 @@ export default {
       Promise.any([this.asyncFunc1(), this.asyncFunc3()]).then((result) => {
         console.log('Promise.any-当任何一个成功时then返回成功的结果')
         console.log(result)
-      }).catch((err) => { // 任何一个失败
+      }).catch((err) => { // 全部失败
         // AggregateError 是 Error 的子类。
         console.log('Promise.any-当全部失败时catch返回一个Error的子类：')
         console.log(err) // AggregateError: No Promise in Promise.any was resolved
@@ -367,6 +489,151 @@ export default {
       // final: undefined
       // final-after-then1: bibi
       // final-after-then2: undefine
+
+    },
+    myPromise () {
+      const p1 = new MyPromise((resolve, reject) => {
+        console.log('p1')
+
+        setTimeout(() => {
+          // reject('p1信息') // 执行失败
+          resolve('p1信息') // 执行成功
+          // throw ('p1抛出错误') //异步的throw，会报错，构造器执行时没发现错误，计时结束时发生的错误已不能再执行构造器里的try、catch
+        }, 1000)
+        // throw new Error('p1抛出错误')
+        // throw ('p1抛出错误')
+        // reject('p1失败信息')
+        // resolve('p1成功信息')
+      })
+        .then((res) => {
+          console.log('p1-then1-fulfilled', res + 1)
+          // return res 
+          // throw '3333'
+          // return setTimeout(() => {
+          //   return res 
+          // })
+          // return Promise.resolve(res + 1)
+          return MyPromise.reject(res )
+          // return MyPromise.resolve(res ) //手写版只会执行1次微任务，而原生会执行2次微任务
+          
+        // return new MyPromise((resolve, reject) => {
+        //   resolve(res)
+        //   // reject(res)
+        // })
+        // .then((res) => {
+        //   return res + '成功2'
+        // }, (error) => {
+        //   return error + '失败2'
+        // })
+        // .then((res) => {
+        //   return res + '成功3'
+        // }, (error) => {
+        //   return error + '失败3'
+        // })
+        },
+        // '失败信息',
+        (error) => {
+          console.log('p1-then1-rejected', error)
+          return error
+        },
+        )
+
+        .then(
+        // 333
+          (res) => {
+            console.log('p1-then2-fulfilled', res + 2)
+            // return Promise.resolve(res + 1)
+            return res 
+          }
+          , (error) => {
+            console.log('p1-then2-rejected', error + 2)
+            return error
+          })
+
+        .then((res) => {
+          console.log('p1-then3-fulfilled', res + 3)
+          return res 
+        }, (error) => {
+          console.log('p1-then3-rejected', error + 3)
+          return error
+        })
+        .then((res) => {
+          console.log('p1-then4-fulfilled', res + 4)
+        }, (error) => {
+          console.log('p1-then4-rejected', error + 4)
+        })
+    },
+
+    originalPromise () {
+      // setTimeout(() => {
+      const p2 = new Promise((resolve, reject) => {
+        console.log('p2')
+        // setTimeout(() => {
+        //   // reject('p2信息1') // 执行失败
+        //   resolve('p2信息1') // 执行成功
+        //   // throw ('抛出错误') //异步的throw，会报错，构造器执行时没发现错误，计时结束时发生的错误已不能再执行构造器里的try、catch
+        // }, 1000)
+        // throw new Error('抛出错误')
+        // throw ('抛出错误')
+        // reject('失败信息')
+        resolve('p2成功信息')
+      })
+        .then(
+          (res) => {
+            console.log('p2-then1-fulfilled', res + 1)
+            // return res
+            // throw '3333'
+            // return setTimeout(() => {
+            //   return res 
+            // })
+            // return Promise.resolve(res )
+            return Promise.reject(res )
+            // return new Promise((resolve, reject) => {
+            //   // resolve(res)
+            //   reject(res)
+            // }).then((res) => {
+            //   return res + '成功2'
+            // }, (error) => {
+            //   return error + '失败2'
+            // })
+          }
+          ,
+          // '失败信息',
+          (error) => {
+            console.log('p2-then1-rejected', error + 1)
+            return error
+          },
+        )
+
+        .then(
+          // 33
+          (res) => {
+            console.log('p2-then2-fulfilled', res + 2)
+            // return Promise.resolve(res + 1)
+            return res 
+          }
+          , (error) => {
+            console.log('p2-then2-rejected', error + 2)
+            return error
+          })
+        .then((res) => {
+          console.log('p2-then3-fulfilled', res + 3)
+          return res
+        }, (error) => {
+          console.log('p2-then3-rejected', error + 3)
+          return error
+        })
+        .then((res) => {
+          console.log('p2-then4-fulfilled', res + 4)
+        }, (error) => {
+          console.log('p2-then4-rejected', error + 4)
+          return error
+        })
+
+      // }, 1000)
+      // Promise.resolve(1).then((res) => {
+      //   console.log('promise.resolve-then', res)
+      // })
 
     }
   }

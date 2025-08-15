@@ -67,7 +67,7 @@ console.log(monkey instanceof Object) // true
           <dd>实例成员：构造函数内部通过this添加的成员，只能通过实例化的对象访问，如上面的 person1.sayName()；使用Person.sayName()会报错,not function。</dd>
           <dd>静态成员：在构造函数本身添加的成员。如Person.hobbies=‘打游戏’；静态成员只能通过构造函数本身来访问。如 console.log(Person.hobbies);使用console.log(person1.hobbies)结果为undefined</dd>
         </dl>
-        <p>为了解决构造函数每用 new 创建一个对象，就会重新将实例的方法创建一次的问题，可以改进如下：</p>
+        <p>为了解决构造函数每次用 new 创建一个对象，就会重新将实例的方法创建一次的问题，可以改进如下：</p>
         <pre>
 function Person(name) {
   this.name = name;

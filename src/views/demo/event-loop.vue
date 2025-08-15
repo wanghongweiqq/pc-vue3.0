@@ -2,7 +2,7 @@
  * @Author: 王宏伟
  * @Email：wanghongwei@hualala.com
  * @Date: 2021-11-29 22:37:47
- * @LastEditTime: 2024-06-24 16:38:25
+ * @LastEditTime: 2025-07-31 16:56:10
  * @LastEditors: Please set LastEditors
  * @Description: 时间循环：Event Loop
  * @FilePath: /vue3.0/src/views/demo/event-loop.vue
@@ -15,7 +15,7 @@
       <div class="content">
         <h1>Event Loop</h1>
         <h2>同步任务和异步任务</h2>
-        <p>JavaScript是单线程执行的语言，在同一个时间只能做一件事情。这就导致后面的任务需要等到前面的任务完成才能执行，如果前面的任务很耗时就会造成后面的任务一直等待。为了解决这个问题JS中出现了同步任务和异步任务。</p>
+        <p>JavaScript是一门单线程执行的语言，在同一个时间只能做一件事情。这是因为它运行在浏览器的渲染主线程中，而渲染主线程只有一个。这就导致后面的任务需要等到前面的任务完成才能执行，如果前面的任务很耗时就会造成后面的任务一直等待。为了解决这个问题JS中出现了同步任务和异步任务。</p>
 
         <h3>（1）同步任务</h3>
         <p>在主线程上排队执行的任务只有前一个任务执行完毕，才能执行后一个任务，形成一个执行栈。执行栈管理同步任务</p>
@@ -80,64 +80,33 @@ export default {
   mounted () {
     const request = { body: { username: 'username',password: 'password' } }
     const { body, body: { username, password } } = request
-    console.log(body,username,password)
-    // this.task()
+    // console.log(body,username,password)
+    this.task0()
+    // this.task1()
+    // this.task1_2()
     // this.task2()
-    this.task3() // 原文链接：https://www.jianshu.com/p/fd15db94a034
+    // this.task3() // 原文链接：https://www.jianshu.com/p/fd15db94a034
     // this.task4() 
+    // this.task5() 
+    // this.task6() 
+    // this.task7() 
   },
   methods: {
-    // 单线程：宏任务、微任务
-    task () {
-      console.log('script start')
-      async function async2 () {
-        console.log('async2 start')
-        function test () {
-          console.log(1111)
-          console.log(new Date().getTime())
-
-          return 'test'
-        }
-        console.log(2222)
-        console.log(new Date().getTime())
-        await test()
-
-      }
-      async function async1 () {
-        await async2()
-        console.log('async1 end')
-      }
-      async1()
-
-      setTimeout(function () {
-        console.log('setTimeout')
-      }, 0)
-
-      new Promise(resolve => {
-        console.log('Promise')
-        resolve()
-      })
-        .then(function () {
-          console.log('promise1')
-        })
-        .then(function () {
-          console.log('promise2')
-        })
-
-      console.log('script end')
-    },
-    
-    task2 () {
+    // 简单版
+    task0 () {
       console.log('script start') // 1
-
-      function async2 () {
-        setTimeout(() => {
-          console.log('async2 end') // 7
-        },0)
+      // async2这个异步方法其实虚有其名，可以当做一个普通方法理解，因为内部并没有像Promise这样的异步返回，只定义了一个setTimeout的宏任务
+      function async2 () { 
+        // setTimeout(() => {
+        //   console.log('async2 end') // 7
+        // },0)
+        return new Promise(resolve => {
+          resolve('very good!')
+        })
       }
       async function async1 () {
-        await async2()// await后面的代码不会立即执行，会作为微任务执行
-        console.log('async1 end') // 4
+        const result = await async2()// await后面的代码不会立即执行，待async2返回值后，会作为微任务添加到微任务队列
+        console.log('async1 end',result) // 4
       }
       async1()
 
@@ -148,15 +117,133 @@ export default {
       new Promise(resolve => {
         console.log('Promise') // 2
         resolve()
+      }).then(function () {
+        console.log('promise1') // 5
+      }).then(function () {
+        console.log('promise2')// 6
       })
-        .then(function () {
-          console.log('promise1') // 5
-        })
-        .then(function () {
-          console.log('promise2')// 6
-        })
 
       console.log('script end') // 3
+    },
+    
+    // 复杂版
+    task1 () {
+      console.log('script start') // 1
+
+      const asy2 = async () => {
+        console.log('asy2-start') // 3
+        // await 12 和Promise.resolve(12)是等价的，前者时会自动添加Promise.resolve(xx)，使其变为异步任务
+        const num = 12
+        // await num
+        const res = await Promise.resolve(num)
+        console.log('asy2-await-finished',res) // 6
+        setTimeout(() => {
+          Promise.resolve().then(() => {
+            console.log('asy2-setTimeout-promise-then') // 12
+          })
+          console.log('asy2-setTimeout') // 11
+        }, 0)
+        console.log('asy2-end') // 7
+        return num
+
+      }
+      async function asy1 () {
+        console.log('asy1-start') // 2
+        const asy1Result = await asy2()
+        console.log('asy1-end',asy1Result) // 9
+      }
+
+      const asy3 = async () => {
+        console.log('asy3-start') // 4
+        await Promise.resolve().then(() => {
+          console.log('asy3-promise-then') // 8
+        })
+        console.log('asy3-end') // 10
+      }
+
+      asy1()
+      asy3()
+
+      console.log('script end') // 5
+    },
+
+    task1_2 () {
+      console.log('script start') // 1
+
+      const asy2 = async () => {
+        const b = await new Promise((resolve) => {
+          console.log('asy2-Promise') // 3
+          setTimeout(() => { // 唯一的一个宏任务，等该任务执行完才执行b = await 下面的console.log(4)
+            console.log(3) // 7
+            resolve(100)
+          }, 0)
+        })
+        console.log(4) // 8
+        return b
+      }
+      async function asy1 () {
+        console.log(1) // 2
+        const c = await asy2()
+        console.log(2,'c',c) // 9
+      }
+
+      const asy3 = async () => {
+        console.log('a0') // 4
+        await Promise.resolve().then(() => { // 宏任务出现后的第一个微任务，执行完一个又添加一个then,直到全部执行完
+          console.log('a1') // 6_1
+        }).then(() => {
+          console.log('a2') // 6_2
+        }).then(() => {
+          console.log('a3') // 6_3
+        })
+      }
+
+      asy1()
+      asy3()
+
+      console.log('script end') // 5
+    },
+
+    task2 () {
+      console.log('script start') // 1
+
+      async function async2 () {
+        console.log('async2 start') // 3
+        function study () {
+          return new Promise(resolve => {
+            console.log('study-start') // 4
+            resolve('very good!')
+          }).then((res) => {
+            console.log('study-result: ',res) // 7
+            return(res)
+          })
+        }
+        let resultAsync1 = await study()
+        console.log('async2  end. resultAsync1=',resultAsync1) // 9
+        return resultAsync1
+      }
+
+      async function async1 () {
+        console.log('async1 start') // 2
+        let resultAsync2 = await async2()
+        console.log('async1 end. resultAsync2=',resultAsync2) // 11
+      }
+      async1()
+
+      setTimeout(function () {
+        console.log('setTimeout') // 12
+      }, 0)
+
+      new Promise(resolve => {
+        console.log('Promise') // 5
+        resolve()
+      }).then(function () {
+        console.log('promise1') // 8
+      }).then(function () {
+        console.log('promise2') // 10
+      })
+
+      console.log('script end') // 6
     },
 
     task3 () {
@@ -219,14 +306,160 @@ export default {
 
       console.log('i')// 6
     },
+    
+    // 宏任务队列
     task4 () {
+      console.log('script start')      
+      const num = 100
       setTimeout(() => { console.log('定时器2s') }, 2000) 
       setTimeout(() => { console.log('定时器1s') }, 1000) 
-      console.log('后盾人')      
-      for (let i = 0; i < 100; i++) { 
-        console.log('打印循环1万次' + i) 
-        // setTimeout(() => { console.log('打印循环1万次' + i) },i * 1000) 
+      console.log('我是中间的')      
+      for (let i = 0; i < num; i++) { 
+        console.log(`打印循环${ num }次: ${ i }`) 
+        // setTimeout(() => { console.log(`打印循环${ num }次: ${ i }`) },i * 1000) 
       }
+      console.log('script end')      
+    },
+
+    // 奇葩的 return Promise.resolve
+    task5 () {
+      console.log('script start') // 0
+      Promise.resolve()
+        .then(() => {
+          console.log(0) // 4
+          // return 2 + 2
+
+          // 以下两种方式等效，相当于两次添加到微任务队列，一次pending，一次吸收
+          // 方式1
+          return Promise.resolve(4)
+
+          // 方式2
+          // return new Promise((resolve) => {
+          //   console.log('change-resolve') 
+          //   resolve(4)
+          // })
+          //   .then((x) => { 
+          //     console.log('change-then') 
+          //     return x 
+          //   }) 
+        })
+        .then((res) => {
+          console.log(res) // 11
+        })
+
+      Promise.resolve()
+        .then(() => {
+          console.log(1) // 5
+        })
+        .then(() => {
+          console.log(2) // 7
+        })
+        .then(() => {
+          console.log(3) // 9
+        })
+        .then(() => {
+          console.log(5) // 12
+        })
+        .then(() => {
+          console.log(6) // 13
+        })
+
+      new Promise(resolve => {
+        console.log('resolve') // 1
+        resolve()
+      })
+        .then(function () {
+          console.log('then1') // 6
+        })
+        .then(function () {
+          console.log('then2')// 8
+        })
+        .then(function () {
+          console.log('then3')// 10
+        })
+      console.log('script end') // 2   
+    },
+
+    // 首先1秒时绿灯亮一次，之后2秒时黄灯亮一次；再之后3秒时红灯亮一次，如何让三个灯不断交替重复前面的亮灯？三个亮灯函数已经存在：
+    // 以下用了三种方式实现，分别为：1、Promise 2、async/await 3、setInterval 
+    task6 () {
+      function green () {
+        console.log('green')
+      }
+      function yellow () {
+        console.log('yellow')
+      }
+      function red () {
+        console.log('red')
+      }
+
+      const light = function (timmer, cb) {
+        return new Promise( resolve => {
+          setTimeout( () => {
+            resolve()
+            cb()
+          }, timmer)
+        })
+      }
+
+      console.log('script-start')
+      function step1 () {
+        Promise.resolve().then(() => {
+          console.log(1)
+          return light(1000, green)
+        }).then(() => {
+          console.log(2)
+          return light(2000, yellow)
+        }).then(() => {
+          console.log(3)
+          return light(3000, red)
+        }).then(() => {
+          step1()
+        })
+      }
+      // step1()
+
+      async function step2 () {
+        await light(1000, green)
+        await light(2000, yellow)
+        await light(3000, red)
+        step2()
+      }
+      // step2()
+
+      function cell () {
+        light(1000, green)
+        light(3000, yellow)
+        light(6000, red)
+      }
+      function step3 () {
+        cell()
+        setInterval(() => {
+          cell()
+        },6000)
+      }
+      step3()
+      console.log('script-end')
+
+    },
+    
+    // then方法接受的参数是函数，而如果传递的并非是一个函数，它实际上会将其解释为then(null)，这就会导致前一个Promise的结果会传递下面。
+    task7 () {
+      Promise.resolve(1)
+        .then(console.log) // 1
+        .then((res) => {
+          console.log('res1',res) // res1 undefined，上面的console.log是一个方法，但没有返回值，所以这里为undefined
+          return 2
+        })
+        .then(3)
+        .then('3')
+        .then((res) => {
+          console.log('res2',res) // res2 2，上面的3不是一个方法，所以返回上一个合法then的结果
+          // return res
+          return Promise.resolve(4)
+        })
+        .then(Promise.resolve(5))
+        .then(console.log) // 4，上面的Promise.resolve(5)不是一个方法，所以返回上一个合法then的结果
     }
 
   }

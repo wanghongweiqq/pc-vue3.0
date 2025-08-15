@@ -1,6 +1,6 @@
-// a11
+
 import Constant from './constant'
-// a22
+
 export default {
   // a
   // 京东云图片处理:按尺寸调用和webp格式调用
@@ -388,7 +388,6 @@ export default {
       alert('当前浏览器版本不支持，请升级或使用其他浏览器')
     }
   },
-
   copyText1 (str, isShow = true) {
     try{
       let _textarea = document.createElement('textarea') // textarea相比input支持复制内容换行等
@@ -412,5 +411,58 @@ export default {
     }catch{
       alert('当前浏览器版本不支持，请升级或使用其他浏览器')
     }
-  }
+  },
+  xxx: 1,
+  // 防抖的核心方法：更简洁，功能也更强大
+  debounce (fn,delay = 2000) {
+    let timer 
+    const debounced = (...args) => {
+      timer && clearTimeout(timer)
+      timer = setTimeout(() => { 
+        fn(...args)
+      }, delay)
+    }
+    debounced.clear = () => {
+      timer && clearTimeout(timer)
+    }
+    return debounced
+  },
+  // 防抖的核心方法，适用于Options API，有点笨，需要第三个参数，这个参数要当前组件内唯一
+  debounceOptions (fn,delay = 2000,id = 'timer') {
+    let that = this
+    const debounced = (...args) => { // return是箭头函数的情况下，this指的是该文件所对应的对象（是函数声明形式的匿名函数时，this为undefined）
+      console.log('this',this)
+      that[id] && clearTimeout(that[id])
+      that[id] = setTimeout( () => {
+        fn.apply(this,args)
+        // fn(...args)
+      }, delay)
+    }
+    debounced.clear = () => {
+      that[id] && clearTimeout(that[id])
+    }
+    return debounced
+  },
+
+  throttle (fn,delay = 2000) {
+    console.log('throttle')
+    let timer
+    let isPending = false
+    const throttled = (...args) => {
+      if(!isPending) {
+        isPending = true
+        fn(...args)
+        timer = setTimeout(() => {
+          isPending = false
+        },delay )
+      }
+    }
+    throttled.clear = () => {
+      timer && clearTimeout(timer)
+      timer = null
+      isPending = false
+    }
+    return throttled
+  },
+
 }

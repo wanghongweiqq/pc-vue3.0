@@ -327,11 +327,11 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
-      <!-- <cp-seeimages
-        :image-show.sync="showImg"
+      <cp-seeimages
+        v-model:image-show="showImg"
         :image-data="imageData"
         :image-index="imageIndex"
-      /> -->
+      />
     </div>
     <div class="bottom-bar">
       <el-button
@@ -353,13 +353,13 @@
 <script>
 import utils from '@/assets/js/utils'
 import CpCrumbs from '@/components/crumbs/'
-// import CpSeeimages from '@/components/seeimages/'
+import CpSeeimages from '@/components/seeimages/'
 import ajax from '@/service/apis/demo'
 
 export default {
   components: {
     CpCrumbs,
-    // CpSeeimages
+    CpSeeimages
   },
   // mixins: [utils],
   data () {
@@ -371,7 +371,7 @@ export default {
         textNum: null,
         select: null,
       },
-      showImg: false,
+      showImg: true,
       imageIndex: 0,
       // imageData: [
       //   'http://img.yunpei.com/images/operation/156163104408985156.jpg',
@@ -411,7 +411,7 @@ export default {
     }
   },
   created () {
-    this.getList()
+    // this.getList()
   },
   methods: {
     // 大图展示

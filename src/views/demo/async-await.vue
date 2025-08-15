@@ -2,7 +2,7 @@
  * @Author: 王宏伟
  * @Email：wanghongwei@hualala.com
  * @Date: 2021-11-29 10:10:36
- * @LastEditTime: 2025-02-24 17:08:30
+ * @LastEditTime: 2025-03-21 10:05:34
  * @LastEditors: Please set LastEditors
  * @Description: async-await
  * @FilePath: /vue3.0/src/views/demo/async-await.vue
@@ -35,8 +35,10 @@
               console.log(`step2=${ step2 }`) // step2=step2，step1执行完后再等待1秒后执行
               const step3 = await 'step3'
               console.log(`step3=${ step3 }`) // step3=step3，等待step2执行完后立即执行
+              const res = `${ step1 }-${ step2 }-${ step3 }`
+              return res
             }
-            asyFun().then((res) => {
+            asyFun().then((res) => { //如果asyFun方法最后没有return res，这里then方法中的参数res为undefined
               console.log(`res=${ res }`) // res=step1-step2-step3
             })
           }
@@ -207,15 +209,16 @@ export default {
     }
   },
   mounted () {
-    // this.test1()
+    this.test1()
     // this.test2()
     // this.test3()
-    this.test4(1,2)
+    // this.test4(1,2)
   },
   methods: {
     // await的值含有Promise，会按照同步顺序等待后执行
     test1 () {
-      const x = function () { return 'step1' }
+      // const x = function () { return 'step1' }
+      function x () { return 'step1' }
       const y = new Promise((resolve) => {
         setTimeout(function () {
           resolve('step2')
@@ -232,7 +235,7 @@ export default {
         const res = `${ step1 }-${ step2 }-${ step3 }`
         return res
       }
-      asyFun().then((res) => {
+      asyFun().then((res) => { // 如果asyFun方法最后没有return res，这里then方法中的参数res为undefined
         console.log(`res=${ res }`)// res=step1-step2-step3
       })
     },

@@ -4,6 +4,31 @@
       <cp-crumbs />
       <div class="content">
         <h2>CSS Flex 弹性布局</h2>
+        <p>默认值：flex-grow:0 有剩余空间也不扩展；flex-shink:1 空间不足时被压缩； flex-basis:auto  初始大小为auto</p>
+        <p>flex:1 为flex-grow:1; flex-shink:1; flex-basis:0%的缩写</p>
+        <p>flex-basis/width 都可以设置初始宽度，但flex-basis的权重更高</p>
+        <div class="flex-test-1">
+          <div class="flex1">
+            flex1
+          </div>
+          <div class="flex-grow-1">
+            flex-grow-1
+          </div>
+          <div class="flex1">
+            flex1
+          </div>
+        </div>
+        <div class="flex-test-1">
+          <em class="flex-grow-1">
+            flex-grow-1
+          </em>
+          <span class="flex1">
+            flex1
+          </span>
+          <em class="flex-grow-1">
+            flex-grow-1
+          </em>
+        </div>
         <div class="flex">
           <span>1</span>
           <p>
@@ -132,27 +157,80 @@ export default {
     //   console.log('父组件')
     //   console.log(val)
     // })
+    let a = [1,3,5],b = [2,4,6]
+    function sortFun (a,b) {
+      console.log('sortFun',a,b)
+      // if(a.length === 0 ) { return b }
+      // if(b.length === 0 ) { return a }
+      let arr = []
+      if(a[0] >= b[0]) {
+        arr.push(b[0])
+        b.splice(0,1)
+      }else{
+        arr.push(a[0])
+        a.splice(0,1)
+      }
+      if(a.length === 0 ) { 
+        arr = arr.concat(b) 
+      } else if(b.length === 0 ) {
+        arr = arr.concat(a) 
+      } else{
+        const c = sortFun(a,b)
+        arr = arr.concat(c)
+      }
+      return arr
+    }
+    const d = sortFun(a,b) 
+    console.log(d)
   },
 }
 </script>
 <style lang="scss">
 .pg-css {
-  color: #fff;
-
   h2 {
     color: #000;
   }
 
+  .flex-test-1 {
+    box-sizing: border-box;
+    display: flex;
+    width: 300px;
+    color: #000;
+    // border: 1px solid #ff6100;
+
+    >* {
+      box-sizing: border-box;
+      // overflow: hidden;
+      border: 1px solid #aaa;
+    }
+
+    .flex1 {
+      flex: 1;
+      flex-basis: 100px;
+      // flex-basis: auto;
+      // flex-shrink: 0;
+      // width: 100px;
+    }
+
+    .flex-grow-1 {
+      flex-basis: 100px; //flex-basis/width 都可以设置初始宽度，但flex-basis的权重更高
+      flex-grow: 1;
+    }
+  }
+
   .flex {
     display: flex;
+    color: #fff;
     border: 2px solid #000;
     // justify-content: space-between;
     &.flex-center {
-      align-items: center;
+      align-items: normal;
     }
 
     span {
+      // flex-shrink: 0;
       width: 100px;
+      height: 100px;
       background: purple;
     }
 
@@ -161,6 +239,7 @@ export default {
       flex: 1;
       flex-direction: column;
       justify-content: space-between;
+      padding: 0;
       background: blue;
 
       em {
@@ -173,15 +252,24 @@ export default {
     }
 
     font {
+      // flex-shrink: 0;
       width: 100px;
-      height: 100px;
       background: red;
+    }
+
+    .flex1 {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      background-color: gray;
     }
   }
 
   .poem {
     flex-direction: row-reverse;
+    // align-items: flex-end;
     height: 200px;
+    color: #fff;
     background-image: linear-gradient(#666, #999);
 
     li {
@@ -191,6 +279,8 @@ export default {
   }
 
   .grid {
+    color: #fff;
+
     .container {
       display: inline-grid;
       // grid-template-columns:repeat(auto-fill,500px);

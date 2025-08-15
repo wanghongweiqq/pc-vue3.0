@@ -1,8 +1,16 @@
+/*
+ * @Author: 王宏伟
+ * @Email：wanghongwei@hualala.com
+ * @Date: 2021-05-06 10:53:45
+ * @Description: 页面/组件/功能的描述
+ * @FilePath: /vue3.0/src/router/index.js
+ */
 import { createRouter, createWebHistory } from 'vue-router'
 // import Home from '../views/Home.vue'
 import common from './routes/common'
 import demo from './routes/demo'
 import demo1 from './routes/demo1'
+import alone from './routes/alone'
 
 // const routes = [
 //   {
@@ -26,7 +34,8 @@ const router = createRouter({
   routes: [
     common,
     demo,
-    demo1
+    demo1,
+    alone,
   ]
 })
 router.beforeEach((to,from,next) => {

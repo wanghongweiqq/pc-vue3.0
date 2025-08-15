@@ -1,3 +1,10 @@
+<!--
+ * @Author: 王宏伟
+ * @Email：wanghongwei@hualala.com
+ * @Date: 2021-05-06 10:53:45
+ * @Description: 页面/组件/功能的描述
+ * @FilePath: /vue3.0/src/components/seeimages/index.vue
+-->
 <template>
   <div
     v-if="showpImg"
@@ -78,17 +85,20 @@ export default {
   },
 
   watch: {
-    imageShow (val) {
-      this.showpImg = val
-    }
+    imageShow: {
+      handler (val) {
+        this.showpImg = val
+      },
+      immediate: true
+    } 
   },
+
   methods: {
     // 关闭
     popClose () {
       if(this.imageClose) {
         this.$emit('imageClose')
       }else{
-        this.showpImg = false
         this.$emit('update:imageShow', false)
       }
     },
@@ -126,7 +136,7 @@ export default {
 </script>
 
 <style lang="scss">
-.cp-seeimages{
+.cp-seeimages {
   position: fixed;
   top: 0;
   left: 0;
@@ -134,67 +144,79 @@ export default {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  .image-list{
+
+  .image-list {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    li{
+
+    li {
+      display: none;
       max-width: 80%;
       max-height: 80%;
       overflow: auto;
-      display: none;
-      img{
+
+      img {
         display: block;
         margin: auto;
       }
-      span{
+
+      span {
         position: absolute;
-        top:5%;
-        left:50%;
+        top: 5%;
+        left: 50%;
+        font-size: 18px;
+        color: #fff;
         transform: translate(-50%, -50%);
-        font-size:18px;
-        color: #ffffff;
       }
-      &.image-active{
+
+      &.image-active {
         display: block;
       }
     }
   }
-  .el-icon-close{
+
+  .el-icon-close {
     position: absolute;
     top: 25px;
     right: 25px;
-    font-size:40px;
-    color: #ffffff;
+    font-size: 40px;
+    color: #fff;
     cursor: pointer;
   }
-  .el-icon-arrow-left,.el-icon-arrow-right{
+
+  .el-icon-arrow-left,
+  .el-icon-arrow-right {
     position: absolute;
     top: 50%;
-    font-size:50px;
-    color: #ffffff;
+    font-size: 50px;
+    color: #fff;
     cursor: pointer;
-    &.el-icon-arrow-left{
-      left:5%;
-      transform: translate(-50%,-50%);
+
+    &.el-icon-arrow-left {
+      left: 5%;
+      transform: translate(-50%, -50%);
     }
-    &.el-icon-arrow-right{
-      right:5%;
-      transform: translate(50%,-50%);
+
+    &.el-icon-arrow-right {
+      right: 5%;
+      transform: translate(50%, -50%);
     }
   }
-  .image-handle{
+
+  .image-handle {
     position: absolute;
     bottom: 5%;
     left: 50%;
-    transform: translate(-50%,50%);
-    font-size:30px;
-    color: #ffffff;
-    i{
-      margin:0 20px
+    font-size: 30px;
+    color: #fff;
+    transform: translate(-50%, 50%);
+
+    i {
+      margin: 0 20px;
     }
   }
 }
