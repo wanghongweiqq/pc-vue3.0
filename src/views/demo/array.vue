@@ -12,6 +12,7 @@
       <h2>返回新数组的方法</h2>
       <p>最新返回新数组的方法：toSorted / toReversed / toSpliced / with</p>
       <p>老方法有：filter / map / concat / 解构</p>
+      <p>with(index, value) 替换数组中指定索引位置的元素，并返回一个包含此更改的新数组，index支持负数，一次只能替换一个值。</p>
       <pre>
 const array1 = [2,5,41,11,8,3]
 const array2 = array1.toSorted((a,b) => a - b)
@@ -26,8 +27,8 @@ const array5 = array1.with(0,'a')
       <p>主要是比较：for循环、for of、forEach</p>
       <pre>
 let arr = [1,2,3,4]
-// 数组用for of循环支持动态改变，i会一直按索引递增的形式遍历，不会说数组改变从第1个重新循环，也不会记住之前的数据而只按之前的数据遍历
-for(let i = 0; i < arr.length; i++) {
+// 数组用for of循环支持动态改变，i会一直按索引递增的形式遍历，不会说数组改变从第1个重新循环，i上限是新数组的长度，i对应的内容也是按最新的数据项
+for(let i = 0; i &lt; arr.length; i++) {
   console.log('arr',arr,arr.length)
   console.log('数组索引:',i, ' 值:',arr[i])
   // if(arr[i] === 4) { arr.push(4) }
@@ -41,13 +42,15 @@ for(let [i,item] of arr.entries()) {
   if(item === 4) { arr.unshift(7) }
   if(arr.length > 10) break
 }
-// 数组用forEach循环不会动态改变，只会按初始状态执行，先拿到数组长度，然后这个值就不会改变，即使后面数组动态添加了也不会改变循环的次数
+// 数组用forEach循环不会动态改变，i只会按初始状态执行，先拿到数组长度，然后这个值就不会改变，即使后面数组动态添加了也不会改变循环的次数，但i对应的内容是按最新的数据项
 arr.forEach((item,i) => {
   console.log('arr',arr,arr.length)
   console.log(i,item)
   // if(item === 4) { arr.push(4) }
-  if(item === 4) { arr.unshift(7) }
-}) 
+  // if(item === 4) { arr.unshift(7) }
+  if(item === 1) { arr.splice(1,0,1) }
+
+})
 console.log('最终arr',arr,arr.length)
 </pre>
     </div>
@@ -77,9 +80,9 @@ const arrayChange = () => {
 // 循环中动态改变数组，for循环类似于for of，forEach
 const arrayLoop = () => {
   let arr = [1,2,3,4]
-  // 数组用for of循环支持动态改变，i会一直按索引递增的形式遍历，不会说数组改变从第1个重新循环，也不会记住之前的数据而只按之前的数据遍历
+  // 数组用for of循环支持动态改变，i会一直按索引递增的形式遍历，不会说数组改变从第1个重新循环，i上限是新数组的长度，i对应的内容也是按最新的数据项
   // for(let i = 0; i < arr.length; i++) {
-  //   console.log('arr',arr,arr.length)
+  //   console.log('arr-for',arr,arr.length)
   //   console.log('数组索引:',i, ' 值:',arr[i])
   //   // if(arr[i] === 4) { arr.push(4) }
   //   if(arr[i] === 4) { arr.unshift(7) }
@@ -92,13 +95,14 @@ const arrayLoop = () => {
   //   if(item === 4) { arr.unshift(7) }
   //   if(arr.length > 10) break
   // }
-  // 数组用forEach循环不会动态改变，只会按初始状态执行，先拿到数组长度，然后这个值就不会改变，即使后面数组动态添加了也不会改变循环的次数
+  // 数组用forEach循环不会动态改变，i只会按初始状态执行，先拿到数组长度，然后这个值就不会改变，即使后面数组动态添加了也不会改变循环的次数，但i对应的内容是按最新的数据项
   arr.forEach((item,i) => {
-    console.log('arr',arr,arr.length)
-    console.log(i,item)
+    console.log('arr-forEach',arr,arr.length)
+    console.log('数组索引:',i, ' 值:',item)
     // if(item === 4) { arr.push(4) }
-    if(item === 4) { arr.unshift(7) }
-  }) 
+    // if(item === 4) { arr.unshift(7) }
+    if(item === 1) { arr.splice(1,0,1) }
+  })
   console.log('最终arr',arr,arr.length)
 }
 

@@ -7,9 +7,6 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
