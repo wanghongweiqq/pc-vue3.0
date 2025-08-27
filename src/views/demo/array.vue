@@ -2,12 +2,56 @@
  * @Author: 王宏伟
  * @Email：wanghongwei@hualala.com
  * @Date: 2025-04-10 16:49:57
- * @Description: 任务安排，支持链式调用
+ * @Description: 数组的操作
  * @FilePath: /vue3.0/src/views/demo/array.vue
 -->
 <template>
   <div class="pg-array">
     <CpCrumbs />
+
+    <div class="content">
+      <h2>创建数组的方法</h2>
+      <h3>new Array(n, ……)</h3>
+      <p>n为单数字参数时创建指定长度的空数组（可能引发歧义）。该空数组称为稀疏数组，会导致相应项在数组的遍历方法中map、for循环不进行</p>
+      <p>n为多参数时，参数作为数组元素。</p>
+      <p>Array静态方法fill，可以用来填充元素：new Array(3).fill(1)</p>
+      <pre>
+let arr0 = new Array(3) //[空属性 × 3]
+let arr1 = new Array(1,2,3) //[1, 2, 3]
+let arr2 = new Array(3).fill(1) // [1, 1, 1]
+</pre>
+      <p>在JavaScript中，稀疏数组（Sparse Array）是指包含空位（empty slots）的数组，这些空位既不是undefined也不是null，而是未被赋值的索引位置。稀疏数组在使用map()和for循环时可能引发一些意料之外的行为</p>
+      <h4>空位与undefined的区别</h4>
+      <p>空位是未被初始化的索引（如new Array(3)生成[empty × 3]），而显式赋值为undefined的数组是密集数组（如[undefined, undefined, undefined]）。</p>
+      <p>空位在遍历时可能被跳过，而undefined会被视为有效值处理。</p>
+      <h4>性能影响</h4>
+      <p>稀疏数组因空位需要额外判断，遍历速度通常比密集数组慢，尤其在大型数组中更明显</p>
+      <p>
+        <el-button
+          size="small"
+          type="primary"
+          @click="testSparseArray"
+        >
+          稀疏数组的遍历
+        </el-button>
+      </p>
+      <h3>Array.from( )（ES6引入）</h3>
+      <p>将类数组对象（如字符串、arguments）或可迭代对象（如 Set）转换为数组，支持映射函数处理元素</p>
+      <pre>
+let arr0 = Array.from({ length: 3 },() => 2) // [2, 2, 2] 没有第二个参数时，值为undefined，不会像稀疏数组那样影响循环遍历
+let arr1 = Array.from('hello'); // ['h', 'e', 'l', 'l', 'o']
+let arr2 = Array.from([1, 2, 3], x => x * 2); // [2, 4, 6]
+</pre>
+
+      <h3>Array.of( )（ES6引入）</h3>
+      <p>所有参数均作为数组元素，解决new Array(n)的歧义</p>
+      <pre>let arr = Array.of(5); // [5]，而非长度为5的空数组</pre>
+
+      <h3>其他形式 </h3>
+      <p>数组字面量，简洁且性能最佳，各元素已知的情况下最常用：let arr = [1, 2, 3]; </p>
+      <p>扩展运算符：let arr2 = [...[1, 2], 3]; // [1, 2, 3] </p>
+    </div>
+
     <div class="content">
       <h2>返回新数组的方法</h2>
       <p>最新返回新数组的方法：toSorted / toReversed / toSpliced / with</p>
