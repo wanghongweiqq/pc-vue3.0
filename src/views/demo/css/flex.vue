@@ -4,6 +4,35 @@
     <p>默认值：flex-grow:0 有剩余空间也不扩展；flex-shink:1 空间不足时被压缩； flex-basis:auto  初始大小为auto</p>
     <p>flex:1 为flex-grow:1; flex-shink:1; flex-basis:0%的缩写</p>
     <p>flex-basis/width 都可以设置初始宽度，但flex-basis的权重更高</p>
+
+    <h3>flex-grow:1与flex:1的不同</h3>
+    <p>它们最本质的区别在于 flex-basis 的默认值不同：</p>
+    <p>1、flex: 1等价于 flex: 1 1 0%。这里的 flex-basis: 0%意味着元素的初始大小被设置为0。因此，容器的全部空间都被视为“剩余空间”，然后由 flex-grow按比例分配。这通常会使元素更容易地均分容器的宽度。</p>
+    <p>2、单独设置flex-grow: 1时，flex-basis的默认值是auto。这意味着元素的初始大小由其内容或宽度属性决定。浏览器会先为所有元素分配其内容所需的空间，然后再将容器中真正的剩余空间按flex-grow指定的比例进行分配。</p>
+
+    <h3>如何选择</h3>
+    <p>当你希望多个子元素忽略自身内容，完全均分容器的总宽度时，使用 flex: 1。这是实现等分布局的常见写法。</p>
+    <p>当你希望多个子元素在保持自身内容宽度的基础上，再按比例分配剩余的空白空间时，使用 flex-grow: 1（并确保其他收缩和基准属性符合你的需求）。</p>
+
+    <h3>下面为相关示例</h3>
+    <p>下面用来获取相关字符串宽度，总宽度400，中间被flex-grow:1撑开，量的：flex-grow-1=72； flex-1=35</p>
+    <div class="flex-test-1">
+      <div>
+        flex-grow-1
+      </div>
+      <div class="flex-grow-1">
+        我被撑开，方便取两边字段的宽度
+      </div>
+      <div>
+        flex-1
+      </div>
+    </div>
+
+    <h4>示例1、只有中间为单独的flex-grow，所以：</h4>
+    <p>1、剩余空间 = 总宽度400 - 中间默认auto宽度72 = 328</p>
+    <p>2、每份空间 = 剩余空间328 / 3 = 109</p>
+    <p>3、flex1宽度 = 0 + 109= 109</p>
+    <p>4、flex-grow-1宽度 = 72 + 109= 181</p>
     <div class="flex-test-1">
       <div class="flex1">
         flex1
@@ -15,182 +44,109 @@
         flex1
       </div>
     </div>
+
+    <h4>示例2、两边都为flex-grow，所以：</h4>
+    <p>1、剩余空间 = 总宽度400 - 两边默认auto宽度72 *2 = 256</p>
+    <p>2、每份空间 = 剩余空间256 / 3 = 85</p>
+    <p>3、flex1宽度 = 0 + 85= 85</p>
+    <p>4、flex-grow-1宽度 = 72 + 85= 157</p>
     <div class="flex-test-1">
-      <em class="flex-grow-1">
+      <span class="flex-grow-1">
         flex-grow-1
-      </em>
+      </span>
       <span class="flex1">
         flex1
       </span>
-      <em class="flex-grow-1">
+      <span class="flex-grow-1">
         flex-grow-1
-      </em>
+      </span>
     </div>
-    <div class="flex">
-      <span>1</span>
+
+    <h3>align-items: stretch(默认值) | flex-start | flex-end | center | baseline ; 属性定义项目在交叉轴上如何对齐。</h3>
+    <h4>align-items: stretch; 默认值。项目被拉伸以填满容器的高度。</h4>
+    <div class="flex-test-2">
+      <span>宽高全部100</span>
       <p>
-        <em>align-items不设置值时默认每个item的高度是父级高度的100%</em>
-        <i>3</i>
+        <b>这里是一个flex-direction: column;的布局</b>
+        <i>justify-content: space-between;</i>
       </p>
-      <font>1</font>
+      <span>宽100</span>
     </div>
-    <div class="flex flex-center marginTop20">
-      <span>1</span>
+    <h4>align-items: center; 会导致item的高度不是父级高度的100%，因为只有这样才能让其在从轴方向居中，设置其他值时也是这样(normal除外)</h4>
+    <div class="flex-test-2 flex-center">
+      <span>宽高全部100</span>
       <p>
-        <em>align-items: center; 会导致item的高度不是父级高度的100%，因为只有这样才能让其在从轴方向居中，设置其他值时也是这样(normal除外)</em>
-        <i>3</i>
+        <b>这里是一个flex-direction: column;的布局</b>
+        <i>justify-content: space-between;</i>
       </p>
-      <font>1</font>
+      <span>宽100</span>
     </div>
-    <ul class="flex poem marginTop20">
+
+    <h4>古诗词的从右到左，从上到下展示</h4>
+    <ul class="flex-test-3">
       <li>床前明月光</li>
       <li>疑是地上霜</li>
       <li>举头望明月</li>
       <li>低头思故乡</li>
     </ul>
-    <h2>CSS Grid 网格布局</h2>
-    <div class="grid marginTop20">
-      <div class="container">
-        <div class="item item-1">
-          1
-        </div>
-        <div class="item item-2">
-          2
-        </div>
-        <div class="item item-3">
-          3
-        </div>
-        <div class="item item-4">
-          4
-        </div>
-        <div class="item item-5">
-          5
-        </div>
-        <div class="item item-6">
-          6
-        </div>
-        <div class="item item-7">
-          7
-        </div>
-        <div class="item item-8">
-          8
-        </div>
-        <div class="item item-9">
-          9
-        </div>
-      </div>
-      <div class="container container-01">
-        <div class="item item-1">
-          1
-        </div>
-        <div class="item item-2">
-          2
-        </div>
-        <div class="item item-3">
-          3
-        </div>
-        <div class="item item-4">
-          4
-        </div>
-        <div class="item item-5">
-          5
-        </div>
-        <div class="item item-6">
-          6
-        </div>
-        <div class="item item-7">
-          7
-        </div>
-        <div class="item item-8">
-          8
-        </div>
-        <div class="item item-9">
-          9
-        </div>
-      </div>
-      <div class="container container-01 container-02">
-        <div class="item item-1">
-          1
-        </div>
-        <div class="item item-2">
-          2
-        </div>
-        <div class="item item-3">
-          3
-        </div>
-        <div class="item item-4">
-          4
-        </div>
-        <div class="item item-5">
-          5
-        </div>
-        <div class="item item-6">
-          6
-        </div>
-        <div class="item item-7">
-          7
-        </div>
-        <div class="item item-8">
-          8
-        </div>
-        <div class="item item-9">
-          9
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <style lang="scss">
-.pg-css {
-  h2 {
-    color: #000;
+.bcp-flex {
+  .flex1 {
+    flex: 1;
+  }
+
+  .flex-grow-1 {
+    flex-grow: 1;
   }
 
   .flex-test-1 {
     box-sizing: border-box;
     display: flex;
-    width: 300px;
+    width: 400px;
     color: #000;
-    // border: 1px solid #ff6100;
+    border: 1px solid #000;
 
-    >* {
-      box-sizing: border-box;
-      // overflow: hidden;
-      border: 1px solid #aaa;
-    }
+    $colors-map:(
+      1:red,
+      2:blue,
+      3:green,
+    );
+    $colors-key-list:map-keys($colors-map);
 
-    .flex1 {
-      flex: 1;
-      flex-basis: 100px;
-      // flex-basis: auto;
-      // flex-shrink: 0;
-      // width: 100px;
-    }
-
-    .flex-grow-1 {
-      flex-basis: 100px; //flex-basis/width 都可以设置初始宽度，但flex-basis的权重更高
-      flex-grow: 1;
+    @each $key in $colors-key-list {
+      :nth-of-type(#{$key}) {
+        background-color: rgba(map-get($colors-map, $key), 0.5);
+      }
     }
   }
 
-  .flex {
+  .flex-test-2 {
     display: flex;
+    align-items: stretch;
     color: #fff;
     border: 2px solid #000;
-    // justify-content: space-between;
+
     &.flex-center {
-      align-items: normal;
+      align-items: center;
     }
 
-    span {
-      // flex-shrink: 0;
+    >span {
       width: 100px;
-      height: 100px;
-      background: purple;
+
+      &:first-of-type {
+        height: 100px;
+        background: purple;
+      }
+
+      &:last-of-type {
+        background: red;
+      }
     }
 
-    p {
+    >p {
       display: flex;
       flex: 1;
       flex-direction: column;
@@ -198,7 +154,7 @@
       padding: 0;
       background: blue;
 
-      em {
+      b {
         background: green;
       }
 
@@ -206,109 +162,17 @@
         background: orange;
       }
     }
-
-    font {
-      // flex-shrink: 0;
-      width: 100px;
-      background: red;
-    }
-
-    .flex1 {
-      flex: 1;
-      overflow: hidden;
-      white-space: nowrap;
-      background-color: gray;
-    }
   }
 
-  .poem {
+  .flex-test-3 {
+    display: flex;
     flex-direction: row-reverse;
-    // align-items: flex-end;
-    height: 200px;
-    color: #fff;
-    background-image: linear-gradient(#666, #999);
+    height: 150px;
+    background-image: linear-gradient(#eee, #ccc);
 
     li {
       width: 20px;
       text-align: center;
-    }
-  }
-
-  .grid {
-    color: #fff;
-
-    .container {
-      display: inline-grid;
-      // grid-template-columns:repeat(auto-fill,500px);
-      grid-template-rows: repeat(3, 50px);
-      grid-template-columns: 50px 50px 50px;
-      // justify-items: start;
-      grid-auto-rows: 20px;
-      grid-column-gap: 0; //grid在最新的语法中可省略
-      // grid-template-rows: 50px 50px 50px;
-      // grid-gap: <grid-row-gap> <grid-column-gap>;
-      column-gap: 0; //grid在最新的gap相关的3个语法中可省略
-      margin-right: 50px;
-      // place-items: <align-items> <justify-items>;
-      .item {
-        padding: 0;
-        margin: 0;
-        font-size: 2em;
-        text-align: center;
-        border: 1px solid #e5e4e9;
-      }
-
-      .item-1 {
-        background-color: #ef342a;
-      }
-
-      .item-2 {
-        background-color: #f68f26;
-      }
-
-      .item-3 {
-        background-color: #4ba946;
-      }
-
-      .item-4 {
-        background-color: #0376c2;
-      }
-
-      .item-5 {
-        background-color: #c077af;
-      }
-
-      .item-6 {
-        background-color: #f8d29d;
-      }
-
-      .item-7 {
-        background-color: #149632;
-      }
-
-      .item-8 {
-        background-color: #852369;
-      }
-
-      .item-9 {
-        background-color: #ff6100;
-      }
-
-      &.container-01 {
-        .item-1 {
-          grid-column-start: 1;
-          grid-column-end: 3;
-        }
-
-        .item-2 {
-          grid-column-start: 1;
-          grid-column-end: 3;
-        }
-      }
-
-      &.container-02 {
-        grid-auto-flow: row dense;
-      }
     }
   }
 }
