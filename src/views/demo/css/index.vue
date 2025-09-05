@@ -2,8 +2,9 @@
   <div class="pg-css">
     <div class="ly-box">
       <CpCrumbs />
-      <Property />
       <Flex />
+      <Baseline />
+      <Property />
     </div>
   </div>
 </template>
@@ -11,11 +12,13 @@
 import CpCrumbs from '@/components/crumbs/'
 import Flex from './flex'
 import Property from './property'
+import Baseline from './baseline'
 
 export default {
   components: {
     CpCrumbs,
     Flex,
+    Baseline,
     Property,
   },
 }

@@ -361,17 +361,17 @@ pre {
   }
 
   h2 {
-    font-size: $T-S + 6;
+    font-size: $font-size-normal + 6;
     color: $themeColorWarning;
   }
 
   h3 {
-    font-size: $T-S + 4;
+    font-size: $font-size-normal + 4;
     color: $themeColor;
   }
 
   h4 {
-    font-size: $T-S + 2;
+    font-size: $font-size-normal + 2;
     color: $themeColorSuccess;
   }
 
@@ -390,12 +390,12 @@ pre {
     td {
       padding: 10px;
       text-align: left;
-      border: 1px solid #3f3f3f;
+      border: 1px solid $color-9;
     }
 
     th {
       color: #fff;
-      background-color: #3f3f3f;
+      background-color: $color-9;
     }
   }
 }

@@ -1,3 +1,6 @@
+<!-- eslint-disable no-sparse-arrays -->
+<!-- eslint-disable no-sparse-arrays -->
+<!-- eslint-disable no-sparse-arrays -->
 <!--
  * @Author: 王宏伟
  * @Email：wanghongwei@hualala.com
@@ -98,12 +101,54 @@ arr.forEach((item,i) => {
 console.log('最终arr',arr,arr.length)
 </pre>
     </div>
+
+    <div class="content">
+      <h2>类数组</h2>
+      <h3>以下是一些常见的类数组对象：</h3>
+      <p>最新返回新数组的方法：toSorted / toReversed / toSpliced / with</p>
+
+      <div>
+        常见类数组对象
+        描述
+        是否可迭代
+        是否活的 (Live)
+        ​arguments​
+        函数内部包含所有实参的对象
+        视情况而定
+        否
+        ​NodeList​
+        如 document.querySelectorAll的返回结果
+        是
+        部分是
+        ​HTMLCollection​
+        如 document.getElementsByTagName的返回结果
+        否
+        是
+        ​String​
+        字符串
+        是
+        否
+      </div>
+    </div>
   </div>
 </template>
 <!-- eslint-disable no-unused-vars -->
 <script setup>
 import { onMounted } from 'vue'
 import CpCrumbs from '@/components/crumbs/'
+
+const testSparseArray = () => {
+  // const sparseArray = new Array(3)
+  const sparseArray = ['a', ,'c']
+  // for循环/for of处理空位，空位返回 undefined
+  for(let item of sparseArray) {
+    console.log('for of: ',item)
+  }
+  // forEach/map/filter/reduce/some等 跳过空位，空位返回值不一定
+  sparseArray.forEach((item,index) => {
+    console.log('forEach: ',index,item)
+  })
+}
 
 // 最新返回新数组的方法：toSorted / toReversed / toSpliced / with
 const arrayChange = () => {
@@ -150,9 +195,25 @@ const arrayLoop = () => {
   console.log('最终arr',arr,arr.length)
 }
 
+const ArrayLikeObject = () => {
+  function isArrayLike (obj) {
+    if (obj === null || typeof obj !== 'object') return false
+    const length = obj.length
+    return typeof length === 'number' && length >= 0 && (length === 0 || (length - 1) in obj)
+  }
+  let arrayLike = { 0: 'a', '1': 'b',b: 'x', length: 2 }
+  let string1 = 'abc'
+  console.log(string1[1])
+  console.log(isArrayLike(arrayLike))
+  const arrResult = Array.from(arrayLike)
+  console.log(arrResult)
+  console.log(Array.isArray(arrayLike)) // 输出 false
+}
+
 onMounted(() => {
-  arrayChange() // 最新返回新数组的方法
-  arrayLoop() // 数组的循环
+  // arrayChange() // 最新返回新数组的方法
+  // arrayLoop() // 数组的循环
+  ArrayLikeObject()
 })
 
 </script>

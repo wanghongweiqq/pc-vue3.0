@@ -65,6 +65,24 @@ export default {
       }
     },
     {
+      path: 'console',
+      name: 'console',
+      component: () => import('@/views/demo/console'),
+      meta: {
+        title: 'console',
+        key: 'MENU_HAWK_DEMO',
+        crumb: [
+          {
+            name: 'Demo',
+          },
+          {
+            name: 'console',
+            href: 'console'
+          },
+        ]
+      }
+    },
+    {
       path: 'array',
       name: 'array',
       component: () => import('@/views/demo/array'),
@@ -253,7 +271,7 @@ export default {
           },
         ]
       }
-    }, 
+    },
     {
       path: 'reg-exp',
       name: 'reg-exp',

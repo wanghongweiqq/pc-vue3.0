@@ -415,10 +415,10 @@ export default {
   xxx: 1,
   // 防抖的核心方法：更简洁，功能也更强大
   debounce (fn,delay = 2000) {
-    let timer 
+    let timer
     const debounced = (...args) => {
       timer && clearTimeout(timer)
-      timer = setTimeout(() => { 
+      timer = setTimeout(() => {
         fn(...args)
       }, delay)
     }
@@ -464,5 +464,8 @@ export default {
     }
     return throttled
   },
-
+  delay (duration) {
+    let start = Date.now()
+    while(Date.now() - start < duration) {}
+  }
 }
