@@ -1,7 +1,7 @@
 <template>
   <div class="bcp-baseline content">
     <h2>align-items: baseline;的说明</h2>
-    <p>padding / margin / font-size / line-height，不会影响文字之间的基线对齐，但有可能是文字整体上下移动。</p>
+    <p>padding / margin / font-size / line-height，不会影响文字之间的基线对齐(文字的下边沿对齐)，但有可能是文字整体上下移动（比如整体行高太高导致顶部空间不够时）。</p>
     <p>父元素即使设置了字体大小，但如果html中没有直接的文字，子元素不会按该字体大小对齐，这和vertical-align不同</p>
     <div class="flex-baseline">
       <!-- 字80px -->
