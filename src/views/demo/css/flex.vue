@@ -89,6 +89,27 @@
       <li>举头望明月</li>
       <li>低头思故乡</li>
     </ul>
+
+    <h3>导航标题的水平居中</h3>
+    <p>
+      还是需要获取左右的宽度，再来进行居中样式的设置，才能保证这里的内容在居中的同时还能最大限度的利用宽度并且在超出宽度时出现省略号
+    </p>
+    <p>
+      标题居中可以结合css属性text-indent，左侧有宽度，右侧没有时，可以直接取值”-左侧的宽度“，px和em都可以，超长省略号时标题自身左边不是从头开始，差之前设置的text-indent的距离，这点有些不好。
+    </p>
+    <div class="flex-nav">
+      <div class="dot-middle" />
+      <div class="left">
+        左边
+      </div>
+      <div class="center">
+        还是需要获取左右的宽度，再来进行居中样式的设置，才能保证这里的内容在居中的同时还能最大限度的利用宽度并且在超出宽度时出现省略号
+        小标题
+      </div>
+      <div class="right">
+        <!-- 右边 -->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -173,6 +194,46 @@
     li {
       width: 20px;
       text-align: center;
+    }
+  }
+
+  .flex-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // justify-content: flex-start;
+    width: 400px;
+    height: 30px;
+    border: 1px solid #999;
+
+    .dot-middle {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .center {
+      flex: 1;
+      justify-self: flex-start;
+      overflow: hidden;
+      text-align: center;
+      // text-indent: -2em;
+      text-indent: -28px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: rgba(red, 0.4);
+    }
+
+    .right {
+      // flex: 1;
+      justify-self: flex-end;
+      background: rgba(green, 0.4);
     }
   }
 }

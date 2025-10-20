@@ -85,7 +85,7 @@ throttle (fn,delay = 2000) {
 // 取消按钮
 @click="utilsSubmit.clear"
 
-const utilsSubmit = utils.throttle((...args) => { 
+const utilsSubmit = utils.throttle((...args) => {
   console.log('按钮被点击了，参数为：',...args)
 },5000)</pre>
     <p>
@@ -122,7 +122,7 @@ const onSubmit = (...args) => {
 const onSubmit2 = () => {
   console.log('按钮被点击了，不涉及到参数')
 }
-const utilsSubmit = utils.throttle((...args) => { 
+const utilsSubmit = utils.throttle((...args) => {
   console.log('按钮被点击了，参数为：',...args)
 },5000)
 </script>

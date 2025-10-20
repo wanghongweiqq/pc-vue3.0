@@ -4,11 +4,18 @@
     <p>padding / margin / font-size / line-height，不会影响文字之间的基线对齐(文字的下边沿对齐)，但有可能是文字整体上下移动（比如整体行高太高导致顶部空间不够时）。</p>
     <p>父元素即使设置了字体大小，但如果html中没有直接的文字，子元素不会按该字体大小对齐，这和vertical-align不同</p>
     <div class="flex-baseline">
+      字80px
+      <span class="text-1">11第一块文字</span>
+      <span class="text-2">22第二块文字</span>
+      <span class="text-3">33第三块文字</span>
+    </div>
+    <div class="flex-baseline">
       <!-- 字80px -->
       <span class="text-1">11第一块文字</span>
       <span class="text-2">22第二块文字</span>
       <span class="text-3">33第三块文字</span>
     </div>
+
     <h2>容器的属性</h2>
     <p>flex-direction: row | row-reverse | column | column-reverse; 属性决定主轴的方向（即项目的排列方向）</p>
     <p>flex-wrap: nowrap | wrap | wrap-reverse;一行排不下后如何换行</p>
@@ -17,11 +24,6 @@
     <p>align-items: flex-start | flex-end | center | baseline | stretch; 属性定义项目在交叉轴上如何对齐。</p>
     <p>align-content: flex-start | flex-end | center | space-between | space-around | stretch; 属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
 
-    <!-- <div class="baseline-2">
-      <span class="text-0">11第一块文字</span>
-      <span class="text-1">22第二块文字</span>
-      <span class="text-2">33第三块文字</span>
-    </div> -->
     <h2>vertical-align</h2>
     <p>首先，看官方文档给的定义：vertical-align这个是设置元素的垂直排列的.用来定义行内元素的基线相对于该元素所在行的基线的垂直对齐。</p>
     <p>它的值比较多：baseline(默认值) | text-top | text-bottom | sub | super | top |  middle | bottom | inherit</p>
@@ -89,27 +91,32 @@
     display: flex;
     // align-items: center;
     align-items: baseline;
-    height: 100px;
+    height: 120px;
     font-size: 80px;
-    color: #fff;
     border: 1px solid red;
 
+    >span {
+      color: #fff;
+    }
+
     .text-1 {
-      padding-top: 10px;
+      padding-top: 20px;
       // margin-top: 20px;
       font-size: 14px;
       // line-height: 42px;
-      background: rgba(green, 0.6);
+      background: rgba(green, 1);
     }
 
     .text-2 {
+      padding-bottom: 20px;
       font-size: 20px;
-      background: rgba(red, 0.6);
+      background: rgba(red, 1);
     }
 
     .text-3 {
+      margin-top: 20px;
       font-size: 30px;
-      background: rgba(blue, 0.6);
+      background: rgba(blue, 1);
     }
   }
 
