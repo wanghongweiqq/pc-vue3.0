@@ -46,7 +46,7 @@ function demoA1 () {
     a = 4
     console.log(4, a) // 4 4
   }
-  console.log(5, a) // 5 2
+  console.log(5, a) // 5 2-非严格模式/0-严格模式
 }
 
 // 经典案例-严格模式下
@@ -134,7 +134,7 @@ function demoC2 () {
 }
 
 onMounted(() => {
-  // demoA1()
+  demoA1()
   // demoA2()
   // demoA3()
   // demoB1()
