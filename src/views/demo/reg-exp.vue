@@ -8,7 +8,7 @@
         <table class="table">
           <tbody>
             <tr>
-              <th>
+              <th width="150">
                 方法
               </th>
               <th>描述</th>
@@ -24,31 +24,92 @@
             </tr>
           </tbody>
         </table>
+
+        <h3>修饰符 <small>修饰符用于执行不区分大小写和全局的搜索</small></h3>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th width="100">
+                修饰符
+              </th>
+              <th>描述</th>
+            </tr>
+
+            <tr>
+              <td>g</td>
+              <td>执行全局匹配（查找所有匹配而不是在第一个匹配后停止）。</td>
+            </tr>
+            <tr>
+              <td>i</td>
+              <td>执行不区分大小写的匹配，不写i时是区分大小写的匹配规则。</td>
+            </tr>
+            <tr>
+              <td>d</td>
+              <td>执行子字符串匹配。</td>
+            </tr>
+            <tr>
+              <td>m</td>
+              <td>执行多行匹配。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>括号 <small>括号用于查找某个范围内的字符</small></h3>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th width="100">
+                表达式
+              </th>
+              <th>描述</th>
+            </tr>
+
+            <tr>
+              <td>[abc]</td>
+              <td>查找括号之间的任何字符</td>
+            </tr>
+            <tr>
+              <td>[^abc]</td>
+              <td>查找任何不在方括号之间的字符。</td>
+            </tr>
+            <tr>
+              <td>[0-9]</td>
+              <td>查找任何从 0 至 9 的数字。</td>
+            </tr>
+            <tr>
+              <td>[^0-9]</td>
+              <td>查找任何不在括号内的字符（任何非数字）。</td>
+            </tr>
+            <tr>
+              <td>(x|y)</td>
+              <td>查找任何指定的选项。</td>
+            </tr>
+          </tbody>
+        </table>
+
         <h3>元字符 <small>元字符是具有特殊含义的字符</small></h3>
         <table class="table">
           <tbody>
             <tr>
-              <th>
+              <th width="100">
                 元字符
               </th>
               <th>描述</th>
             </tr>
 
             <tr>
-              <td>
-                <a href="#dot">.</a>
-              </td>
-              <td>查找单个字符，除了换行符或行终止符。<small>转义字符：\n表示换行（LF），\r表示回车（CR）</small>。</td>
+              <td>.</td>
+              <td>查找单个字符，除了换行符或行终止符。转义字符：\n表示换行（LF），\r表示回车（CR）。</td>
             </tr>
 
             <tr>
               <td>\w</td>
-              <td>查找单词字符。<small>包含：a-z、A-Z、0-9，_（下划线）</small></td>
+              <td>查找单词字符。包含：a-z、A-Z、0-9，_（下划线）</td>
             </tr>
 
             <tr>
               <td>\W</td>
-              <td>查找非单词字符。<small>包含：汉字和特殊符号等</small></td>
+              <td>查找非单词字符。包含：汉字和特殊符号等</td>
             </tr>
 
             <tr>
@@ -62,137 +123,259 @@
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_whitespace.asp"
-                  title=""
-                >\s</a>
-              </td>
+              <td>\s</td>
               <td>查找空白字符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_whitespace_non.asp"
-                  title=""
-                >\S</a>
-              </td>
+              <td>\S</td>
               <td>查找非空白字符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_begin.asp"
-                  title=""
-                >\b</a>
-              </td>
-              <td>在单词的开头/结尾查找匹配项，开头如下：\bHI，结尾如下：HI\b。</td>
+              <td>\b</td>
+              <td>在单词的开头/结尾查找匹配项，开头如下：\bXX，结尾如下：XX\b。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_begin_not.asp"
-                  title=""
-                >\B</a>
-              </td>
+              <td>\B</td>
               <td>查找匹配项，但不在单词的开头/结尾处。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="/jsref/jsref_regexp_nul.asp"
-                  title=""
-                >\0</a>
-              </td>
+              <td>\0</td>
               <td>查找 NULL 字符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_newline.asp"
-                  title=""
-                >\n</a>
-              </td>
+              <td>\n</td>
               <td>查找换行符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="/jsref/jsref_regexp_formfeed.asp"
-                  title=""
-                >\f</a>
-              </td>
+              <td>\f</td>
               <td>查找换页符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="/jsref/jsref_regexp_carriagereturn.asp"
-                  title=""
-                >\r</a>
-              </td>
+              <td>\r</td>
               <td>查找回车符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="/jsref/jsref_regexp_tab.asp"
-                  title=""
-                >\t</a>
-              </td>
+              <td>\t</td>
               <td>查找制表符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="/jsref/jsref_regexp_vtab.asp"
-                  title=""
-                >\v</a>
-              </td>
+              <td>\v</td>
               <td>查找垂直制表符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_octal.asp"
-                  title=""
-                >\xxx</a>
-              </td>
+              <td>\xxx</td>
               <td>查找以八进制数 xxx 规定的字符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_hex.asp"
-                  title=""
-                >\xdd</a>
-              </td>
+              <td>\xdd</td>
               <td>查找以十六进制数 dd 规定的字符。</td>
             </tr>
 
             <tr>
-              <td>
-                <a
-                  href="jsref_regexp_unicode_hex.asp"
-                  title=""
-                >\uxxxx</a>
-              </td>
+              <td>\uxxxx</td>
               <td>查找以十六进制数 xxxx 规定的 Unicode 字符。</td>
             </tr>
           </tbody>
         </table>
+
+        <h3>量词 <small>能够实现更精准的匹配</small></h3>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th width="100">
+                量词
+              </th>
+              <th>描述</th>
+            </tr>
+
+            <tr>
+              <td>n*</td>
+              <td>匹配任何包含零个或多个 n 的字符串。n{0,}</td>
+            </tr>
+            <tr>
+              <td>n+</td>
+              <td>匹配任何包含至少一个 n 的字符串。n{1,}</td>
+            </tr>
+            <tr>
+              <td>n?</td>
+              <td>匹配任何包含零个或一个 n 的字符串。n{0,1}</td>
+            </tr>
+            <tr>
+              <td>n{X}</td>
+              <td>匹配包含 X 个 n 的序列的字符串。</td>
+            </tr>
+            <tr>
+              <td>n{X,Y}</td>
+              <td>匹配包含 X 至 Y 个 n 的序列的字符串。</td>
+            </tr>
+            <tr>
+              <td>n{X,}</td>
+              <td>匹配包含至少 X 个 n 的序列的字符串。</td>
+            </tr>
+            <tr>
+              <td>^n</td>
+              <td>匹配任何以 n 开头的字符串。</td>
+            </tr>
+            <tr>
+              <td>n$</td>
+              <td>匹配任何以 n 结尾的字符串。</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <p>断言根据位置分为先行断言( ?，字符串的右边/其后 )和后行断言( ?&lt;，字符串的左边/其前 )，根据是否等于又分为正向断言( = )和负向断言( ! )</p>
+                <p>匹配的结果都不会包含这部分，只是为了更精准的匹配想要的部分，比如：/(?&lt;=\()(.*?)(?=\))/g 匹配左边是小括号开始，右边是小括号结束的字符串，不含小括号自身。</p>
+                <p>一般会使用小括号()包起来，这时候小括号不会有捕获组的效果，在使用replace等方法涉及到捕获组的时候要特别注意。</p>
+                <p>
+                  <el-button
+                    type="primary"
+                    @click="duanyanFun"
+                  >
+                    断言示例
+                  </el-button>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>?=n</td>
+              <td>匹配任何其后紧接指定字符串 n 的字符串。也叫正向先行断言。可以简单理解为：右侧是n</td>
+            </tr>
+            <tr>
+              <td>?!n</td>
+              <td>匹配任何其后没有紧接指定字符串 n 的字符串。也叫负向先行断言。可以简单理解为：右侧不是n</td>
+            </tr>
+            <tr>
+              <td>?&lt;=n</td>
+              <td>匹配前面有指定字符串 n 的字符串。也叫正向后行断言。可以简单理解为：左侧是n</td>
+            </tr>
+            <tr>
+              <td>?&lt;!n</td>
+              <td>匹配前面没指定字符串 n 的字符串。也叫负向后行断言。可以简单理解为：左侧不是n</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>匹配策略</h3>
+        <p>正则表达式默认是贪婪匹配的，会尽可能多地匹配字符。量词*、+会尽可能匹配更长的重复序列。这通常符合我们查找连续字符的需求。</p>
+        <p>当有多个匹配条件时，前面的匹配尽可能长的字符串，同时尽量满足后面的条件（不会不留活路，前面匹配的都让后面匹配不上了，导致整体匹配失败）。'abc123$44d'.match(/(\w+)(\d)/)，发现前面捕获组匹配的'abc12',后面捕获组匹配的'3'</p>
+        <h4>.*和 .*?</h4>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>符号</th>
+              <th>别名</th>
+              <th>匹配倾向</th>
+            </tr>
+
+            <tr>
+              <td>.*</td>
+              <td>贪婪匹配、最大匹配、贪婪模式</td>
+              <td>
+                <p>尽可能多地匹配字符，直到无法匹配为止</p>
+                <p>在匹配到内容后，如果导致后续模式匹配失败，会回溯以尝试满足整体匹配</p>
+              </td>
+            </tr>
+            <tr>
+              <td>.*?</td>
+              <td>非贪婪匹配、最小匹配、懒惰模式</td>
+              <td>
+                <p>尽可能少地匹配字符，一旦满足条件就停止</p>
+                <p>在满足后续模式的最小要求后立即停止，避免过度匹配</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <p>最大匹配小括号内的内容，以第一个左小括号开始，最后一个右小括号结束的内容，结果最多匹配到一个：/(?&lt;=\()(.*)(?=\))/g</p>
+                <p>最小匹配小括号内的内容，以每一个左小括号开始，最近的一个右小括号结束的内容，结果可能匹配到多个：/(?&lt;=\()(.*?)(?=\))/g</p>
+                <p>可以点击下面按钮查看具体示例：方法containFun</p>
+                <p>
+                  <el-button
+                    type="primary"
+                    @click="containFun"
+                  >
+                    贪婪匹配
+                  </el-button>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+      <div class="content">
+        <h2>捕获组</h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th width="100">
+                名称
+              </th>
+              <th>描述</th>
+            </tr>
+            <tr>
+              <td>捕获组 (xxxx) </td>
+              <td>
+                <p>一般使用小括号括起来就会成为捕获组。</p>
+                <p>特殊情况：小括号中开头使用了量词中的断言，如：?=n、?!n等，以及小括号中开头使用了专门标识不是捕获组的?:</p>
+                <p>这个分组有两个作用：一是将多个字符视为一个整体，二是“记住”它匹配到的具体内容，以便后续引用。</p>
+                <p>捕获组可以各自独立也可互相嵌套，以先出现左小括号为顺序。示例看查看方法：characterRepeat</p>
+                <p>引用符号：$&(整个正则匹配到的完整文本)、$1(第一个捕获组)、……。</p>
+                <p>引用示例：'Hello Word!'.replace(/(Hello).*(Word)/g,'$2 $1') // 引用互换$1 $2，结果为： Word Hello! </p>
+              </td>
+            </tr>
+            <tr>
+              <td>反向引用 \n</td>
+              <td>
+                <p>用在正则表达式中，匹配前面第n个捕获组捕获的字符.</p>
+                <p>\1是一种特殊的表示法，它代表第一个捕获组所匹配到的那个确切的字符。注意，\1必须与捕获组配合使用，它引用的是分组匹配到的具体内容，而不是分组本身的正则模式。\2代表第二个捕获组所匹配到的那个确切的字符。</p>
+                <p>一般后面会结合量词使用：*（零个或多个）、+（一个或多个），匹配到的结果时连续的字符（*时有可能是单个字符）</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="content">
+        <h2>replace</h2>
+        <h3>replace第二个参数是方法时，参数如下：</h3>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th width="100">
+                名称
+              </th>
+              <th>描述</th>
+            </tr>
+            <tr>
+              <td>match</td>
+              <td>当前匹配到的完整字符串，能匹配到的最长的字符串。</td>
+            </tr>
+            <tr>
+              <td>p1,p2,……</td>
+              <td>各个捕获组匹配到的字符串，一个小括号是一个捕获组，有几个小括号就会有几个捕获组，也就会有几个参数。 +在小括号里和在小括号外是不一样的</td>
+            </tr>
+            <tr>
+              <td>offset</td>
+              <td>当前匹配项（也就是match）在原始字符串中的起始索引/偏移量</td>
+            </tr>
+            <tr>
+              <td>string</td>
+              <td>原始字符串</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="content">
         <h2 id="dot">
           换行操作
@@ -212,11 +395,12 @@
         <h4>2.2、使用标签：pre</h4>
         <pre class="no-style">{{ whiteSpaceString }}</pre>
 
-        <h3>把br和\n使用replace互换</h3>
+        <h3>把br使用replace换成\n</h3>
         <p class="pre-wrap">
           {{ whiteSpaceString.replace(/<br>/g,'\n') }}
         </p>
       </div>
+
       <div class="content">
         <h2>反斜杠匹配</h2>
         <p>字符串中没有\字符，因为在字符串文字中使用它时会启动转义序列。数据中如果只有1个反斜杠将无法显示也无法用正则匹配到</p>
@@ -233,7 +417,9 @@
         <table class="table">
           <tbody>
             <tr>
-              <th>名称</th>
+              <th width="300">
+                名称
+              </th>
               <th>描述</th>
             </tr>
             <tr>
@@ -312,22 +498,30 @@ export default {
   },
   data () {
     return{
-      whiteSpaceString: 'hello word!\n<br />love you!',// 含有换行符\n
+      whiteSpaceString: 'hello word!\n<br>love you!',// 含有换行符\n
       whiteSpaceString2: 'hello word!<br />love you!',// 不含换行符\n
       // eslint-disable-next-line no-useless-escape
       slashString: '数据中4个\\\\，显示为2个，数据中5个\\\\\，显示为2个，建议是偶数个，否则会有eslint的警告',
+      stringReplace: 'Y1Y2Y3Y456-MM-DD',
+
     }
   },
   mounted () {
     // alert('a\nb')
-    // this.dotFun()
-    this.slashFun()
-    // this.wFun()
+    // this.dotFun() // 单个字符
+    // this.slashFun() // 反斜杠
+    // this.wFun() // 单词字符
     // this.dFun()
     // this.containFun()
-    
+    // this.captureGroup01()
+    // this.captureGroup02()
+    // this.captureGroup03('YYYY年MM月DD日')
+    // this.characterRepeat()
+    // this.duanyanFun()
+
   },
   methods: {
+    // 单个字符
     dotFun () {
       // 查找单个字符，除了换行符或行终止符
       console.log('字符串中的换行符\\n对match有拦截作用,后面重新匹配，一共匹配到2个')
@@ -335,6 +529,8 @@ export default {
       console.log('字符串中没有\\n，一共匹配到1个')
       console.log(this.whiteSpaceString2.match(/l.+o/g))
     },
+
+    // 反斜杠
     slashFun () {
       // 两个反斜杠
       const pattern = /\\\\，/g // 字面量的写法
@@ -344,28 +540,33 @@ export default {
       console.log('slashString:\n' + this.slashString)
       console.log('pattern:\n' + pattern.toString())
       console.log('result:\n' + result)
-      console.log(pattern.test(this.slashString)) 
+      console.log(pattern.test(this.slashString))
       pattern.lastIndex = 0
-      console.log(pattern.test('\\\\，')) 
+      console.log(pattern.test('\\\\，'))
     },
+
+    // 单词字符
     wFun () {
-      const pattern1 = /\w/g 
-      const pattern2 = /\W/g 
+      const pattern1 = /\w/g
+      const pattern2 = /\W/g
       const text = '我很好，I’m fine 100%!1_2-@'
-      console.log('\\w（小w）result:\n' + text.match(pattern1))
-      console.log('\\W（大W）result:\n' + text.match(pattern2))
+      console.log('\\w（小w）result:\n', text.match(pattern1))
+      console.log('\\W（大W）result:\n', text.match(pattern2))
     },
     dFun () {
-      // \d代表的数字0-9，匹配不上有些文章说的其他国的数字，比如：罗马数字，全角数字等
+      // 在js环境中\d代表的数字0-9，二者相等，\d匹配不上有些文章说的其他国的数字，比如：罗马数字，全角数字等。可能在其他语言环境下能够匹配到，比如在许多现代引擎（如 .NET、Python 3 的默认模式）中，这个没有尝试过
       const text = '半角123，_全角４５６Ⅷ½ⅠⅡα零壹XxyzXVIILeごいち（i chi）[,\\,],^,_,`'
-      const pattern1 = /\d/g 
-      console.log('\\d result:\n' + text.match(pattern1))
+      const pattern1 = /\d/g
+      console.log('\\d result:' , text.match(pattern1))
       // 包含：a-z、A-Z、0-9，全角数字\uff10-\uff19，不含_
-      const pattern2_1 = /[\w\uff10-\uff19]/g 
-      const pattern2_2 = /[^_]/g 
-      console.log('\\w含全角数字不含下划线 result:\n' + text.match(pattern2_1).join('').match(pattern2_2))
-      const pattern3 = /[A-Z]/g 
-      console.log('\\字母 result:\n' + text.match(pattern3))
+      // /[\w\uff10-\uff19][^_]/g // 这样会查找两个字符，第一个满足前面的合集，第二个满足后面的合集
+      // /[\w\uff10-\uff19^_]/g // ^_在合集的最后边：会作为第一个合集的一部分字符，会选中含有他们的字符
+      // /[^_\w\uff10-\uff19]/g // ^_在合集的最前面：选中不含方括号之间的字符
+      const pattern2_1 = /[^_\w\uff10-\uff19]/g
+      const pattern2_2 = /[^_]/g
+      console.log('\\w含全角数字不含下划线 result:\n', text.match(pattern2_1).join('').match(pattern2_2))
+      const pattern3 = /[A-Z]/g
+      console.log('\\字母 result:' , text.match(pattern3))
       console.log('1111')
       console.log('0'.charCodeAt())// 65
       console.log('9'.charCodeAt())// 90
@@ -374,12 +575,12 @@ export default {
       let str = '' // Unicode下标转字符
       let code = [] // Unicode下标10进制转16进制，添加前缀可组合成Unicode编码
       for(let i = 91; i < 97; i++) {
-        str = str + String.fromCharCode(i) + ','
+        str += String.fromCharCode(i) + ','
         code.push(i.toString(16))
       }
       console.log(str + '\n' + code)// Unicode编码， 下标：91-96，符号：[,\,],^,_,`, Unicode：5b,5c,5d,5e,5f,60
-      const pattern4_1 = /[[-`]/g 
-      const pattern4_2 = /[\u005b-\u0060]/g 
+      const pattern4_1 = /[[-`]/g // 中间的-是连接符，到的意思，不是一个具体的符号
+      const pattern4_2 = /[\u005b-\u0060]/g
       console.log('\\特殊符号91-96 result:\n' + text.match(pattern4_1))
       console.log('\\特殊符号91-96 result:\n' + text.match(pattern4_2))
 
@@ -388,34 +589,138 @@ export default {
       console.log(today.toString() + '<br />')// Tue Aug 01 2023 17:57:32 GMT+0800 (中国标准时间)
       console.log(today.toLocaleString())// 2023/8/1 17:57:45
     },
+
     containFun () {
-      const pattern1 = /\(.*?\)/g 
-      const pattern2 = /(?<=\()(.*?)(?=\))/g // ?=n或者?!n（es6支持?<=n，?<!p）可以统称为断言。?=n:匹配任何其后紧接指定字符串n的字符串，就是n前面的那个位置， ?<=n:称为后行断言，匹配n后面的位置，简单理解为以n开头。匹配的位置都不包含n、
+      const pattern0 = /\(.*\)/g // .* 贪婪模式，最大匹配
+      const pattern1 = /\(.*?\)/g // .*? 非贪婪模式，最小匹配
+      const pattern2 = /(?<=\()(.*?)(?=\))/g // 左右断言，断言的部分不在结果内
       const text = '()[]{}((小括号))[中括号]{大括号}(小括号2)[中括号2]{大括号2}'
-      console.log('包含:\n' + text.match(pattern1))
-      console.log('包含2:\n' + text.match(pattern2))
-      console.log(text.match(pattern2))
-      const cs = '1234567890'
-      const pattern3 = /((?<=\d)\d{3})+/g
-      console.log(cs.match(pattern3))
+      console.log('贪婪匹配', text.match(pattern0)) // ['()[]{}((小括号))[中括号]{大括号}(小括号2)']
+      console.log('非贪婪匹配', text.match(pattern1)) // ['()', '((小括号)', '(小括号2)']
+      console.log('左右断言', text.match(pattern2)) // ['', '(小括号', '小括号2']
+    },
+
+    duanyanFun () {
+      const cs = '123456789'
+      const pattern3 = /((?<=\d)\d{3})+/g // 正向后行断言
+      console.log(cs.match(pattern3)) // ['234567']
+
+      const content = '帽子价格为1$，衬衫价格为1€，短裤价格1¥'
+      const pattern4 = /(\d+)(?!¥)/g // 负向先行断言
+      console.log(content.match(pattern4)) // ['1', '2'] 查找不是¥的金额
+      const pattern5 = /(\d+)([$€])/g // 正则中直接使用( ) $等符号需要使用反斜杠\转译，在方括号中可以直接使用
+      const result = content.replace(pattern5,(match,b1,b2) => { // 将非¥的数字转化为带¥的数字
+        console.log(match,b1,b2) // 1$ 1 $
+        let rate
+        switch(b2) {
+          case '$':
+            rate = 7
+            break
+          case '€':
+            rate = 8
+            break
+          default:
+            rate = 1
+        }
+        return `${ b1 * rate }¥`
+      })
+      console.log(result)
+    },
+
+    // +在小括号里，各个捕获组匹配到的字符串是：捕获组内组合成的能在原字符串中匹配到的字符串
+    captureGroup01 () {
+      this.stringReplace.replace(
+        /([YMDhms\d]+)(\d+)/g, // 这里分了两个捕获组，如果只有一个捕获组的话，match, p1的值相等
+        (match, p1, p2, offset, string) => {
+          console.log('captureGroup01 +在小括号里：')
+          console.log(match, p1, p2, offset, string) // Y1Y2Y3Y456 Y1Y2Y3Y45 6 0 Y1Y2Y3Y456-MM-DD
+          return match
+        }
+      )
+    },
+
+    // +在小括号外，各个捕获组匹配到的字符串是一个单一字符，是该捕获组的最后一个满足条件的字符。
+    captureGroup02 () {
+      this.stringReplace.replace(
+        /([YMDhms\d])+(\d)+/g,
+        (match, p1, p2, offset, string) => {
+          console.log('captureGroup01 +在小括号外：')
+          console.log(match, p1, p2, offset, string) // Y1Y2Y3Y456 5 6 0 Y1Y2Y3Y456-MM-DD
+          return match
+        }
+      )
+    },
+
+    // 如果正则表达式的内容需要其他方法转化而来，无法直接通过字面量实现，这时只能使用构造函数形式
+    // 正则的字面量形式：/([YMDhmsl])\1*/g
+    // 正则的构造函数形式：new RegExp(`([${ timeObjKeys }])\\1*`, 'g')
+    captureGroup03  (showFormat) {
+      const date = new Date()
+      const timeObj = {
+        Y: date.getFullYear(),
+        M: date.getMonth() + 1,
+        D: date.getDate(),
+        h: date.getHours(),
+        m: date.getMinutes(),
+        s: date.getSeconds(),
+        l: date.getMilliseconds(),
+      }
+      let timeObjKeys = Object.keys(timeObj).join('')
+      const regDate = new RegExp(`([${ timeObjKeys }])\\1*`, 'g') // 字面量形式：/([YMDhmsl])\1*/g，因不支持使用变量，顾使用的够构造函数形式。最初使用正则为：/([YMDhms])+/g，当有时间节点无缝拼接时会出错，如showFormat=YYYYMMDD，就会导致三个节点只获取了日期的节点
+      const result = showFormat.replace(
+        regDate,
+        (match, key) => timeObj[key].toString().padStart(match.length, '0')
+      )
+      console.log(showFormat,result)
+      return result
+    },
+
+    characterRepeat  () {
+      const txt = 'aaabbc'
+      // .默认不匹配换行符。如果你的字符串可能包含换行符，且需要匹配，可以考虑使用[\s\S]等其他字符集
+      const reg1 = /(.)\1*/g // 匹配同一个字符连续出现>=1次(前面的元字符.代表单个字符，后面捕获组\1捕获的是和前面的元字符同样的字符，允许出现>=0次，二者相加)
+      const result1 = txt.match(reg1)
+      console.log('result1:',result1) // ['aaa', 'bb', 'c']
+
+      const reg2 = /(.)\1+/g // 匹配同一个字符连续出现>=2次，不允许单个字符出现(前面的元字符.代表单个字符，后面最少连续出现1次，加一起是最少两次)
+      const result2 = txt.match(reg2)
+      console.log('result2:',result2) // ['aaa', 'bb']
+
+      const reg3 = /(.)\1{1,}/g // 连续出现两次的字符，效果等同于\1+
+      const result3 = txt.match(reg3)
+      console.log('result3:',result3) // ['aaa', 'bb']
+
+      const reg4 = /(.)\1{1}/g // 连续出现两次的字符，同一个字符连续出现更多次的时候，后面可以继续重新算
+      const result4 = txt.match(reg4)
+      console.log('result4:',result4) // ['aa', 'bb'] 如果有四个连续的a，结果为:['aa', 'aa', 'bb']
+
+      // 只是简单的统计，没啥实际意义，后面如果又出现了相同的(letter)，结果会被不断覆盖
+      const obj = {}
+      txt.replace(reg1,(match,letter) => {
+        obj[letter] = match.length
+      })
+      console.log('txt字符连续次数为：',obj) // txt字符连续次数为： {a: 3, b: 2, c: 1}
+
+      // 连续字符压缩，通过捕获组的
+      const noRepeatTxt = txt.replace(reg1,'$1') // 可以使用$&、$1……
+      console.log('txt压缩掉重复的字符后，结果为：',noRepeatTxt) // txt压缩掉重复的字符后，结果为：abc
+
+      // 引用互换$1 $2
+      const yinYONG = 'Hello Word!'.replace(/(Hello).*(Word)/g,'$2 $1')
+      console.log('引用互换$1 $2，结果为：',yinYONG) // 引用互换$1 $2，结果为： Word Hello!
+
+      // 多个捕获组结合反向引用共用
+      const regGroups = /((.)\2+)\1+/g // 捕获组2捕获的是单个字符连续>=1次，捕获组1捕获的是（单个字符连续>=2次）的>=1次，加一起的意思是两个连续字符的>=2次的重复，即单个字符连续重复2*n(n>=2)次
+      const resultGroups = 'aaaabbbcc'.match(regGroups)
+      console.log('resultGroups:',resultGroups) // ['aaaa']
+
     }
+
   }
 }
 </script>
 <style lang="scss">
 .pg-reg-exp {
-  h3 {
-    padding-left: 10px;
-    margin: 10px 0 5px 0;
-    // background-color: rgba($themeColor, 0.1);
-    border-left: 5px solid $themeColor;
-  }
-
-  h4 {
-    padding-top: 10px;
-    font-weight: bold;
-  }
-
   .pre-wrap {
     white-space: pre-wrap;
   }
@@ -424,12 +729,6 @@ export default {
     padding: 5px 0;
     font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
     background-color: transparent;
-  }
-
-  .table {
-    small {
-      color: $themeColorInfo;
-    }
   }
 }
 </style>

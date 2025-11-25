@@ -262,37 +262,32 @@ export default {
    * 字符串格式：'2020/01/01 12:00:00'、'2020-01-01'、'Jan 01 2020 12:00:00'、'Jan 01, 2020'
    * 数字格式（1970/01/01至今毫秒数）：1577808000000
    * 日期格式：new Date(2020,00,01,12,00,0)、new Date(字符串格式/数字格式)
-   * 2. reg：
-   * [YMDhms]的任意组合形式，但要保证位数对应，注意大小写，因为有两个m
-   * reg每个时间节点要有其他字符隔开，时间外的内容不要含这个字符集合中的字母
-   * 正确：YYYY-MM-DD hh:mm:ss、YYYY年MM月DD日、YYYYMMDD（做了特殊处理），错误：hhmmss
+   * 2. showFormat：
+   * timeObj对象中key值的字符集合：[YMDhmsl]，可以使用任意组合形式，但要保证位数对应，注意大小写，因为有两个m
+   * showFormat时间外的内容不要含这个字符集合中的字母
+   * 正确：YYYY-MM-DD hh:mm:ss、YYYY年MM月DD日、YYYYMMDD，错误：hello，YYYY年MM月DD日、Dh:mm:ss
 	*/
-  formatTime (date, reg = 'YYYY-MM-DD') {
+  formatTime (date, showFormat = 'YYYY-MM-DD') {
     const time = this.formatDate(date)
-    const regOriginal = reg
+    let newFormat = showFormat
     if(time === null) {
       return '- -'
     }
-    let f = {
+    const timeObj = {
       Y: time.getFullYear(),
       M: time.getMonth() + 1,
       D: time.getDate(),
       h: time.getHours(),
       m: time.getMinutes(),
-      s: time.getSeconds()
+      s: time.getSeconds(),
+      l: time.getMilliseconds(),
     }
-    if(regOriginal === 'YYYYMMDD') {
-      reg = 'YYYY MM DD'
-    }
-    let result = reg.replace(/([YMDhms])+/g, (v, i) => {
-      if (i) {
-        let val = '0' + f[i]
-        return val.slice(-v.length)
-      }
-    })
-    if(regOriginal === 'YYYYMMDD') {
-      result = result.replace(/\s/g, '')
-    }
+    let timeObjKeys = Object.keys(timeObj).join('')
+    const regDate = new RegExp(`([${ timeObjKeys }])\\1*`, 'g') // 字面量形式：/([YMDhmsl])\1*/g，因不支持使用变量，顾使用的够构造函数形式。最初使用正则为：/([YMDhms])+/g，当有时间节点无缝拼接时会出错，如YYYYMMDD
+    const result = newFormat.replace(
+      regDate,
+      (match, key) => timeObj[key].toString().padStart(match.length, '0')
+    )
     return result
   },
   // 获取本周时间,toNow默认false:从周一到周日，为true时：从周一到当前date

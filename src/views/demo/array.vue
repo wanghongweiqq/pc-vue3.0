@@ -152,17 +152,16 @@ const testSparseArray = () => {
 
 // 最新返回新数组的方法：toSorted / toReversed / toSpliced / with
 const arrayChange = () => {
-  const array1 = [2,5,41,11,8,3]
-  const array2 = array1.toSorted((a,b) => a - b)
-  const array3 = array1.toReversed()
-  const array4 = array1.toSpliced(1,1,100,'c')
-  const array5 = array1.with(0,'a')
-  console.log('arrayChange')
-  console.log(array1)
-  console.log(array2)
-  console.log(array3)
-  console.log(array4)
-  console.log(array5)
+  const array = [2,5,41,11,8,3]
+  const array1 = array.toSorted((a,b) => a - b)
+  const array2 = array.toReversed()
+  const array3 = array.toSpliced(1,1,100,'c')
+  const array4 = array.with(0,'a')
+  console.log('array =[2,5,41,11,8,3]')
+  console.log('array.toSorted((a,b) => a - b)', array1)
+  console.log('array.toReversed()', array2)
+  console.log('array.toSpliced(1,1,100,"c")', array3)
+  console.log('array.with(0,"a")', array4)
   // 老方法有：filter / map / concat / 解构
 }
 
@@ -211,9 +210,9 @@ const ArrayLikeObject = () => {
 }
 
 onMounted(() => {
-  // arrayChange() // 最新返回新数组的方法
+  arrayChange() // 最新返回新数组的方法
   // arrayLoop() // 数组的循环
-  ArrayLikeObject()
+  // ArrayLikeObject()
 })
 
 </script>

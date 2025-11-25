@@ -15,7 +15,9 @@
 
       <table class="table">
         <tr>
-          <th>类型</th>
+          <th width="100">
+            类型
+          </th>
           <th>方法名</th>
           <th>主要用途</th>
           <th>特点与示例</th>
@@ -244,10 +246,12 @@ const time = () => {
     console.timeLog('myTimer', `完成第 ${ i + 1 } 次循环后的时间。`,`sum当前值为：${ sum }`)
   }
   console.timeEnd('myTimer')
-
 }
 
 onMounted(() => {
+  // console.log = customlog
+  console.log('greenM', '1243' )
+  // console.log(time )
   // log()
   // stringify()
   // dir()
@@ -255,7 +259,7 @@ onMounted(() => {
   // clear()
   // style()
   // group()
-  time()
+  // time()
   // trace()
 })
 
