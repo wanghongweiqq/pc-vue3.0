@@ -233,7 +233,7 @@
             </tr>
             <tr>
               <td colspan="2">
-                <p>断言根据位置分为先行断言( ?，字符串的右边/其后 )和后行断言( ?&lt;，字符串的左边/其前 )，根据是否等于又分为正向断言( = )和负向断言( ! )</p>
+                <p>断言根据位置分为先行断言( ?，字符串的右边/其后 )和后行断言( ?&lt;，字符串的左边/其前 )，根据是否等于又分为正向断言( = )和负向断言( ! )。感觉用右侧肯定（右侧以什么开始）/左侧否定（左侧不是以什么开始）断言这样区分更容易</p>
                 <p>匹配的结果都不会包含这部分，只是为了更精准的匹配想要的部分，比如：/(?&lt;=\()(.*?)(?=\))/g 匹配左边是小括号开始，右边是小括号结束的字符串，不含小括号自身。</p>
                 <p>一般会使用小括号()包起来，这时候小括号不会有捕获组的效果，在使用replace等方法涉及到捕获组的时候要特别注意。</p>
                 <p>
@@ -329,15 +329,19 @@
                 <p>特殊情况：小括号中开头使用了量词中的断言，如：?=n、?!n等，以及小括号中开头使用了专门标识不是捕获组的?:</p>
                 <p>这个分组有两个作用：一是将多个字符视为一个整体，二是“记住”它匹配到的具体内容，以便后续引用。</p>
                 <p>捕获组可以各自独立也可互相嵌套，以先出现左小括号为顺序。示例看查看方法：characterRepeat</p>
-                <p>引用符号：$&(整个正则匹配到的完整文本)、$1(第一个捕获组)、……。</p>
-                <p>引用示例：'Hello Word!'.replace(/(Hello).*(Word)/g,'$2 $1') // 引用互换$1 $2，结果为： Word Hello! </p>
+                <p>匹配结果：$&(整个正则匹配到的完整文本)，严格上来说它和捕获组无关。</p>
+                <p>数字引用：以小括号出现的先后顺序划分：$1(第一个捕获组)、……。</p>
+                <p>示例：'Hello Word!'.replace(/(Hello).*(Word)/g,'$2 $1') // 引用互换$1 $2，结果为： Word Hello! </p>
+                <p>具名引用：小括号前添加具体的名称，格式为?&lt;xxx&gt;，引用的地方$&lt;xxx&gt;。</p>
+                <p>示例：'2025-11-26'.replace(/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/g,'$&lt;day&gt;/$&lt;month&gt;/$&lt;year&gt;') </p>
               </td>
             </tr>
             <tr>
-              <td>反向引用 \n</td>
+              <td>反向引用、模式内引用 \n</td>
               <td>
                 <p>用在正则表达式中，匹配前面第n个捕获组捕获的字符.</p>
-                <p>\1是一种特殊的表示法，它代表第一个捕获组所匹配到的那个确切的字符。注意，\1必须与捕获组配合使用，它引用的是分组匹配到的具体内容，而不是分组本身的正则模式。\2代表第二个捕获组所匹配到的那个确切的字符。</p>
+                <p>数字引用：\1是一种特殊的表示法，它代表第一个捕获组所匹配到的那个确切的字符。注意，\1必须与捕获组配合使用，它引用的是分组匹配到的具体内容，而不是分组本身的正则模式。\2代表第二个捕获组所匹配到的那个确切的字符。</p>
+                <p>具名引用：\k&lt;xxx&gt;</p>
                 <p>一般后面会结合量词使用：*（零个或多个）、+（一个或多个），匹配到的结果时连续的字符（*时有可能是单个字符）</p>
               </td>
             </tr>
@@ -358,11 +362,11 @@
             </tr>
             <tr>
               <td>match</td>
-              <td>当前匹配到的完整字符串，能匹配到的最长的字符串。</td>
+              <td>当前匹配到的完整字符串，能匹配到的最长的字符串（相当于$&）。</td>
             </tr>
             <tr>
               <td>p1,p2,……</td>
-              <td>各个捕获组匹配到的字符串，一个小括号是一个捕获组，有几个小括号就会有几个捕获组，也就会有几个参数。 +在小括号里和在小括号外是不一样的</td>
+              <td>各个捕获组匹配到的字符串（相当于$1, $2等），一个小括号是一个捕获组，有几个小括号就会有几个捕获组，也就会有几个参数。 +在小括号里和在小括号外是不一样的</td>
             </tr>
             <tr>
               <td>offset</td>
@@ -507,6 +511,7 @@ export default {
     }
   },
   mounted () {
+    // this.thousandsFun()
     // alert('a\nb')
     // this.dotFun() // 单个字符
     // this.slashFun() // 反斜杠
@@ -516,11 +521,57 @@ export default {
     // this.captureGroup01()
     // this.captureGroup02()
     // this.captureGroup03('YYYY年MM月DD日')
+    this.yinYong()
     // this.characterRepeat()
     // this.duanyanFun()
 
   },
   methods: {
+    // 千分位分隔符
+    thousandsFun () {
+      const num1 = '1234567890'
+      const num2 = '1234567890.1234567890'
+      const pattern1 = /\B(?=(\d{3})*$)/g //* 也可以，因为当*是0时，正好是整数的单词边界，$是必须的，否则基本每个数字后都会添加
+      const pattern2 = /\B(?=(\d{3})+$)/g
+      const thousandsStr = num1.replace(pattern1,',')
+      const thousandsStr2 = num1.replace(pattern2,',')
+
+      console.log('pattern1、pattern2能匹配整数')
+      console.log(num1,pattern1,thousandsStr)
+      console.log(num1,pattern2,thousandsStr2)
+
+      console.log('\npattern1、pattern2匹配不上带小数的')
+      console.log(num2,pattern1, num2.replace(pattern1,','))
+      console.log(num2,pattern2, num2.replace(pattern2,','))
+
+      console.log('\n能匹配带小数的')
+      const pattern3 = /\B(?=(\d{3})+(?!\d))/g
+      console.log('小数点后的数字也被分割了')
+      console.log(num2,pattern3,num2.replace(pattern3,','))
+      console.log('完美千分位正则,非单词边界法')
+      const pattern4 = /(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g
+      // (?<!\.\d*)左侧否定也就是左侧不以.123这样的格式开头，这样就排除了对小数点后的数字进行格式化
+      // \B(?=(\d{3})+……） 这是匹配主体：非单词边界，右侧以三个连续的数字为一单元，可以有一个或多个该单元，该部分……换成一个$就可以匹配整数
+      // (?!\d) 右侧不能是数字，意味着这时要不是单词边界（整数时会这样），要不是碰到了非数字字符，比如小数点.，这样才能匹配小数。如果这里使用$，那碰到含小数的情况时就直接匹配不到了，因为小数中含有.
+      console.log(num2,pattern4,num2.replace(pattern4,','))
+      console.log('其他千分位正则')
+      const pattern5 = /(?=(\B)(\d{3})+$)/g // 只能匹配整数
+      console.log(num1,pattern5,num1.replace(pattern5,','))
+      console.log('以上都是非单词边界法，\n下面是数字匹配法')
+      // patternA/patternB都可以，只是捕获到的数字不同，
+      const patternA = /\d{1,3}(?=(\d{3})+$)/g // 只能匹配整数
+      console.log(num1,patternA,num1.replace(patternA,'$&,'),num1.match(patternA)) // ['1', '234', '567']
+      // $&代表整个匹配到的子串，而 $1代表第一个捕获组匹配到的子串。
+      const patternA2 = /(\d{1,3})(?=(\d{3})+$)/g // 带有捕获组
+      console.log(num1,patternA2,num1.replace(patternA2,'$1,'),num1.match(patternA2)) // ['1', '234', '567']
+      const patternB = /\d(?=(\d{3})+$)/g // 只能匹配整数
+      console.log(num1,patternB,num1.replace(patternB,'$&,'),num1.match(patternB)) // ['1', '4', '7']
+      console.log('完美千分位正则,数字匹配法')
+      const patternC = /(?<!\.\d*)\d(?=(\d{3})+(?!\d))/g
+      console.log(num2,patternC,num2.replace(patternC,'$&,'))
+
+    },
+
     // 单个字符
     dotFun () {
       // 查找单个字符，除了换行符或行终止符
@@ -675,6 +726,21 @@ export default {
       return result
     },
 
+    yinYong () {
+      // 数字引用：互换$1 $2
+      const yinYONG = 'Hello Word!'.replace(/(Hello).*(Word)/g,'$2 $1')
+      console.log('引用互换$1 $2，结果为：',yinYONG) // 引用互换$1 $2，结果为： Word Hello!
+
+      // 具名引用
+      const date = '2025-11-26'
+      const pattern1 = /(\d{4})-(\d{2})-(\d{2})/g
+      const result1 = date.replace(pattern1,'$3/$2/$1')
+      console.log('数字引用：',date,pattern1,result1)
+      const pattern2 = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/g
+      const result2 = date.replace(pattern2,'$<day>/$<month>/$<year>')
+      console.log('具名引用：',date,pattern2,result2)
+    },
+
     characterRepeat  () {
       const txt = 'aaabbc'
       // .默认不匹配换行符。如果你的字符串可能包含换行符，且需要匹配，可以考虑使用[\s\S]等其他字符集
@@ -704,10 +770,6 @@ export default {
       // 连续字符压缩，通过捕获组的
       const noRepeatTxt = txt.replace(reg1,'$1') // 可以使用$&、$1……
       console.log('txt压缩掉重复的字符后，结果为：',noRepeatTxt) // txt压缩掉重复的字符后，结果为：abc
-
-      // 引用互换$1 $2
-      const yinYONG = 'Hello Word!'.replace(/(Hello).*(Word)/g,'$2 $1')
-      console.log('引用互换$1 $2，结果为：',yinYONG) // 引用互换$1 $2，结果为： Word Hello!
 
       // 多个捕获组结合反向引用共用
       const regGroups = /((.)\2+)\1+/g // 捕获组2捕获的是单个字符连续>=1次，捕获组1捕获的是（单个字符连续>=2次）的>=1次，加一起的意思是两个连续字符的>=2次的重复，即单个字符连续重复2*n(n>=2)次
