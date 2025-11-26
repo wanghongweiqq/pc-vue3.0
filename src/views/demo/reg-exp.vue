@@ -340,8 +340,8 @@
               <td>反向引用、模式内引用 \n</td>
               <td>
                 <p>用在正则表达式中，匹配前面第n个捕获组捕获的字符.</p>
-                <p>数字引用：\1是一种特殊的表示法，它代表第一个捕获组所匹配到的那个确切的字符。注意，\1必须与捕获组配合使用，它引用的是分组匹配到的具体内容，而不是分组本身的正则模式。\2代表第二个捕获组所匹配到的那个确切的字符。</p>
-                <p>具名引用：\k&lt;xxx&gt;</p>
+                <p>数字反向引用：\1是一种特殊的表示法，它代表第一个捕获组所匹配到的那个确切的字符。注意，\1必须与捕获组配合使用，它引用的是分组匹配到的具体内容，而不是分组本身的正则模式。\2代表第二个捕获组所匹配到的那个确切的字符。</p>
+                <p>具名反向引用：\k&lt;xxx&gt;</p>
                 <p>一般后面会结合量词使用：*（零个或多个）、+（一个或多个），匹配到的结果时连续的字符（*时有可能是单个字符）</p>
               </td>
             </tr>
@@ -739,6 +739,15 @@ export default {
       const pattern2 = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/g
       const result2 = date.replace(pattern2,'$<day>/$<month>/$<year>')
       console.log('具名引用：',date,pattern2,result2)
+
+      // 多个捕获组结合反向引
+      // 数字反向引用
+      const strA = 'aaaabbbcc'
+      const regGroups = /((.)\2+)\1+/g // 捕获组2捕获的是单个字符连续>=1次，捕获组1捕获的是（单个字符连续>=2次）的>=1次，加一起的意思是两个连续字符的>=2次的重复，即单个字符连续重复2*n(n>=2)次
+      console.log(regGroups, strA.match(regGroups)) // ['aaaa']
+      // 具名反向引用
+      const regGroups2 = /(?<double>(?<letter>.)\k<letter>+)\k<double>+/g
+      console.log(regGroups2,strA.match(regGroups2)) // ['aaaa']
     },
 
     characterRepeat  () {
@@ -770,14 +779,7 @@ export default {
       // 连续字符压缩，通过捕获组的
       const noRepeatTxt = txt.replace(reg1,'$1') // 可以使用$&、$1……
       console.log('txt压缩掉重复的字符后，结果为：',noRepeatTxt) // txt压缩掉重复的字符后，结果为：abc
-
-      // 多个捕获组结合反向引用共用
-      const regGroups = /((.)\2+)\1+/g // 捕获组2捕获的是单个字符连续>=1次，捕获组1捕获的是（单个字符连续>=2次）的>=1次，加一起的意思是两个连续字符的>=2次的重复，即单个字符连续重复2*n(n>=2)次
-      const resultGroups = 'aaaabbbcc'.match(regGroups)
-      console.log('resultGroups:',resultGroups) // ['aaaa']
-
     }
-
   }
 }
 </script>
