@@ -511,7 +511,7 @@ export default {
     }
   },
   mounted () {
-    // this.thousandsFun()
+    this.thousandsFun()
     // alert('a\nb')
     // this.dotFun() // 单个字符
     // this.slashFun() // 反斜杠
@@ -521,7 +521,7 @@ export default {
     // this.captureGroup01()
     // this.captureGroup02()
     // this.captureGroup03('YYYY年MM月DD日')
-    this.yinYong()
+    // this.yinYong()
     // this.characterRepeat()
     // this.duanyanFun()
 
@@ -531,6 +531,7 @@ export default {
     thousandsFun () {
       const num1 = '1234567890'
       const num2 = '1234567890.1234567890'
+      const num3 = 'abc123456789.1234567890'
       const pattern1 = /\B(?=(\d{3})*$)/g //* 也可以，因为当*是0时，正好是整数的单词边界，$是必须的，否则基本每个数字后都会添加
       const pattern2 = /\B(?=(\d{3})+$)/g
       const thousandsStr = num1.replace(pattern1,',')
@@ -548,12 +549,14 @@ export default {
       const pattern3 = /\B(?=(\d{3})+(?!\d))/g
       console.log('小数点后的数字也被分割了')
       console.log(num2,pattern3,num2.replace(pattern3,','))
-      console.log('完美千分位正则,非单词边界法')
-      const pattern4 = /(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g
+      console.log('千分位正则,非单词边界法，碰到前面有其他非数字字符时会不准')
+      const pattern4 = /(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g // 确认是全数字格式的字符串时可以使用该方法
+
       // (?<!\.\d*)左侧否定也就是左侧不以.123这样的格式开头，这样就排除了对小数点后的数字进行格式化
       // \B(?=(\d{3})+……） 这是匹配主体：非单词边界，右侧以三个连续的数字为一单元，可以有一个或多个该单元，该部分……换成一个$就可以匹配整数
       // (?!\d) 右侧不能是数字，意味着这时要不是单词边界（整数时会这样），要不是碰到了非数字字符，比如小数点.，这样才能匹配小数。如果这里使用$，那碰到含小数的情况时就直接匹配不到了，因为小数中含有.
       console.log(num2,pattern4,num2.replace(pattern4,','))
+      console.log(num3,pattern4,num3.replace(pattern4,',')) // 如果前面有字符就会出问题，结果为：abc,123,456,789.1,234,567,890
       console.log('其他千分位正则')
       const pattern5 = /(?=(\B)(\d{3})+$)/g // 只能匹配整数
       console.log(num1,pattern5,num1.replace(pattern5,','))

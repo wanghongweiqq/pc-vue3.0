@@ -243,7 +243,6 @@ export default {
         title: 'call',
         key: 'MENU_HAWK_DEMO',
         notvue: true
-
       }
     },
     {
@@ -252,7 +251,6 @@ export default {
         title: 'render',
         key: 'MENU_HAWK_DEMO',
         notvue: true
-
       }
     },
     {

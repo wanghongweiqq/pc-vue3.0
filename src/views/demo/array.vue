@@ -107,28 +107,54 @@ console.log('最终arr',arr,arr.length)
       <h3>以下是一些常见的类数组对象：</h3>
       <p>最新返回新数组的方法：toSorted / toReversed / toSpliced / with</p>
 
-      <div>
-        常见类数组对象
-        描述
-        是否可迭代
-        是否活的 (Live)
-        ​arguments​
-        函数内部包含所有实参的对象
-        视情况而定
-        否
-        ​NodeList​
-        如 document.querySelectorAll的返回结果
-        是
-        部分是
-        ​HTMLCollection​
-        如 document.getElementsByTagName的返回结果
-        否
-        是
-        ​String​
-        字符串
-        是
-        否
-      </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>常见类数组对象</th>
+            <th>描述</th>
+            <th>是否可迭代</th>
+            <th>是否活的 (Live)</th>
+          </tr>
+          <tr>
+            <td>arguments</td>
+            <td>函数内部包含所有实参的对象</td>
+            <td>视情况而定，一般可以</td>
+            <td>否</td>
+          </tr>
+          <tr>
+            <td>NodeList</td>
+            <td>如 document.querySelectorAll的返回结果</td>
+            <td>是</td>
+            <td>部分是</td>
+          </tr>
+          <tr>
+            <td>HTMLCollection</td>
+            <td>如 document.getElementsByTagName的返回结果</td>
+            <td>否</td>
+            <td>是</td>
+          </tr>
+          <tr>
+            <td>String</td>
+            <td>字符串</td>
+            <td>是</td>
+            <td>否</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content">
+      <h2>解构对原数据的影响</h2>
+      <pre>
+let a = { x: { l: 1 },y: 2 }
+let { x,y } = a
+// a中原来是引用类型的x，分情况讨论
+// x = { m: 2 } // 原数据a不会被改变，相当于给x重新赋值了
+x.l = 2 // 原数据a会被改变，和之前的x指向同一个存储地址
+// a中原来是基本类型的y，如何改变其值都不会影响a
+y = 3
+y = { m: 3 }
+console.log(a)</pre>
     </div>
   </div>
 </template>
@@ -209,10 +235,23 @@ const ArrayLikeObject = () => {
   console.log(Array.isArray(arrayLike)) // 输出 false
 }
 
+const jieGou = () => {
+  let a = { x: { l: 1 },y: 2 }
+  let { x,y } = a
+  // a中原来是引用类型的x，分情况讨论
+  // x = { m: 2 } // 原数据a不会被改变，相当于给x重新赋值了
+  x.l = 2 // 原数据a会被改变，和之前的x指向同一个存储地址
+  // a中原来是基本类型的y，如何改变其值都不会影响a
+  y = 3
+  y = { m: 3 }
+  console.log(a)
+}
+
 onMounted(() => {
-  arrayChange() // 最新返回新数组的方法
+  // arrayChange() // 最新返回新数组的方法
   // arrayLoop() // 数组的循环
   // ArrayLikeObject()
+  jieGou()
 })
 
 </script>
