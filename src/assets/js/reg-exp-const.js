@@ -5,7 +5,8 @@ export const regExpEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ 
 export const regExpID = /^([0-9]{18}|[0-9]{17}x)$/i // 身份证
 export const regExpName = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/ // 姓名:支持输入中英文和数字组合
 export const regExpChinese = /^[\u4e00-\u9fa5]+$/ // 中文：unicode编码，\u开头，接着是的四位16进制的字符编码
-export const regExpThousands = /\d{1,3}(?=(\d{3})+$)/g// 从右到左，3个数字为一块（千分位分隔符）
+// export const regExpThousands = /\d{1,3}(?=(\d{3})+$)/g// 从右到左，3个数字为一块（千分位分隔符）
+export const regExpThousands = /(?<!\.\d*)\d(?=(\d{3})+(?!\d))/g // 千分位分隔符，支持小数replace(regExpThousands,'$&,')。其他方法：replace(/(?<=\d)(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g,',')
 export const regExp4Word = /(.{4}\B)/g // 从左到右，4个一区分
 export const regExpNoNegativeInt = /^([1-9][0-9]*|0)$/ // 非负整数
 export const regExpFloat2 = /^([1-9][0-9]*(\.[0-9]{1,2})?|0(\.(0[1-9]|[1-9][0-9]?)))$/ // 可含两位小数的正数，不能为0/0.00

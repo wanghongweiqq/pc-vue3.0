@@ -4,10 +4,10 @@
       :class="['btn-menu',isCollapse? 'el-icon-s-unfold':'el-icon-s-fold']"
       @click="menuToggle"
     />
-    <router-link
+    <!-- <router-link
       :class="['logo',isCollapse?'logo-small':'logo-big']"
       to="/demo/index"
-    />
+    /> -->
     <el-menu
       unique-opened
       :collapse="isCollapse"

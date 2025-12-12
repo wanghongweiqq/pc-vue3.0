@@ -6,7 +6,7 @@ export default {
   regExpID: /^([0-9]{18}|[0-9]{17}x)$/i, // 身份证
   regExpName: /^[\u4e00-\u9fa5a-zA-Z0-9]+$/, // 姓名:支持输入中英文和数字组合
   regExpChinese: /^[\u4e00-\u9fa5]+$/, // 中文：unicode编码，\u开头，接着是的四位16进制的字符编码
-  regExpThousands: /(?<!\.\d*)\d(?=(\d{3})+(?!\d))/g, // 千分位分隔符，支持小数replace(regExpThousands,'$&,')。其他方法：replace(/(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g,','),碰到前面有其他非数字字符时会不准
+  regExpThousands: /(?<!\.\d*)\d(?=(\d{3})+(?!\d))/g, // 千分位分隔符，支持小数replace(regExpThousands,'$&,')。其他方法：replace(/(?<=\d)(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g,',')
   regExpNoNegativeInt: /^([1-9][0-9]*|0)$/, // 非负整数
   regExpFloat2: /^([1-9][0-9]*(\.[0-9]{1,2})?|0(\.(0[1-9]|[1-9][0-9]?)))$/, // 可含两位小数的正数，不能为0/0.00
   regExp0To1Float4: /^0\.[0-9]{1,4}$/, // 最多4位小数的0到1之间的数值，不能为0而小数位数又多的时候可以再结合Number(xxx)!==0判断

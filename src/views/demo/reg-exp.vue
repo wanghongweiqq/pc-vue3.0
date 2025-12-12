@@ -134,12 +134,12 @@
 
             <tr>
               <td>\b</td>
-              <td>在单词的开头/结尾查找匹配项，开头如下：\bXX，结尾如下：XX\b。</td>
+              <td>在单词的开头/结尾查找匹配项，这里的单词指\w，XX开头如下：\bXX，XX结尾如下：XX\b。</td>
             </tr>
 
             <tr>
               <td>\B</td>
-              <td>查找匹配项，但不在单词的开头/结尾处。</td>
+              <td>查找单词的中间，不在单词的开头/结尾处。12.34符合\B的位置是1和2中间，3和4中间，小数点的前后不属于单词中间</td>
             </tr>
 
             <tr>
@@ -236,6 +236,7 @@
                 <p>断言根据位置分为先行断言( ?，字符串的右边/其后 )和后行断言( ?&lt;，字符串的左边/其前 )，根据是否等于又分为正向断言( = )和负向断言( ! )。感觉用右侧肯定（右侧以什么开始）/左侧否定（左侧不是以什么开始）断言这样区分更容易</p>
                 <p>匹配的结果都不会包含这部分，只是为了更精准的匹配想要的部分，比如：/(?&lt;=\()(.*?)(?=\))/g 匹配左边是小括号开始，右边是小括号结束的字符串，不含小括号自身。</p>
                 <p>一般会使用小括号()包起来，这时候小括号不会有捕获组的效果，在使用replace等方法涉及到捕获组的时候要特别注意。</p>
+                <p>嵌套断言是以第一个断言后的位置来验证内层断言，右侧嵌套断断言是这样，但左侧嵌套断断言不是，可以理解为：左侧嵌套断言=打平后的平行断言，都是以非断言的位置开始，来依次验证两个断言，要同时成立则为true。</p>
                 <p>
                   <el-button
                     type="primary"
@@ -507,11 +508,16 @@ export default {
       // eslint-disable-next-line no-useless-escape
       slashString: '数据中4个\\\\，显示为2个，数据中5个\\\\\，显示为2个，建议是偶数个，否则会有eslint的警告',
       stringReplace: 'Y1Y2Y3Y456-MM-DD',
-
+      url: 'https://www.baidu.com?a=[1.1,2,"中"]&b={x:2.1}&c=3.1&a=1',
+      url1: 'https://www.baidu.com?x=1&a#b=1'
     }
   },
   mounted () {
-    this.thousandsFun()
+    this.searchToParams(this.url1)
+    // this.searchParams('a')
+    // this.searchParams('b')
+    // this.searchParams('c')
+    // this.thousandsFun()
     // alert('a\nb')
     // this.dotFun() // 单个字符
     // this.slashFun() // 反斜杠
@@ -524,42 +530,80 @@ export default {
     // this.yinYong()
     // this.characterRepeat()
     // this.duanyanFun()
+    // this.duanyanComplex()
 
   },
   methods: {
+    // url中匹配某个单一key，返回该key对应的value
+    searchParams (key) {
+      const urlEn = encodeURI(this.url) // 一般获取的都是编译以后的网址， https://www.baidu.com?a=%5B1.1,2,%22%E4%B8%AD%22%5D&b=%7Bx:2.1%7D&c=3.1
+      const urlDe = decodeURIComponent(urlEn) // 要先进行反编译，转化为最初的原格式：https://www.baidu.com?a=[1.1,2,"中"]&b={x:2.1}&c=3.1
+      const pattern = new RegExp(`(?<=[?&]${ key }=)([^&#]*)`,'g') // new RegExp(`[?&]${ key }=([^&#]*)`, 'g')
+      // 匹配不到时结果是null，正则中是g全局匹配时，可以继续执行const exec2 = pattern.exec(urlDe),返回下一个匹配到的结果
+      // ['[1.1,2,"中"]', '[1.1,2,"中"]', index: 24, input: 'https://www.baidu.com?a=[1.1,2,"中"]&b={x:2.1}&c=3.1&a=1', groups: undefined]
+      const exec = pattern.exec(urlDe)
+      console.log('exec',exec)
+      const result = exec ? exec[0] : undefined
+      return result
+    },
+
+    // url中匹配所有key，返回一个对象
+    searchToParams  (url) {
+      const str = decodeURIComponent(url || location.href)
+      const pattern = new RegExp('(?<=[?&])(?<key>[^=]+)=(?<value>[^&#]*)','g')
+      // 左侧断言也可直接使用中括号[?&]，会导致pattern.exec(str)执行后的结果中第一项值不同：含有该字符集合中的字符
+      // 第一个捕获组：([^=#]+)中#是否被排除待定（目前只排除=），如：&a#b=1 如果key集合中排除#，那这段字符串解析不出来参数，如果不排除#，解析结果为{ a#b: 1 },这个要根据实际情况来定了，其实很少会有key中含有#的情况，#号后再有=的情况就更少了
+      // 第二个捕获组：([^&#]*)中不排除#的话，链接中最后含有锚点时会作为参数值，如：&b=1#2 解析后为{ b: 1#2 },显然这样是不对的
+      // const res = str.match(pattern) // 也可使用match，然后循环遍历中用split('=')区分出key和value
+      // console.log('res',res)
+      let result = {}
+      let execRes
+      // pattern.exec(str) exec在正则是g模式下，会不断执行直到返回null
+      while( (execRes = pattern.exec(str) ) !== null) {
+      // execRes结果虽然看上去是数组，但也可以直接使用.key的形式访问index和groups，groups只有在具名捕获组时才有值，默认的数字捕获组返回undefined
+      // execRes结果[object Array]：['x=1', 'x', '1', index: 21, input: 'https://www.baidu.com?x=1&a#b=1', groups: {key: 'x', value: '1'}, length: 3 ]
+        if(result[execRes[1]]) {
+          console.log(`参数中已有属性：${ execRes[1] }：${ result[execRes[1]] }，最新值为：${ execRes[2] }`)
+        }
+        result[execRes[1]] = execRes[2]
+        console.log('execRes',execRes)
+      }
+      // console.log('result',result)
+      return result
+    },
     // 千分位分隔符
     thousandsFun () {
       const num1 = '1234567890'
       const num2 = '1234567890.1234567890'
-      const num3 = 'abc123456789.1234567890'
+      const num3 = 'abc123456789.1234567890abc1234'
+
+      console.log('以下都是非单词边界法')
       const pattern1 = /\B(?=(\d{3})*$)/g //* 也可以，因为当*是0时，正好是整数的单词边界，$是必须的，否则基本每个数字后都会添加
       const pattern2 = /\B(?=(\d{3})+$)/g
-      const thousandsStr = num1.replace(pattern1,',')
-      const thousandsStr2 = num1.replace(pattern2,',')
 
       console.log('pattern1、pattern2能匹配整数')
-      console.log(num1,pattern1,thousandsStr)
-      console.log(num1,pattern2,thousandsStr2)
+      console.log(num1,pattern1,num1.replace(pattern1,','))
+      console.log(num1,pattern2, num1.replace(pattern2,','))
+      const pattern5 = /(?=(\B)(\d{3})+$)/g // 只能匹配整数，不好理解，建议少用
+      console.log(num1,pattern5,num1.replace(pattern5,','))
 
       console.log('\npattern1、pattern2匹配不上带小数的')
       console.log(num2,pattern1, num2.replace(pattern1,','))
       console.log(num2,pattern2, num2.replace(pattern2,','))
 
-      console.log('\n能匹配带小数的')
-      const pattern3 = /\B(?=(\d{3})+(?!\d))/g
-      console.log('小数点后的数字也被分割了')
-      console.log(num2,pattern3,num2.replace(pattern3,','))
-      console.log('千分位正则,非单词边界法，碰到前面有其他非数字字符时会不准')
-      const pattern4 = /(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g // 确认是全数字格式的字符串时可以使用该方法
-
-      // (?<!\.\d*)左侧否定也就是左侧不以.123这样的格式开头，这样就排除了对小数点后的数字进行格式化
-      // \B(?=(\d{3})+……） 这是匹配主体：非单词边界，右侧以三个连续的数字为一单元，可以有一个或多个该单元，该部分……换成一个$就可以匹配整数
-      // (?!\d) 右侧不能是数字，意味着这时要不是单词边界（整数时会这样），要不是碰到了非数字字符，比如小数点.，这样才能匹配小数。如果这里使用$，那碰到含小数的情况时就直接匹配不到了，因为小数中含有.
+      console.log('\n能匹配带小数的，但整数部分字母和数字之间有可能被误分')
+      const pattern4 = /(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g
       console.log(num2,pattern4,num2.replace(pattern4,','))
       console.log(num3,pattern4,num3.replace(pattern4,',')) // 如果前面有字符就会出问题，结果为：abc,123,456,789.1,234,567,890
-      console.log('其他千分位正则')
-      const pattern5 = /(?=(\B)(\d{3})+$)/g // 只能匹配整数
-      console.log(num1,pattern5,num1.replace(pattern5,','))
+
+      console.log('完美千分位正则,非单词边界法')
+      // \B:非单词边界，也就是在字符串(a-z、A-Z、0-9，_)的中间位置，
+      // (?=(\d{3})+(?!\d)):右侧断言必须是三个数字一组，且其后面不能再接数字（相当于是上面的$结尾的意思，但为了适应更多的格式，如含有小数点不能使用$结尾）,(?=\D)与不同(?!\d)，前者对字符串最后的数字不会划分，xxx123456其实此时三个数字一组后后面已经没了字符，因为其认为三个数字后要存在非数字字符，不能被满足，而后者认为三个数字后不能存在数字字符，能被满足。不能写作(?=(\d{3})+)(?!\d)
+      // (?<=\d)(?<!\.\d*):左侧断言必须是数字(防止a123被格式化为a,123），同时后面不能是.和一串数字（排除了小数点后的数字被误格式化）,也可写作：(?<=\d(?<!\.\d*))
+      const pattern3 = /(?<=\d)(?<!\.\d*)\B(?=(\d{3})+(?!\d))/g
+      console.log(num2,pattern3,num2.replace(pattern3,','))
+      console.log(num3,pattern3,num3.replace(pattern3,','))
+
       console.log('以上都是非单词边界法，\n下面是数字匹配法')
       // patternA/patternB都可以，只是捕获到的数字不同，
       const patternA = /\d{1,3}(?=(\d{3})+$)/g // 只能匹配整数
@@ -680,7 +724,33 @@ export default {
       })
       console.log(result)
     },
+    duanyanComplex () {
+      const str = 'xy1cd'
+      // 嵌套断言是以第一个断言后的位置来验证内层断言，右侧嵌套断断言是这样，但左侧嵌套断断言不是，可以理解为：左侧嵌套断言=打平后的平行断言，都是以非断言的位置开始，来依次验证两个断言，要同时成立则为true。
+      // 左侧断言，不管是否嵌套，都可以理解为以原位置同时判断断言
+      const pattern1 = /(?<=y(?<=xy))./g // 判断一个字符的左边是字母y，同时该字符左边是字母xy(虽然和第一个重复了)，1满足
+      console.log(str, pattern1, str.replace(pattern1,',')) // xy,cd
+      const pattern1_1 = /(?<=y)(?<=xy)./g // 同上
+      console.log(str, pattern1_1, str.replace(pattern1_1,',')) // xy,cd
+      // 整体判断完了然后统一replace修改，不是说判断到一个改这一个，然后再从改过的基础上再次判断，碰到替换后的字符串总是满足正则的话，那岂不是陷入了死循环
+      const pattern2 = /(?<=\D(?<=.{2}))./g // 判断一个字符的左边是一个非数字，同时该字符左边要含有两个字符，1和d满足
+      console.log(str, pattern2, str.replace(pattern2,',')) // xy,c,
 
+      const pattern3 = /.(?<=c)/g // 奇葩写法，尽量将左侧断言写在左边，右侧断言写右边，否则不容易理解。此处可以理解为一个字符的右侧字符做了左侧断言，这就回到了当前字符，及当前字符为c会被匹配到
+      console.log(str, pattern3, str.replace(pattern3,',')) // xy1,d
+
+      // 右侧断言
+      const pattern4 = /.(?=c(?=d))/g // 匹配到了1：右侧是c，c的右侧是d
+      console.log(str, pattern4, str.replace(pattern4,',')) // xy,cd
+
+      const pattern5 = /.(?=c)(?=d)/g // 匹配不到：右侧是c，同时右侧是d，前后矛盾，不可能匹配到
+      console.log(str, pattern5, str.replace(pattern5,',')) // xy1cd
+
+      const pattern6 = /.(?=c)(?=\w{2})/g // 匹配到了1：右侧是c，同时右侧有两个单词字符
+      console.log(str, pattern6, str.replace(pattern6,',')) // xy,cd
+      return
+
+    },
     // +在小括号里，各个捕获组匹配到的字符串是：捕获组内组合成的能在原字符串中匹配到的字符串
     captureGroup01 () {
       this.stringReplace.replace(

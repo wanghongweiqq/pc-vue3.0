@@ -11,7 +11,6 @@
 
     <div class="content">
       <h2>以下是 console的主要方法类型及其用途的总结：</h2>
-      <h3>new Array(n, ……)</h3>
 
       <table class="table">
         <tr>
@@ -173,6 +172,50 @@
         </tr>
       </table>
     </div>
+
+    <div class="content">
+      <h2>node端和浏览器端的实践</h2>
+      <table class="table">
+        <tr>
+          <th width="80">
+            类型
+          </th>
+          <th width="400">
+            web
+          </th>
+          <th width="400">
+            node
+          </th>
+        </tr>
+        <tr>
+          <td>展示数据</td>
+          <td>
+            <p>[1, [2, [3, [4, [5, 5.1], 4.1], 3.1], 2.1], 1.1] </p>
+            <p>可以一直折叠树状展示，只要不停的点就可以一直看下去，优点节省控制台空间，看着更有层次感，缺点不能一次看全</p>
+          </td>
+          <td>
+            <p>[1, [2, [3, [Array], 3.1], 2.1], 1.1]</p>
+            <p>三层以后就不会展示了，也不能以折叠的形式展示，要想看全只能用JSON.stringify()去转为字符串</p>
+          </td>
+        </tr>
+        <tr>
+          <td>带颜色输出</td>
+          <td>
+            <p>%c占位符+要输出的文本字符串</p>
+            <p>第一个参数设置为如上格式，会正常展示基本类型的数据，但引用类型的数据展示会异常，对象数据会输出[object Object]，数组的话会去掉所有的中括号，数据间用逗号分隔（如1,2），所以引用类型的数据需要JSON.stringify()去转为字符串，</p>
+            <p>第二个参数设置样式，如'color: red;'</p>
+            <p>一次只能输出上面的一个重复单元，后面重复样式输出不会生效，且占位符和样式会以原文本形式输出。如要输出多个参数时，可以将多个参数拼接为一个字符串后输出</p>
+          </td>
+          <td>
+            <p>ANSI转义序列</p>
+            <p>'\x1b[${ ANSI码 }m'+要输出的字符串+'\x1b[0m'</p>
+            <p>ANSI码中0代表结束，每声明一个都要记得结束再声明下一个，前面的ANSI码可以使用不同的数值，每个数值代表不同的样式含义，如30-文本为黑色</p>
+            <p>引用类型的数据需要使用JSON.stringify()去转为字符串，这样可以防止嵌套太深（3层以上）的数据无法展示全部。</p>
+            <p>支持一次输出中重复上面的单元，也可以将多个参数拼接为字符串统一输出</p>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 <!-- eslint-disable no-unused-vars -->
@@ -182,9 +225,9 @@ import CpCrumbs from '@/components/crumbs/'
 import utils from '@/assets/js/utils'
 
 const obj = { a: 1,b: 3,c: 3,d: 4 }
-const arr = [1, 2, 3, 4]
+const arr = [1,2,[3]]
 const objDeep = { a: { b: { c: { d: 1 } } } }
-const arrDeep = [1, [2, [3, [4]]]]
+const arrDeep = [1, [2, [3, [4, [5, 5.1], 4.1], 3.1], 2.1], 1.1]
 
 const log = () => {
   console.log(obj)
@@ -249,8 +292,12 @@ const time = () => {
 }
 
 onMounted(() => {
-  // console.log = customlog
-  console.log('greenM', '1243' )
+  console.info(`%c${ arrDeep }`, 'color: red;',`%c${ arrDeep }`, 'color: green;')
+  // iOS 三层后就不展开了 objDeep {"a": {"b": {"c": [Object]}}}
+  console.log('blueM', '1243','abc' )
+  console.log( '1243','abc' )
+  // console.log('red', objDeep )
+  // console.log('redM', objDeep )
   // console.log(time )
   // log()
   // stringify()

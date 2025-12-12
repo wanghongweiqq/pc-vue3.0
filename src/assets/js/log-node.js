@@ -52,7 +52,7 @@ const log = function () {
     args.shift() // 删除标识颜色、样式的参数
     // node环境下鸿蒙端默认没有时间输出，而且toLocaleTimeString不兼容，顾使用formatTime
     if(IS_HARMONY) {
-      const timeStamp = `${ utils.formatTime(Date.now(),'mm:ss:lll') }->`
+      const timeStamp = `${ utils.formatTime(Date.now(),'hh:mm:ss:lll') }->`
       // const timeStamp = new Date().toLocaleTimeString('zh-cn', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 }) + '->'
       args.unshift(timeStamp) // 添加时间参数为第一个输出参数
 

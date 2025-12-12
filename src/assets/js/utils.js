@@ -2,7 +2,44 @@
 import Constant from './constant'
 
 export default {
-  // a
+  /**
+   * @description: 网址或者字符串获取参数-特殊字符拆分法
+   * @param {*} url: 非必传，默认是网址
+   * @return {*} 对象格式的参数
+   */
+  searchToParams1  (url) {
+    const str = decodeURIComponent(url || location.href)
+    const urlParams = str.split('?')
+    const query = {}
+    if (urlParams[1]) {
+      const paramsItem = urlParams[1].split('&')
+      for (const i in paramsItem) {
+        const arr = paramsItem[i].split('=')
+        query[arr[0]] = arr[1]
+      }
+    }
+    return query
+  },
+
+  /**
+   * @description: 网址或者字符串获取参数-正在表达式匹配法
+   * @param {*} url: 非必传，默认是网址
+   * @return {*} 对象格式的参数
+   */
+  searchToParams (url) {
+    const str = decodeURIComponent(url || location.href)
+    const pattern = new RegExp('(?<=[?&])([^=]+)=([^&#]*)','g')
+    let result = {}
+    let execRes
+    while( (execRes = pattern.exec(str) ) !== null) {
+      if(result[execRes[1]]) {
+        console.log(`参数中已有属性：${ execRes[1] }：${ result[execRes[1]] }，最新值为：${ execRes[2] }`)
+      }
+      result[execRes[1]] = execRes[2]
+    }
+    return result
+  },
+
   // 京东云图片处理:按尺寸调用和webp格式调用
   imgOssProcess (url,width,height,quality = 60) {
     url = url ? url : Constant.defaultGoodsImage
